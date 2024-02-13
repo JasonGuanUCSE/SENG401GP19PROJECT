@@ -1,0 +1,148 @@
+.Store{
+    height:100vh; /* Make the entire page height equal to the viewport height */
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgb(71, 4, 4); */
+}
+header{
+    height: 10vh;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
+
+}
+.goBack{
+    border: none;
+    background-color: white;
+}
+nav{
+    height: 5vh;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 20px;
+}
+.main{
+    display: flex;
+    /* background-color: green; */
+    flex-direction: row;
+    flex:1;
+    
+    
+
+}
+.Side{
+    display: flex;
+    flex-direction: column;
+    /* background-color: aquamarine; */
+    width: 30%;
+    border-right:1px solid #ccc; ;
+}
+.TopSide{
+    /* background-color: bisque; */
+    flex:0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    
+}
+.BottomSide{
+    padding-top: 20px;
+
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between ;
+}
+.logo{
+    max-width: 30%;
+    max-height: 30%;
+    width: auto;
+    height: auto; 
+
+}
+
+.button-logo {
+    width: 20px; /* Adjust the width of the logo */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    margin-right: 5px; /* Add space between the logo and text */
+  }
+  
+.button-text {
+    font-size: 16px; /* Adjust the font size as needed */
+  }
+.goBack{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+}
+.goBack:hover{
+    background-color: #feaf17
+
+
+}
+.search{
+    width: 20px; /* Adjust the width of the logo */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    margin-right: 5px;
+    background-color: none;
+    
+}
+.submit{
+    background-color:white;
+    border:none;
+    padding-top: 5px;
+    
+}
+.buttonNav{
+     /* Customize button styles */
+     padding: 10px 15px; /* Adjust padding to set button size */
+     background-color: #e2e4e6; /* Example background color */
+     color: #ffffff; /* Example text color */
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     min-width: 100px; /* Set a minimum width for each button */
+     text-align: center; /* Center-align the button text */
+     border-radius: 20px;
+     color: black;
+
+}
+.buttonsCategoriesName{
+    /* Customize button styles */
+    padding: 10px 15px; /* Adjust padding to set button size */
+    /* padding-bottom: 5px; */
+    background-color: #e2e4e6; /* Example background color */
+    color: #ffffff; /* Example text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 200px; /* Set a minimum width for each button */
+    text-align: center; /* Center-align the button text */
+    border-radius: 20px;
+    color: black;
+
+}
+.buttonNav:hover{
+    background-color: #feaf17;
+}
+.buttonsCategoriesName:hover{
+    background-color: #feaf17;
+
+}
+.WalmartLogo{
+    max-height: 80%;
+    max-width: 80%;
+}
