@@ -9,24 +9,6 @@ function App() {
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
   };
-  async function fetchData() {
-    try {
-      const response = await fetch(
-        "https://api.kroger.com/v1/connect/oauth2/authorize"
-      );
-      console.log(response); // Log the response object
-      const jsonData = await response.json();
-      setData(jsonData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
-  useEffect(() => {
-    fetchData(); // Call fetchData when the component mounts
-  }, []); // Empty dependency array ensures this effect runs only once after the initial render
-
-  console.log(data);
 
   return (
     <>

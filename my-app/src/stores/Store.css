@@ -146,3 +146,61 @@ nav{
     max-height: 80%;
     max-width: 80%;
 }
+.itemBlock {
+
+    border: 1px solid #ffffff; 
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    width: 200px; /* Set a fixed width */
+    height: 200px;
+    /* height: auto; */
+    box-sizing: border-box;
+
+
+
+
+
+    background-color: white;
+    border-width: 5px;
+    /* border-color: red; */
+    border-radius: 50px;
+  }
+.itemBlock:hover{
+    border-color: gray;
+
+}
+.priceAndAdd{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  
+
+
+
+  .mainContent{
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    margin: 50px;
+    background-color: rgb(255, 255, 255);
+    justify-content: space-between;
+  }
+
+  .itemImage {
+    max-width: 100%; /* Ensure the image does not exceed the width of the itemBlock */
+    max-height: 50%; /* Ensure the image does not exceed the height of the itemBlock */
+    border-radius: 50px;
+
+  }
+ .addItemButton{
+    max-width: 40%; /* Ensure the image does not exceed the width of the itemBlock */
+    max-height: 30px; /* Ensure the image does not exceed the height of the itemBlock */
+    border-radius: 20px;
+    background-color: #feaf17;
+    border-color:none;
+    
+ }

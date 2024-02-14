@@ -7,8 +7,11 @@ import WalmartLogo from "./images/Walmart.png";
 import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
+import data from "./data/data.json";
 
 function Store({ store, id, setCurrentStore }) {
+  const [items, setItems] = useState([]);
+  console.log(data);
   console.log(store);
   const storeNames = {
     Walmart: WalmartLogo,
@@ -51,9 +54,17 @@ function Store({ store, id, setCurrentStore }) {
     "Meat",
     "Beverages",
   ];
+
   const handleMainContent = (content) => {
+    if (content == "Dairy&Milk") {
+      setItems(filterItemsByCategory(data, "dairy"));
+    }
     setContent(content);
   };
+  function filterItemsByCategory(dat, category) {
+    return dat.filter((item) => item.category === category);
+  }
+
   return (
     <>
       <div className="Store">
@@ -107,7 +118,25 @@ function Store({ store, id, setCurrentStore }) {
               ))}
             </div>
           </div>
-          <div className="mainContent">{content}</div>
+          <div className="mainContent">
+            {/* <div className="items"> */}
+            {items.map((item) => (
+              <div key={item.id} className="itemBlock">
+                <img
+                  src={item["image"]}
+                  alt="itemImage"
+                  className="itemImage"
+                />
+                <div className="priceAndAdd">
+                  <p>{item.price}</p>
+                  <button className="addItemButton">+ADD</button>
+                </div>
+
+                <p>{item.name}</p>
+              </div>
+            ))}
+            {/* </div> */}
+          </div>
         </div>
       </div>
     </>
