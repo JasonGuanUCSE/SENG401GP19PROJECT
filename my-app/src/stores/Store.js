@@ -11,30 +11,51 @@ import data from "./data/data.json";
 
 function Store({ store, id, setCurrentStore }) {
   const [items, setItems] = useState([]);
-  console.log(data);
-  console.log(store);
+  const [order, setOrder] = useState([]);
   const storeNames = {
     Walmart: WalmartLogo,
     Costco: CostcoLogo,
     SuperStore: SuperStoreLogo,
     TandT: TandTLogo,
   };
-  console.log(id);
   const [searchTerm, setSearchTerm] = useState("");
   const [content, setContent] = useState("");
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
   const handleSubmit = (event) => {
+    setItems([]);
     event.preventDefault();
     onSeach(searchTerm);
+    console.log(searchTerm);
+    setItems(
+      data.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
   };
   const handleGoBack = () => {
     setCurrentStore("HomePage");
   };
+  const handleAdd = (id) => {
+    const addingItem = data.find((item) => item.id == parseInt(id));
+    const updateOrder = [...order];
+    console.log(addingItem.name);
+    updateOrder.push(addingItem);
+    setOrder(updateOrder);
+  };
 
   const onSeach = (searchTerm) => {
     console.log("item search for", searchTerm);
+  };
+  const handleViewOrder = () => {
+    let demoView = "";
+    for (const i of order) {
+      demoView += i.name + "           " + "quantity: 1" + "\n";
+      console.log("123456y");
+    }
+    console.log("00000");
+    window.alert(demoView);
   };
 
   const buttonNames = [
@@ -56,9 +77,24 @@ function Store({ store, id, setCurrentStore }) {
   ];
 
   const handleMainContent = (content) => {
+    setItems([]);
     if (content == "Dairy&Milk") {
+      // setItems([]);
       setItems(filterItemsByCategory(data, "dairy"));
+      console.log("click for dairy");
+    } else if (content == "Vegetables") {
+      // setItems([]);
+      setItems(filterItemsByCategory(data, "fresh-produce"));
+      console.log("click for vegetable");
+    } else if (content == "Fruits") {
+      setItems(filterItemsByCategory(data, "fruits"));
+    } else if (content == "Meat") {
+      setItems(filterItemsByCategory(data, "meat-seafood"));
+    } else if (content == "Beverages") {
+      setItems(filterItemsByCategory(data, "beverages"));
     }
+    console.log("click here ");
+
     setContent(content);
   };
   function filterItemsByCategory(dat, category) {
@@ -88,7 +124,9 @@ function Store({ store, id, setCurrentStore }) {
             />
           </form>
           <div>Order</div>
-          <div>Cart</div>
+          <button className="Cart" onClick={handleViewOrder}>
+            Cart
+          </button>
           <div>Profile</div>
         </header>
 
@@ -119,7 +157,6 @@ function Store({ store, id, setCurrentStore }) {
             </div>
           </div>
           <div className="mainContent">
-            {/* <div className="items"> */}
             {items.map((item) => (
               <div key={item.id} className="itemBlock">
                 <img
@@ -128,11 +165,17 @@ function Store({ store, id, setCurrentStore }) {
                   className="itemImage"
                 />
                 <div className="priceAndAdd">
-                  <p>{item.price}</p>
-                  <button className="addItemButton">+ADD</button>
+                  <p className="price">{item.price}</p>
+                  <button
+                    className="addItemButton"
+                    id={item.name}
+                    onClick={() => handleAdd(item.id)}
+                  >
+                    + Add
+                  </button>
                 </div>
-
-                <p>{item.name}</p>
+                <div>{item.name}</div>
+                <div>Many in stock</div>
               </div>
             ))}
             {/* </div> */}
