@@ -1,11 +1,13 @@
-.Store{
-    height:100vh; /* Make the entire page height equal to the viewport height */
+.Store {
+    height: 100vh;
+    /* Make the entire page height equal to the viewport height */
     width: 100vw;
     display: flex;
     flex-direction: column;
     /* background-color: rgb(71, 4, 4); */
 }
-header{
+
+header {
     height: 10vh;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -16,11 +18,13 @@ header{
 
 
 }
-.goBack{
+
+.goBack {
     border: none;
     background-color: white;
 }
-nav{
+
+nav {
     height: 5vh;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -29,120 +33,301 @@ nav{
     justify-content: space-between;
     padding: 10px;
     margin: 20px;
+    /* border-bottom: 5px solid #abcb42; */
+
 }
-.main{
+
+.main {
     display: flex;
     /* background-color: green; */
     flex-direction: row;
-    flex:1;
-    
-    
+    flex: 1;
+
+
 
 }
-.Side{
+
+.Side {
     display: flex;
     flex-direction: column;
     /* background-color: aquamarine; */
     width: 30%;
-    border-right:1px solid #ccc; ;
+    border-right: 1px solid gray;
+    ;
 }
-.TopSide{
+
+.TopSide {
     /* background-color: bisque; */
-    flex:0.4;
+    flex: 0.4;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ccc;
-    
+    border-bottom: 1px solid gray;
+
 }
-.BottomSide{
+
+.BottomSide {
     padding-top: 20px;
 
     flex: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between ;
+    justify-content: space-between;
 }
-.logo{
+
+.logo {
     max-width: 30%;
     max-height: 30%;
     width: auto;
-    height: auto; 
+    height: auto;
 
 }
 
 .button-logo {
-    width: 20px; /* Adjust the width of the logo */
-    height: auto; /* Automatically adjust height to maintain aspect ratio */
-    margin-right: 5px; /* Add space between the logo and text */
-  }
-  
+    width: 20px;
+    /* Adjust the width of the logo */
+    height: auto;
+    /* Automatically adjust height to maintain aspect ratio */
+    margin-right: 5px;
+    /* Add space between the logo and text */
+}
+
 .button-text {
-    font-size: 16px; /* Adjust the font size as needed */
-  }
-.goBack{
+    font-size: 16px;
+    /* Adjust the font size as needed */
+}
+
+.goBack {
     display: flex;
     flex-direction: row;
     align-items: center;
     border-radius: 5px;
 }
-.goBack:hover{
+
+.goBack:hover {
     background-color: #feaf17
-
-
 }
-.search{
-    width: 20px; /* Adjust the width of the logo */
-    height: auto; /* Automatically adjust height to maintain aspect ratio */
+
+.search {
+    width: 20px;
+    /* Adjust the width of the logo */
+    height: auto;
+    /* Automatically adjust height to maintain aspect ratio */
     margin-right: 5px;
     background-color: none;
-    
-}
-.submit{
-    background-color:white;
-    border:none;
-    padding-top: 5px;
-    
-}
-.buttonNav{
-     /* Customize button styles */
-     padding: 10px 15px; /* Adjust padding to set button size */
-     background-color: #e2e4e6; /* Example background color */
-     color: #ffffff; /* Example text color */
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
-     min-width: 100px; /* Set a minimum width for each button */
-     text-align: center; /* Center-align the button text */
-     border-radius: 20px;
-     color: black;
 
 }
-.buttonsCategoriesName{
+
+.submit {
+    background-color: white;
+    border: none;
+    padding-top: 5px;
+
+}
+
+.buttonNav {
     /* Customize button styles */
-    padding: 10px 15px; /* Adjust padding to set button size */
-    /* padding-bottom: 5px; */
-    background-color: #e2e4e6; /* Example background color */
-    color: #ffffff; /* Example text color */
+    padding: 10px 15px;
+    /* Adjust padding to set button size */
+    background-color: #e2e4e6;
+    /* Example background color */
+    color: #ffffff;
+    /* Example text color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    min-width: 200px; /* Set a minimum width for each button */
-    text-align: center; /* Center-align the button text */
+    min-width: 100px;
+    /* Set a minimum width for each button */
+    text-align: center;
+    /* Center-align the button text */
     border-radius: 20px;
     color: black;
 
 }
-.buttonNav:hover{
+
+.buttonsCategoriesName {
+    /* Customize button styles */
+    padding: 10px 15px;
+    /* Adjust padding to set button size */
+    /* padding-bottom: 5px; */
+    background-color: #e2e4e6;
+    /* Example background color */
+    color: #ffffff;
+    /* Example text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 200px;
+    /* Set a minimum width for each button */
+    text-align: center;
+    /* Center-align the button text */
+    border-radius: 20px;
+    color: black;
+
+}
+
+.buttonNav:hover {
     background-color: #feaf17;
 }
-.buttonsCategoriesName:hover{
+
+.buttonsCategoriesName:hover {
     background-color: #feaf17;
 
 }
-.WalmartLogo{
+
+.WalmartLogo {
     max-height: 80%;
     max-width: 80%;
+}
+
+.itemBlock {
+
+    border: 1px solid #ffffff;
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    background-color: white;
+    border-width: 5px;
+    border-radius: 50px;
+}
+
+
+
+
+.itemBlock:hover {
+    border-color: #feaf17;
+    transform: scale(1.2);
+
+}
+
+.priceAndAdd {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* padding-bottom: -20px; */
+    margin-bottom: -15px;
+}
+
+
+
+
+
+.mainContent {
+    display: flex;
+    flex-direction: row;
+
+    margin: 50px;
+    background-color: rgb(255, 255, 255);
+    justify-content: space-between;
+}
+
+.itemImage {
+    max-width: 100%;
+    /* Ensure the image does not exceed the width of the itemBlock */
+    max-height: 50%;
+    /* Ensure the image does not exceed the height of the itemBlock */
+    border-radius: 50px;
+
+}
+
+.addItemButton {
+    content: "";
+    max-width: 60px;
+    /* Ensure the image does not exceed the width of the itemBlock */
+    max-height: 30px;
+    /* Ensure the image does not exceed the height of the itemBlock */
+    border-radius: 20px;
+    background-color: #abcb42;
+    border-color: none;
+    margin-bottom: 15px;
+
+
+
+
+}
+
+.addItemButton:hover {
+    /* max-width:  80px; */
+
+    transform: scale(1.2);
+    font-size: xx-small;
+}
+
+.addItemButton:hover::after {
+    font-size: xx-small;
+    content: " to Cart";
+    /* Text to be displayed on hover */
+}
+
+.price {
+    flex: 0.5;
+    background-color: rgb(255, 255, 255);
+}
+
+.Cart {
+    background-color: white;
+    ;
+    border: none;
+
+}
+
+.Cart:hover {
+    transform: scale(2);
+    background-color: #feaf17;
+    border-radius: 20px;
+}
+
+/* .CardExtend {
+    width: 40%;
+    height: 100vh;
+    background-color: rgb(23, 107, 107);
+    position: absolute;
+    padding-top: 300px;
+    margin-top: 300px;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    backdrop-filter: blur(100px);
+
+} */
+.mainContent.blurred {
+    opacity: 0.5;
+    /* Lower opacity to blur the main content */
+}
+
+.CardExtend {
+    width: 30%;
+    height: 100vh;
+    background-color: #abcb42;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    /* Higher z-index to be above everything else */
+    opacity: 0.8;
+    /* Full opacity for the CardExtend */
+}
+
+#hidden {
+    display: none;
+}
+
+#visible {
+    display: inherit;
+}
+
+.Store {
+    position: relative;
+}
+.SubCardExtend{
+    flex-direction: column;
 }
