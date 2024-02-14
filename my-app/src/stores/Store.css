@@ -198,7 +198,7 @@ nav {
 }
 
 
-  
+
 
 .itemBlock:hover {
     border-color: #feaf17;
@@ -259,22 +259,75 @@ nav {
     transform: scale(1.2);
     font-size: xx-small;
 }
+
 .addItemButton:hover::after {
     font-size: xx-small;
-    content: " to Cart"; /* Text to be displayed on hover */
+    content: " to Cart";
+    /* Text to be displayed on hover */
 }
+
 .price {
     flex: 0.5;
     background-color: rgb(255, 255, 255);
 }
-.Cart{
+
+.Cart {
     background-color: white;
     ;
     border: none;
 
 }
-.Cart:hover{
+
+.Cart:hover {
     transform: scale(2);
     background-color: #feaf17;
     border-radius: 20px;
+}
+
+/* .CardExtend {
+    width: 40%;
+    height: 100vh;
+    background-color: rgb(23, 107, 107);
+    position: absolute;
+    padding-top: 300px;
+    margin-top: 300px;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    backdrop-filter: blur(100px);
+
+} */
+.mainContent.blurred {
+    opacity: 0.5;
+    /* Lower opacity to blur the main content */
+}
+
+.CardExtend {
+    width: 30%;
+    height: 100vh;
+    background-color: #abcb42;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    /* Higher z-index to be above everything else */
+    opacity: 0.8;
+    /* Full opacity for the CardExtend */
+}
+
+#hidden {
+    display: none;
+}
+
+#visible {
+    display: inherit;
+}
+
+.Store {
+    position: relative;
+}
+.SubCardExtend{
+    flex-direction: column;
 }

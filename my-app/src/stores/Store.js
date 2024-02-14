@@ -12,6 +12,10 @@ import data from "./data/data.json";
 function Store({ store, id, setCurrentStore }) {
   const [items, setItems] = useState([]);
   const [order, setOrder] = useState([]);
+  const [hideToggle, setHideTggle] = useState("hidden");
+  const [visible, setVisible] = useState(false);
+  let demoView = "";
+  // let toggle = 0;
   const storeNames = {
     Walmart: WalmartLogo,
     Costco: CostcoLogo,
@@ -26,7 +30,7 @@ function Store({ store, id, setCurrentStore }) {
   const handleSubmit = (event) => {
     setItems([]);
     event.preventDefault();
-    onSeach(searchTerm);
+    // onSeach(searchTerm);
     console.log(searchTerm);
     setItems(
       data.filter((item) =>
@@ -45,17 +49,17 @@ function Store({ store, id, setCurrentStore }) {
     setOrder(updateOrder);
   };
 
-  const onSeach = (searchTerm) => {
-    console.log("item search for", searchTerm);
-  };
+  // const onSeach = (searchTerm) => {
+  //   console.log("item search for", searchTerm);
+  // };
   const handleViewOrder = () => {
-    let demoView = "";
-    for (const i of order) {
-      demoView += i.name + "           " + "quantity: 1" + "\n";
-      console.log("123456y");
+    if (visible == true) {
+      setVisible(false);
+      setHideTggle("hidden");
+    } else {
+      setVisible(true);
+      setHideTggle("visible");
     }
-    console.log("00000");
-    window.alert(demoView);
   };
 
   const buttonNames = [
@@ -137,6 +141,24 @@ function Store({ store, id, setCurrentStore }) {
             </button>
           ))}
         </nav>
+        <div className="CardExtend" id={hideToggle}>
+          <div className="SubCardExtend">
+            <div>
+              <button className="backToStore" onClick={handleViewOrder}>
+                Back
+              </button>
+            </div>
+            <div>
+              <h2>View Order pageOrder</h2>
+            </div>
+          </div>
+
+          <ul>
+            {order.map((item) => (
+              <li key={item.id}>{item.name} quantity: 1</li>
+            ))}
+          </ul>
+        </div>
         <div className="main">
           <div className="Side">
             <div className="TopSide">
@@ -156,6 +178,7 @@ function Store({ store, id, setCurrentStore }) {
               ))}
             </div>
           </div>
+
           <div className="mainContent">
             {items.map((item) => (
               <div key={item.id} className="itemBlock">
