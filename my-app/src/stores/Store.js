@@ -4,7 +4,19 @@ import logo from "./images/Instacart.png";
 import arrowLeft from "./images/arrow-left.png";
 import search from "./images/search.png";
 import WalmartLogo from "./images/Walmart.png";
-function Walmart() {
+import TandTLogo from "./images/TandT.png";
+import CostcoLogo from "./images/Costco.png";
+import SuperStoreLogo from "./images/Canadian.png";
+
+function Store({ store, id, setCurrentStore }) {
+  console.log(store);
+  const storeNames = {
+    Walmart: WalmartLogo,
+    Costco: CostcoLogo,
+    SuperStore: SuperStoreLogo,
+    TandT: TandTLogo,
+  };
+  console.log(id);
   const [searchTerm, setSearchTerm] = useState("");
   const [content, setContent] = useState("");
   const handleChange = (e) => {
@@ -13,6 +25,9 @@ function Walmart() {
   const handleSubmit = (event) => {
     event.preventDefault();
     onSeach(searchTerm);
+  };
+  const handleGoBack = () => {
+    setCurrentStore("HomePage");
   };
 
   const onSeach = (searchTerm) => {
@@ -46,7 +61,7 @@ function Walmart() {
           {/* <div>Logo</div> */}
           <img src={logo} alt="Logo" className="logo" />
 
-          <button className="goBack">
+          <button className="goBack" onClick={handleGoBack}>
             <img src={arrowLeft} alt="Logo" className="button-logo" />
             <span className="button-text">Back</span>
           </button>
@@ -76,8 +91,9 @@ function Walmart() {
         <div className="main">
           <div className="Side">
             <div className="TopSide">
-              <img src={WalmartLogo} alt="Logo" className="WalmartLogo" />
-              <div>Welcome to Walmart online grocery</div>
+              {/* <img src={WalmartLogo} alt="Logo" className="WalmartLogo" /> */}
+              <img src={storeNames[store]} alt="Logo" className="WalmartLogo" />
+              <div>Welcome to {store} online grocery</div>
             </div>
             <div className="BottomSide">
               {buttonsCategoriesName.map((button) => (
@@ -97,4 +113,4 @@ function Walmart() {
     </>
   );
 }
-export default Walmart;
+export default Store;
