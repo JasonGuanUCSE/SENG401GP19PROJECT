@@ -1,9 +1,10 @@
 import "./App.css";
 import { Link } from "react-router-dom";
-import Walmart from "./stores/Walmart";
-import { useState } from "react";
+import Store from "./stores/Store";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [data, setData] = useState("");
   const [currentStore, setCurrentStore] = useState("HomePage");
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
@@ -48,7 +49,9 @@ function App() {
         </>
       )}
 
-      {currentStore === "Walmart" && <Walmart />}
+      {currentStore !== null && currentStore !== "HomePage" && (
+        <Store store={currentStore} id={1} setCurrentStore={setCurrentStore} />
+      )}
     </>
   );
 }
