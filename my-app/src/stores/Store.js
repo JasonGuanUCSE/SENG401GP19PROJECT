@@ -9,9 +9,17 @@ import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
 import data from "./data/data.json";
 
-function Store({ store, id, setCurrentStore }) {
+function Store({
+  store,
+  id,
+  setCurrentStore,
+  setPreviousStore,
+  order,
+  setOrder,
+}) {
   const [items, setItems] = useState([]);
-  const [order, setOrder] = useState([]);
+  // const [order, setOrder] = useState([]);
+  const [totalPrice, setTotalPrice] = useState("");
   const [hideToggle, setHideTggle] = useState("hidden");
   const [visible, setVisible] = useState(false);
   let demoView = "";
@@ -47,11 +55,17 @@ function Store({ store, id, setCurrentStore }) {
     console.log(addingItem.name);
     updateOrder.push(addingItem);
     setOrder(updateOrder);
+    let totalPrice = 0;
+    for (const i of updateOrder) {
+      if (i.price == null) {
+        console.log("the price hasn't set up");
+      } else if (i.price !== null) {
+        totalPrice += parseFloat(i.price.slice(1));
+      }
+      console.log(i.price);
+    }
+    setTotalPrice(totalPrice);
   };
-
-  // const onSeach = (searchTerm) => {
-  //   console.log("item search for", searchTerm);
-  // };
   const handleViewOrder = () => {
     if (visible == true) {
       setVisible(false);
@@ -104,6 +118,11 @@ function Store({ store, id, setCurrentStore }) {
   function filterItemsByCategory(dat, category) {
     return dat.filter((item) => item.category === category);
   }
+  const handleCheckout = () => {
+    console.log("click on handle checkout");
+    setPreviousStore(store);
+    setCurrentStore("CheckoutPage");
+  };
 
   return (
     <>
@@ -155,9 +174,18 @@ function Store({ store, id, setCurrentStore }) {
 
           <ul>
             {order.map((item) => (
-              <li key={item.id}>{item.name} quantity: 1</li>
+              <li key={item.id}>
+                {item.name} quantity: 1 price: {item.price}
+              </li>
             ))}
           </ul>
+          <div>The total price is {totalPrice}</div>
+
+          <div>
+            <button className="checkOut" onClick={handleCheckout}>
+              Go to checkout
+            </button>
+          </div>
         </div>
         <div className="main">
           <div className="Side">
