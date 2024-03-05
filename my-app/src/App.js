@@ -1,18 +1,21 @@
 import "./App.css";
 import { Link } from "react-router-dom";
 import Store from "./stores/Store";
+import CheckoutPage from "./CheckoutPage";
 import { useState, useEffect } from "react";
 
 function App() {
   const [data, setData] = useState("");
+  const [order, setOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
+  const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
   };
 
   return (
     <>
-      {currentStore === "HomePage" && (
+      {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
         <>
           <div>Top</div>
           <div>
@@ -49,8 +52,25 @@ function App() {
         </>
       )}
 
-      {currentStore !== null && currentStore !== "HomePage" && (
-        <Store store={currentStore} id={1} setCurrentStore={setCurrentStore} />
+      {currentStore !== null &&
+        currentStore !== "HomePage" &&
+        currentStore !== "CheckoutPage" && (
+          <Store
+            store={currentStore}
+            id={1}
+            setCurrentStore={setCurrentStore}
+            setPreviousStore={setPreviousStore}
+            order={order}
+            setOrder={setOrder}
+          />
+        )}
+      {currentStore == "CheckoutPage" && currentStore !== "HomePage" && (
+        <CheckoutPage
+          setCurrentStore={setCurrentStore}
+          previousStore={previousStore}
+          order={order}
+          setOrder={setOrder}
+        />
       )}
     </>
   );
