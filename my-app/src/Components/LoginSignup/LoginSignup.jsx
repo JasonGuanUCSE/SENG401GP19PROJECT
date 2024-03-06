@@ -1,11 +1,20 @@
-import React from 'react';
-import './LoginSignup.css';
+import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import "./LoginSignup.css";
 
-import logo from '../../Assets/Instacart.png';
+import logo from "../../Assets/Instacart.png";
 
 const LoginSignup = () => {
+  const handleLogin = (response) => {
+    console.log(response);
+  };
+
+  const handleFailure = (response) => {
+    console.log(response);
+  };
+
   return (
-    <div className='container'>
+    <div className="container">
       <div className="header-bar">
         <a>
           <img src={logo} alt="logo" />
@@ -17,9 +26,13 @@ const LoginSignup = () => {
           <div className="underline"></div>
         </div>
         <div className="google-button">
-          <button class='login-google'>
-            Continue with Google
-          </button>
+          <GoogleLogin
+            clientId="344567969650-424nh7e03gtv01cmu61htq2gcar93k46.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={handleLogin}
+            onFailure={handleFailure}
+            cookiePolicy={"single_host_origin"}
+          />
         </div>
         <div className="seperator">
           <div className="or-text">
@@ -30,13 +43,15 @@ const LoginSignup = () => {
         </div>
         <div className="inputs">
           <div className="input">
-              <input type="text" placeholder="Email" />
+            <input type="text" placeholder="Email" />
           </div>
           <div className="input">
-              <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password" />
           </div>
         </div>
-        <div className="forgot-password">Forgot your password? <span>Click here!</span></div>
+        <div className="forgot-password">
+          Forgot your password? <span>Click here!</span>
+        </div>
         <div className="submit-container">
           <div className="submit">Login</div>
         </div>
