@@ -1,6 +1,6 @@
 const mongoose = require('../server/node_modules/mongoose');
 const Users = require('../model/model');
-const server = require('../server'); // Import your server
+const server = require('./server'); // Import your server
 const supertest = require('supertest');
 const request = supertest(server); // Pass your server to supertest
 
