@@ -15,7 +15,7 @@ const UsersSchema = new Schema({
     type: String,
     required: true
   },
-  phoneNum: {
+  address: {
     type: String,
     required: true
   }
@@ -23,7 +23,7 @@ const UsersSchema = new Schema({
 
 const ProductsSchema = new Schema({
     ID: {
-      type: Int32,
+      type: Number,
       required: true
     },
     name: {
@@ -35,11 +35,11 @@ const ProductsSchema = new Schema({
       required: false
     },
     price: {
-      type: Double,
+      type: Number,
       required: true
     },
     quanty: {
-        type: Int32,
+        type: Number,
         required: true
     },
     store: {
@@ -69,16 +69,17 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
-    productID: {
-        type: Array,
+    productID: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Products',
         required: true
-    },
+    }],
     quantity: {
       type: Array,
       required: true
     },
     totalPrice: {
-      type: Double,
+      type: Number,
       required: true
     },
     date: {
@@ -103,4 +104,4 @@ module.exports = {
     Users: mongoose.model('Users', UsersSchema),
     Products: mongoose.model('Products', ProductsSchema),
     Order: mongoose.model('Order', OrderSchema)
-}; // export the model
+}; // export the models
