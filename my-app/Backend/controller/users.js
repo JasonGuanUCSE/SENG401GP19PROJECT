@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Users = require('../models/model')
+const mongoose = require('../server/node_modules/mongoose');
+const Users = require('../model/model')
 
 /*
 helper function to check if email exists

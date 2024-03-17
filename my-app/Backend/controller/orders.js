@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Order = require('../models/model')
+const mongoose = require('../server/node_modules/mongoose');
+const Order = require('../model/model')
 
 /*
 Get all orders
@@ -127,4 +127,12 @@ const updateOrder = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
+}
+
+module.exports = {
+    getAllOrders,
+    getOrderByEmail,
+    addOrder,
+    deleteOrder,
+    updateOrder
 }
