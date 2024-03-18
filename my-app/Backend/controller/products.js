@@ -1,6 +1,6 @@
 
-const mongoose = require('mongoose')
-const Products = require('../models/model')
+const mongoose = require('../server/node_modules/mongoose');
+const Products = require('../model/productsModel');
 
 /*
 helper function to check if product exists
@@ -8,7 +8,7 @@ Params: emailtocheck
 Returns: true if email exists, false otherwise
 */
 const productExists = async (productToCheck) => {
-    const product = await Products.findOne({ _id: productToCheck })
+    const product = await Products.findOne({ID: productToCheck })
     if (product) {
         return true
     }
@@ -23,7 +23,7 @@ URL: /api/Jstacart/Products
 */
 const getAllProducts = async (req, res) => {
     try {
-        const products = await Products.find().toArray()
+        const products = await Products.find()
         res.json(products)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -54,6 +54,7 @@ URL: /api/Jstacart/Products
 const addProduct = async (req, res) => {
     if (await productExists(req.body.ID)) {
         res.status(400).json({ message: 'Product already exists' })
+        return
     }
     let emptyFields = []
     if (!req.body.ID) {
@@ -65,8 +66,8 @@ const addProduct = async (req, res) => {
     if (!req.body.price) {
         emptyFields.push('price')
     }
-    if (!req.body.quanty) {
-        emptyFields.push('quanty')
+    if (!req.body.quantity) {
+        emptyFields.push('quantity')
     }
     if (!req.body.store) {
         emptyFields.push('store')
@@ -76,13 +77,15 @@ const addProduct = async (req, res) => {
     }
     if (emptyFields.length > 0) {
         res.status(400).json({ message: `The following fields are empty: ${emptyFields}` })
-    }
-
-    try{
-        const newProduct = await Products.create(req.body)
-        res.status(201).json(newProduct)
-    } catch (err) {
-        res.status(400).json({ message: err.message })
+        return
+    }else{
+        console.log("VAR check finished")
+        try{
+            const newProduct = await Products.create(req.body)
+            res.status(201).json(newProduct)
+        } catch (err) {
+            res.status(400).json({ message: err.message })
+        }
     }
 }
 
@@ -98,7 +101,7 @@ const deleteProduct = async (req, res) => {
         if (product == null) {
             return res.status(404).json({ message: 'Product not found' })
         }
-        await product.remove()
+        await Products.deleteOne({ ID: req.params.ID })
         res.json({ message: 'Product deleted' })
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -122,4 +125,12 @@ const updateProduct = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
+}
+
+module.exports = {
+    getAllProducts,
+    getOneProduct,
+    addProduct,
+    deleteProduct,
+    updateProduct
 }

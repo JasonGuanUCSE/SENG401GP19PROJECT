@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Order = require('../models/model')
+const mongoose = require('../server/node_modules/mongoose');
+const Order = require('../model/orderModel');
 
 /*
 Get all orders
@@ -9,7 +9,7 @@ URL: /api/Jstacart/Orders
 */
 const getAllOrders = async (req, res) => {
     try {
-        const orders = await Order.find().sort({ date: -1 }).toArray()
+        const orders = await Order.find().sort({ date: -1 })
         res.json(orders)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -61,7 +61,7 @@ const addOrder = async (req, res) => {
         emptyFields.push('totalPrice')
     }
     if (!req.body.date) {
-        emptyFields.push('date')
+        req.body.date = new Date()
     }
     if (!req.body.paymentMethod) {
         emptyFields.push('paymentMethod')
@@ -74,6 +74,7 @@ const addOrder = async (req, res) => {
     }
     if (emptyFields.length > 0) {
         res.status(400).json({ message: 'The following fields are required: ' + emptyFields.join(', ') })
+        return
     }
     try{
         const newOrder = await Order.create(req.body)
@@ -127,4 +128,12 @@ const updateOrder = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
+}
+
+module.exports = {
+    getAllOrders,
+    getOrderByEmail,
+    addOrder,
+    deleteOrder,
+    updateOrder
 }
