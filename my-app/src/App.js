@@ -18,36 +18,68 @@ function App() {
       {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
         <>
           <div>Top</div>
-          <div>
-            <button
-              className="store"
-              id="Walmart"
-              onClick={() => handleSwitchStore("Walmart")}
-            >
-              Walmart
-            </button>
+          <div className="navBar">
+            <button className="logoIcon">Jstacart</button>
 
-            <button
-              className="store"
-              id="Costco"
-              onClick={() => handleSwitchStore("Costco")}
-            >
-              Costco
-            </button>
-            <button
-              className="store"
-              id="SuperStore"
-              onClick={() => handleSwitchStore("SuperStore")}
-            >
-              SuperStore
-            </button>
-            <button
-              className="store"
-              id="TT"
-              onClick={() => handleSwitchStore("TandT")}
-            >
-              T&T SuperMarket
-            </button>
+            {/* <SearchBar /> */}
+
+            <button className="navBarButtons">Orders</button>
+
+            <button className="navBarButtons">Cart</button>
+
+            <button className="navBarButtons">Profile</button>
+          </div>
+          <div className="mainPage">
+            <div className="banner">
+              <div className="bannerContent">
+                <h3>Free delivery over $20</h3>
+                <h1>Become a member</h1>
+                <p>Get your groceries delivered to your doorstep</p>
+                <button className="shopNowButton">Shop Now!</button>
+              </div>
+            </div>
+            <div className="stores">
+              <div className="storeSectionHome">
+                <img src="https://assets-global.website-files.com/64248e7fd5f30d79c9e57d64/64e6177329c2d71389b1b219_walmart.png"></img>
+                <button
+                  className="storeButtonsHome"
+                  id="Walmart"
+                  onClick={() => handleSwitchStore("Walmart")}
+                >
+                  Walmart
+                </button>
+              </div>
+              <div className="storeSectionHome">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Costco_Wholesale_logo_2010-10-26.svg/800px-Costco_Wholesale_logo_2010-10-26.svg.png"></img>
+                <button
+                  className="storeButtonsHome"
+                  id="Costco"
+                  onClick={() => handleSwitchStore("Costco")}
+                >
+                  Costco
+                </button>
+              </div>
+              <div className="storeSectionHome">
+                <img src="https://www.instacart.com/assets/domains/store_configuration/logo/1007/white_label_landing_page_556ecd01-f795-4043-98e7-ad10da94ef05.png"></img>
+                <button
+                  className="storeButtonsHome"
+                  id="SuperStore"
+                  onClick={() => handleSwitchStore("SuperStore")}
+                >
+                  SuperStore
+                </button>
+              </div>
+              <div className="storeSectionHome">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/T%26T_Supermarket_Logo.svg/2560px-T%26T_Supermarket_Logo.svg.png"></img>
+                <button
+                  className="storeButtonsHome"
+                  id="TT"
+                  onClick={() => handleSwitchStore("TandT")}
+                >
+                  T&T SuperMarket
+                </button>
+              </div>
+            </div>
           </div>
         </>
       )}
