@@ -1,7 +1,7 @@
 import "./App.css";
 import { Link } from "react-router-dom";
 import Store from "./stores/Store";
-import CheckoutPage from "./CheckoutPage";
+import CheckoutPage from "./Components/Checkoutpage";
 import { useState, useEffect } from "react";
 
 function App() {
