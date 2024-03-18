@@ -11,7 +11,7 @@ const {
 const router = express.Router()
 
 router.get('/', getAllUsers)
-router.get('/:email', getOneUser)
+router.get('/:name', getOneUser)
 router.post('/', addUser)
 router.delete('/:email', deleteUser)
 router.patch('/:email', updateUser)

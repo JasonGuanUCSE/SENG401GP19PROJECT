@@ -2,8 +2,9 @@ require('dotenv').config({path: '../.env'})
 
 const express = require('express')
 const mongoose = require('./node_modules/mongoose')
-// const Routes = require('../routes/routes')
 const UserRoutes = require('../routes/userRoutes')
+const ProductsRoutes = require('../routes/productsRoutes')
+const OrderRoutes = require('../routes/orderRoutes')
 
 // express app
 const app = express()
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
 // routes
 // app.use('/api/Jstacart', Routes)
 app.use('/api/Jstacart/Users', UserRoutes)
+app.use('/api/Jstacart/Products', ProductsRoutes)
+app.use('/api/Jstacart/Orders', OrderRoutes)
 
 console.log(process.env.MONGO_URI)
 
