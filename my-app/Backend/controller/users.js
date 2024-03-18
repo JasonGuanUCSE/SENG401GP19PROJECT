@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Users = require('../models/model')
+const mongoose = require('../server/node_modules/mongoose');
+const Users = require('../model/userModel');
 
 /*
 helper function to check if email exists
@@ -22,7 +22,7 @@ URL: /api/Jstacart/Users
 */
 const getAllUsers = async (req, res) => {
     try {
-        const users = await Users.find().toArray()
+        const users = await Users.find({})
         res.json(users)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -51,6 +51,7 @@ URL: /api/Jstacart/Users
 const addUser = async (req, res) => {
     if (await emailExists(req.body.email)) {
         res.status(400).json({ message: 'Email already exists' })
+        return
     }
     let emptyFields = []
     //check if the email is valid

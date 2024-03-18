@@ -1,10 +1,10 @@
-require('dotenv').config()
+require('dotenv').config({path: '../.env'})
 
 const express = require('express')
-const mongoose = require('mongoose')
-const UsersRoutes = require('./routes/Jstacart/Users');
-const OrderRoutes = require('./routes/Jstacart/Order');
-const ProductsRoutes = require('./routes/Jstacart/Products');
+const mongoose = require('./node_modules/mongoose')
+const UserRoutes = require('../routes/userRoutes')
+const ProductsRoutes = require('../routes/productsRoutes')
+const OrderRoutes = require('../routes/orderRoutes')
 
 // express app
 const app = express()
@@ -18,9 +18,12 @@ app.use((req, res, next) => {
 })
 
 // routes
-app.use('/api/Jstacart/User', UsersRoutes);
-app.use('/api/Jstacart/Order', OrderRoutes);
-app.use('/api/Jstacart/Product', ProductsRoutes);
+// app.use('/api/Jstacart', Routes)
+app.use('/api/Jstacart/Users', UserRoutes)
+app.use('/api/Jstacart/Products', ProductsRoutes)
+app.use('/api/Jstacart/Orders', OrderRoutes)
+
+console.log(process.env.MONGO_URI)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
