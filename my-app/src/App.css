@@ -137,18 +137,27 @@
   border-color: #E1B52D; /* Blue border color on hover */
 }
 
-.stores{
-  display: grid;
+ .stores{
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column width as needed */
-  gap: 20px; /* Adjust gap between grid items */
-  margin-left: 60px;
+  /*gap: 20px; /* Adjust gap between grid items */
+  /*margin-left: 60px; */
+  display: flex;
+  /* flex-direction: row;
+  align-items: center; */
+  justify-content: space-between;
+
+
+
+
+
 }
 
 .storeSectionHome{
  /* make items in each grid item centered*/
 }
 
-.storeSectionHome img {
+/* .storeSectionHome img {
   width: 60%;
   height: 60%;
   display: flex;
@@ -165,9 +174,63 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}  */
+
+/* .storeSectionHome {
+  text-align: center;
+  margin: 10px;
+} */
+
+/* .storeButtonsHome {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .storeButtonsHome:hover {
   background-color: #E1B52D; 
   color: black;
+}
+.storeSectionHome {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+/* }
+
+.buttonContainer {
+  margin-left: 10px; /* Adjust as needed for spacing */
+
+
+.stores {
+  display: flex;
+  justify-content: space-between; /* Aligns items with space between */
+}
+
+.storeSectionHome {
+  width: 200px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center;
+}
+
+.storeSectionHome img {
+  width: 100%; /* Set image width to fill its container */
+  height: 150px; /* Set a fixed height for all images (adjust as needed) */
+ /* Maintain aspect ratio and cover the container */
+}
+
+.storeButtonsHome {
+  margin-top: 10px; /* Adjust spacing between image and button */
+  width: 100%; /* Ensure buttons have the same width */
+}
+
+.logo {
+  max-width: 30%;
+  max-height: 30%;
+  width: auto;
+  height: auto;
+  padding-top: 40px;
+
 }

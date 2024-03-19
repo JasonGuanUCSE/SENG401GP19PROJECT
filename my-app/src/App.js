@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Store from "./stores/Store";
 import CheckoutPage from "./CheckoutPage";
 import { useState, useEffect } from "react";
-
+import logo from "./stores/images/Instacart.png";
 function App() {
   const [data, setData] = useState("");
   const [order, setOrder] = useState([]);
@@ -12,14 +12,33 @@ function App() {
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
   };
+  useEffect(() => {
+    // Fetch data when the component mounts
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      // Fetch data from the API
+      const response = await fetch("https://seng401jstacartread.onrender.com/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const jsonData = await response.json();
+      // Update the state with the fetched data
+      setData(jsonData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <>
       {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
         <>
-          <div>Top</div>
           <div className="navBar">
-            <button className="logoIcon">Jstacart</button>
+            {/* <button className="logoIcon">Jstacart</button> */}
+            <img src={logo} alt="Logo" className="logo" />
 
             {/* <SearchBar /> */}
 
