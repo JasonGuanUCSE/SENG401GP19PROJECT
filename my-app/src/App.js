@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
@@ -29,7 +28,7 @@ function App() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="344567969650-424nh7e03gtv01cmu61htq2gcar93k46.apps.googleusercontent.com">
+    <>
       {user ? (
         <>
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
@@ -125,7 +124,7 @@ function App() {
       ) : (
         <LoginSignup handleLoginSuccess={handleLoginSuccess} />
       )}
-    </GoogleOAuthProvider>
+    </>
   );
 }
 
