@@ -20,7 +20,9 @@ function App() {
   const fetchData = async () => {
     try {
       // Fetch data from the API
-      const response = await fetch("https://seng401jstacartread.onrender.com/");
+      const response = await fetch(
+        "https://seng401jstacartread.onrender.com/api/JstacartW/users"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
