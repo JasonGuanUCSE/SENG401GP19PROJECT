@@ -37,13 +37,11 @@
   }
 }
 
-
-
-*{
+* {
   font-family: monaco;
 }
 
-.navBar{
+.navBar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -75,11 +73,11 @@
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.searchButton:hover{
-  background-color: #E1B52D;
+.searchButton:hover {
+  background-color: #e1b52d;
 }
 
-.logoIcon{
+.logoIcon {
   background: none;
   border: none;
   padding: 0;
@@ -99,18 +97,18 @@
 
 .navBarButtons:hover {
   text-decoration: underline;
-  color: #E1B52D;
+  color: #e1b52d;
 }
 
-.mainPage{
+.mainPage {
   height: 85vh;
   display: flex;
   flex-direction: column;
 }
 
 .banner {
-  background-color: #ccc; 
-  color: black; 
+  background-color: #ccc;
+  color: black;
   padding: 20px;
 }
 
@@ -121,9 +119,9 @@
 }
 
 .shopNowButton {
-  background-color: black; 
-  color: white; 
-  border: 2px solid black; 
+  background-color: black;
+  color: white;
+  border: 2px solid black;
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 5px;
@@ -132,20 +130,23 @@
 }
 
 .shopNowButton:hover {
-  background-color: #E1B52D; /* Blue background color on hover */
+  background-color: #e1b52d; /* Blue background color on hover */
   color: #fff; /* White text color on hover */
-  border-color: #E1B52D; /* Blue border color on hover */
+  border-color: #e1b52d; /* Blue border color on hover */
 }
 
-.stores{
+.stores {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column width as needed */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* Adjust column width as needed */
   gap: 20px; /* Adjust gap between grid items */
   margin-left: 60px;
 }
 
-.storeSectionHome{
- /* make items in each grid item centered*/
+.storeSectionHome {
+  /* make items in each grid item centered*/
 }
 
 .storeSectionHome img {
@@ -168,6 +169,6 @@
 }
 
 .storeButtonsHome:hover {
-  background-color: #E1B52D; 
+  background-color: #e1b52d;
   color: black;
 }

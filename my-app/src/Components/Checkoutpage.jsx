@@ -6,8 +6,8 @@ import {
   formatExpirationDate,
 } from "./utils/utils";
 
-import "./Checkoutpage.css";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
+import "./Checkoutpage.css";
 
 function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
   const [state, setState] = useState({
@@ -101,18 +101,18 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
 
   return (
     <div className="checkout-page">
-      <div className="container-title">
+      <div className="section-title">
         <h1>Cart</h1>
         <span>({order.length} items)</span>
       </div>
-      <div className="container">
+      <div className="section">
         <div className="basket-display">
           <div className="basket-body">
             <ul>
               {uniqueOrder.map((item) => (
                 <li key={item.id} className="list-item">
                   <div className="self-start"></div>
-                  <div className="item-container">
+                  <div className="item-section">
                     <div className="item-image">
                       <img src={item.image} alt={item.name} />
                     </div>

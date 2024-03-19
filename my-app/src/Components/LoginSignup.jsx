@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
+
+import logo from "../Assets/Instacart.png";
 import "./LoginSignup.css";
 
-import logo from "../../Assets/Instacart.png";
-
-const LoginSignup = () => {
-  const handleLogin = (response) => {
-    console.log(response);
-  };
-
+const LoginSignup = ({ handleLoginSuccess }) => {
   const handleFailure = (response) => {
-    console.log(response);
+    console.log("Google login failed", response);
   };
 
   return (
@@ -29,9 +25,10 @@ const LoginSignup = () => {
           <GoogleLogin
             clientId="344567969650-424nh7e03gtv01cmu61htq2gcar93k46.apps.googleusercontent.com"
             buttonText="Login with Google"
-            onSuccess={handleLogin}
+            onSuccess={handleLoginSuccess}
             onFailure={handleFailure}
             cookiePolicy={"single_host_origin"}
+            flow="auth-code"
           />
         </div>
         <div className="seperator">

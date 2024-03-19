@@ -15,7 +15,7 @@ body {
   max-width: 1200px;
 }
 
-.container-title {
+.section-title {
   display: flex;
   margin-top: 100px;
   margin-left: 1.5rem;
@@ -33,13 +33,13 @@ body {
   }
 }
 
-.container {
+.section {
   display: flex;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
 
-.container .basket-display {
+.section .basket-display {
   padding: 1.5rem;
   margin-right: 1.5rem;
   width: 60%;
@@ -56,7 +56,7 @@ body {
         align-self: flex-start;
       }
 
-      .item-container {
+      .item-section {
         display: flex;
         flex-direction: row;
         position: relative;
@@ -210,7 +210,7 @@ body {
   }
 }
 
-.container .card-display {
+.section .card-display {
   padding: 20px;
   width: 40%;
   height: fit-content;
