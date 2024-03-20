@@ -1,5 +1,6 @@
-const mongoose = require('../node_modules/mongoose');
-const Events = require('../eventModel');
+const mongoose = require('mongoose');
+const Event = require('./eventModel');
+
 
 /*
 addEvent
@@ -8,6 +9,7 @@ Returns: result of adding event
 URL: /api/Jstacart/Events
 */
 const addEvent = async (req, res) => {
+    console.log(req.body)
     let emptyFields = []
     if (!req.body.from) {
         emptyFields.push('from')
@@ -24,7 +26,8 @@ const addEvent = async (req, res) => {
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in the following fields: ' + emptyFields.join(', ') })
     }
-    const event = new Events({
+    console.log("Adding event")
+    const event = new Event({
         from: req.body.from,
         to: req.body.to,
         method: req.body.method,
@@ -37,4 +40,8 @@ const addEvent = async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
+}
+
+module.exports = { 
+    addEvent 
 }
