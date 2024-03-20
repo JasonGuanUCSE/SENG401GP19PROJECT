@@ -64,13 +64,11 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     order.forEach((item) => {
       if (!itemTotals[item.id]) {
         itemTotals[item.id] = {
-          totalCost: parseFloat(item.price.replace("$", "").replace(",", "")),
+          totalCost: item.price,
           count: 1,
         };
       } else {
-        itemTotals[item.id].totalCost += parseFloat(
-          item.price.replace("$", "").replace(",", "")
-        );
+        itemTotals[item.id].totalCost += item.price;
         itemTotals[item.id].count++;
       }
     });
@@ -96,7 +94,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
         .reduce((acc, item) => acc + item.totalCost, 0)
         .toFixed(2) * 0.05
     ),
-    fees: parseFloat(5.0),
+    fees: 5.0,
   };
 
   return (
