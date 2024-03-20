@@ -1,4 +1,3 @@
-import "./Store.css";
 import { useState } from "react";
 import logo from "./images/Instacart.png";
 import arrowLeft from "./images/arrow-left.png";
@@ -8,6 +7,8 @@ import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
 import data from "./data/data.json";
+
+import "./Store.css";
 
 function Store({
   store,
@@ -19,7 +20,7 @@ function Store({
 }) {
   const [items, setItems] = useState([]);
   // const [order, setOrder] = useState([]);
-  const [totalPrice, setTotalPrice] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
   const [hideToggle, setHideTggle] = useState("hidden");
   const [visible, setVisible] = useState(false);
   let demoView = "";
@@ -50,21 +51,58 @@ function Store({
     setCurrentStore("HomePage");
   };
   const handleAdd = (id) => {
-    const addingItem = data.find((item) => item.id == parseInt(id));
+    let addingItem = data.find((item) => item.id == parseInt(id));
+    addingItem = {
+      name: addingItem.name,
+      id: addingItem.id,
+      quantity: 1,
+      price: addingItem.price,
+    };
     const updateOrder = [...order];
-    console.log(addingItem.name);
+
     updateOrder.push(addingItem);
+    let price = calculateTotalPrice(updateOrder);
+    setTotalPrice(price);
     setOrder(updateOrder);
+    console.log("order");
+    console.log(order);
+  };
+  const calculateTotalPrice = (order) => {
     let totalPrice = 0;
-    for (const i of updateOrder) {
-      if (i.price == null) {
-        console.log("the price hasn't set up");
-      } else if (i.price !== null) {
-        totalPrice += parseFloat(i.price.slice(1));
-      }
-      console.log(i.price);
+    for (const i of order) {
+      totalPrice += i.price * i.quantity;
+
+      return totalPrice;
     }
-    setTotalPrice(totalPrice);
+  };
+
+  const handleAddQuantity = (id) => {
+    // Find the index of the item in the order array
+    const itemIndex = order.findIndex((item) => item.id === parseInt(id));
+    console.log("itemIndex");
+    console.log(itemIndex);
+    // If item is not found, exit the function
+    if (itemIndex === -1) return;
+    order[itemIndex].quantity += 1;
+    setOrder([...order]);
+    setTotalPrice(calculateTotalPrice(order));
+    console.log("totalPrice");
+    console.log(setTotalPrice(calculateTotalPrice(order)));
+  };
+  const handleDeleteQuantity = (id) => {
+    // Find the index of the item in the order array
+    const itemIndex = order.findIndex((item) => item.id === parseInt(id));
+    console.log("itemIndex");
+    console.log(itemIndex);
+    // If item is not found, exit the function
+    if (itemIndex === -1) return;
+    if (order[itemIndex].quantity > 1) {
+      order[itemIndex].quantity -= 1;
+    } else if (order[itemIndex].quantity == 1) {
+      order.splice(itemIndex, 1);
+    }
+    setOrder([...order]);
+    setTotalPrice(calculateTotalPrice(order));
   };
   const handleViewOrder = () => {
     if (visible == true) {
@@ -174,9 +212,24 @@ function Store({
 
           <ul>
             {order.map((item) => (
-              <li key={item.id}>
-                {item.name} quantity: 1 price: {item.price}
-              </li>
+              <div className="eachItem">
+                {" "}
+                <li key={item.id}>
+                  {item.name} quantity: {item.quantity} price: {item.price}
+                </li>
+                <button
+                  className="AddDelete"
+                  onClick={() => handleAddQuantity(item.id)}
+                >
+                  Add 1
+                </button>
+                <button
+                  className="AddDelete"
+                  onClick={() => handleDeleteQuantity(item.id)}
+                >
+                  Delete 1
+                </button>
+              </div>
             ))}
           </ul>
           <div>The total price is {totalPrice}</div>
