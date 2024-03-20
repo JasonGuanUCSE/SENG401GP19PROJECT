@@ -12,27 +12,27 @@ function App() {
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
   };
-  useEffect(() => {
-    // Fetch data when the component mounts
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   // Fetch data when the component mounts
+  //   fetchData();
+  // }, []);
 
-  const fetchData = async () => {
-    try {
-      // Fetch data from the API
-      const response = await fetch(
-        "https://seng401jstacartread.onrender.com/api/JstacartW/users"
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const jsonData = await response.json();
-      // Update the state with the fetched data
-      setData(jsonData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     // Fetch data from the API
+  //     const response = await fetch(
+  //       "https://seng401jstacartread.onrender.com/api/JstacartW/users"
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error("Failed to fetch data");
+  //     }
+  //     const jsonData = await response.json();
+  //     // Update the state with the fetched data
+  //     setData(jsonData);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   return (
     <>

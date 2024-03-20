@@ -62,32 +62,32 @@
     {
         "id": 2177,
         "category": "meat-seafood",
-        "name": "Beef Stew",
-        "price":"9.99/lb",
+        "name": "Beef Stew/lbs",
+        "price":9.99,
         "image":"https://i.imgur.com/UzatpiY.jpg",
         "inStock": true
     },
     {
         "id": 1709,
         "category": "meat-seafood",
-        "name": "Chicken breast",
-        "price":"13.99/lb",
+        "name": "Chicken breast/lbs",
+        "price":13.99,
         "image":"https://i.imgur.com/me2rpyc.jpg",
         "inStock": true
     },
     {
         "id": 1710,
         "category": "meat-seafood",
-        "name": "Cad Prim S-Loin Steak",
-        "price":"19.99/lb",
+        "name": "Cad Prim S-Loin Steak/lbs",
+        "price":19.99,
         "image":"https://i.imgur.com/W2a7cDn.jpg",
         "inStock": true
     },
     {
         "id": 7395,
         "category": "meat-seafood",
-        "name": "Ex-lean Ground Beef",
-        "price":"8.99/lb",
+        "name": "Ex-lean Ground Beef/lbs",
+        "price":8.99,
         "image":"https://i.imgur.com/yf8TnCW.jpg",
         "inStock": true
     },
@@ -104,7 +104,7 @@
         "name": "Reduced Fat Milk",
         "inStock": true,
         "image": "https://i.imgur.com/lM2nhBu.jpg",
-        "price": "$6.00"
+        "price": 6.00
     },
     {
         "id": 9483,
@@ -112,7 +112,7 @@
         "name": "Whole Milk",
         "inStock": true,
         "image": "https://i.imgur.com/yCeoZ5I.jpg",
-        "price": "$6.00"
+        "price": 6.00
     },
     {
         "id": 5477,
@@ -120,7 +120,7 @@
         "name": "Cream Cheese",
         "inStock": true,
         "image": "https://i.imgur.com/3VtoPZX.png",
-        "price": "$5.00"
+        "price": 5.00
     },
     {
         "id": 5478,
@@ -128,14 +128,14 @@
         "name": "Low Fat Vanilla Yogurt",
         "inStock": true,
         "image": "https://i.imgur.com/28mYLgZ.png",
-        "price": "$4.99"
+        "price": 4.99
     },
     {
         "id": 4875,
         "category": "bread-bakery",
         "name": "2800 Watt Inverter Generator",
         "inStock": true,
-        "price": "$9.99"
+        "price": 9.99
     }
     ,
     {
@@ -144,7 +144,7 @@
         "name": "2% Partly Milk",
         "inStock": true,
         "image": "https://i.imgur.com/6FkgbRj.jpg",
-        "price": "$9.99"
+        "price": 9.99
     },
     {
         "id": 6011,
@@ -152,7 +152,7 @@
         "name": "Dairyland Skim Milk",
         "inStock": true,
         "image": "https://i.imgur.com/F43mSj7.jpg",
-        "price": "$8.99"
+        "price": 8.99
     },
     {
         "id": 9999,
@@ -160,7 +160,7 @@
         "name": "Bananas",
         "inStock": true,
         "image": "https://i.imgur.com/WNTuHC2.jpg",
-        "price": "$4.99"
+        "price": 4.99
     },
     {
         "id": 9998,
@@ -168,7 +168,7 @@
         "name": "Pineapple",
         "inStock": true,
         "image": "https://i.imgur.com/nP2HFr3.jpg",
-        "price": "$9.99"
+        "price": 9.99
     }
     ,
     {
@@ -177,7 +177,7 @@
         "name": "Watermelon",
         "inStock": true,
         "image": "https://i.imgur.com/r55Js8N.jpg",
-        "price": "$9.99"
+        "price": 9.99
     },
     {
         "id": 9986,
@@ -185,7 +185,7 @@
         "name": "Avocado",
         "inStock": true,
         "image": "https://i.imgur.com/EVeKRWj.jpg",
-        "price": "$8.99"
+        "price": 8.99
     },
     {
         "id": 4444,
@@ -193,7 +193,7 @@
         "name": "Pepsi 12Cans",
         "inStock": true,
         "image": "https://res.cloudinary.com/dcxtiqe44/image/upload/v1707898016/large_270bf559-b45e-4c96-af7b-db0c40e24477_ugqcum.jpg",
-        "price": "$7.99"
+        "price": 7.99
     },
     {
         "id": 4445,
@@ -201,7 +201,7 @@
         "name": "Pepsi 2L bottle",
         "inStock": true,
         "image": "https://res.cloudinary.com/dcxtiqe44/image/upload/v1707898661/large_075c1bbb-5ae9-41d3-bfde-82e7ffb36501_mi2k3x.jpg",
-        "price": "$2.99"
+        "price": 2.99
     }
 
 ]
