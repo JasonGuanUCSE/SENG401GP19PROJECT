@@ -331,3 +331,12 @@ nav {
 .SubCardExtend{
     flex-direction: column;
 }
+.eachItem{
+    display: flex;
+    flex-direction: row;
+}
+.AddDelete {}
+  
+  .AddDelete:hover {
+    background-color: #ff7f50;
+  }
