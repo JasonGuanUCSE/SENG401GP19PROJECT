@@ -135,9 +135,6 @@
   border-color: #e1b52d; /* Blue border color on hover */
 }
 
-
-}
-
 .storeSectionHome {
   /* make items in each grid item centered*/
 }
@@ -187,7 +184,6 @@
 .buttonContainer {
   margin-left: 10px; /* Adjust as needed for spacing */
 
-
 .stores {
   display: flex;
   justify-content: space-between; /* Aligns items with space between */
@@ -204,7 +200,7 @@
 .storeSectionHome img {
   width: 100%; /* Set image width to fill its container */
   height: 150px; /* Set a fixed height for all images (adjust as needed) */
- /* Maintain aspect ratio and cover the container */
+  /* Maintain aspect ratio and cover the container */
 }
 
 .storeButtonsHome {
@@ -218,5 +214,4 @@
   width: auto;
   height: auto;
   padding-top: 40px;
-
 }
