@@ -1,4 +1,3 @@
-import "./Store.css";
 import { useState } from "react";
 import logo from "./images/Instacart.png";
 import arrowLeft from "./images/arrow-left.png";
@@ -8,6 +7,8 @@ import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
 import data from "./data/data.json";
+
+import "./Store.css";
 
 function Store({
   store,
