@@ -1,10 +1,10 @@
 * {
-  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
 }
 
 body {
+  box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   background: #f4f4f4;
 }
