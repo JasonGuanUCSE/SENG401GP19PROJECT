@@ -57,6 +57,7 @@ function Store({
       id: addingItem.id,
       quantity: 1,
       price: addingItem.price,
+      image: addingItem.image,
     };
     const updateOrder = [...order];
 
