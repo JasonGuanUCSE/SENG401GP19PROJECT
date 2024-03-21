@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 // Define your routes and event handlers here
-app.use('/api/Jstacart/Events', eventRoutes);
+app.use('/api/Jstacart/', eventRoutes);
 
 const uri = "mongodb+srv://SENG401:seng401@jstacart.ou5rinu.mongodb.net/?retryWrites=true&w=majority&appName=Jstacart"
 // connect to db

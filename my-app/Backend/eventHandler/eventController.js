@@ -57,9 +57,9 @@ HandleGet
 Params: which collection are you looking, and search methods in header event object in request body
 collections: users, products, orders
 search:
-    users: [all, one by email(put email in body object)]
+    users: [all, one by name(put name in body object)]
     products: [all, one by id, some by category, some by store]
-    orders: [all, one by id, some by email]
+    orders: [all, some by email]
 Returns: Get result of the search
 */
 const handleGet = async (req, res) => {
@@ -67,6 +67,8 @@ const handleGet = async (req, res) => {
     let search = req.headers.search
     let source = "web"
     let dest = "read"
+    console.log("collection: "+collection)
+    console.log("search: "+search)
     //prepare request object and call the addEvent function
     let request = {
         source: source,
@@ -75,22 +77,61 @@ const handleGet = async (req, res) => {
         body: req.body
     }
     let id = await addEvent(request)
-    const baseURL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
-    const respond = {};
+    let URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
+    let respond = null
     if (collection === "users") {
-        let uri = baseURL + "users"
+        URL = URL + "users"
+        if (search !=="all" && search !== "name") {
+            res.status(400).json({ message: "Invalid search method" })
+            respond = { message: "Invalid search method" }
+        } else if (search === "name") {
+            URL = URL + "/" + req.body.name
+        }
+    } else if (collection === "products"){
+        URL = URL + "products"
+        if (search !=="all" && search !== "id" && search !== "category" && search !== "store") {
+            res.status(400).json({ message: "Invalid search method" })
+            respond = { message: "Invalid search method" }
+        } else if (search === "id") {
+            URL = URL + "/" + req.body.id
+        } else if (search === "category") {
+            URL = URL + "/category/" + req.body.category
+        } else if (search === "store") {
+            URL = URL + "/store/" + req.body.store
+        }
+    } else if (collection === "orders"){
+        URL = URL + "orders"
         if (search !=="all" && search !== "email") {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "email") {
-            uri = uri + "/" + req.body.email
+            URL = URL + "/" + req.body.email
         }
-    }//else if (collection === )
+    } else {
+        res.status(400).json({ message: "Invalid collection" })
+        respond = { message: "Invalid collection" }
+    }
+    //send the request to the read server and save the response to respond object and send back to frontend via res
+    console.log("URL: "+URL)
+    if (respond === null) {
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => {
+                const { status, message } = data
+                respond = [status, message]
+                console.log(status, message)
+                res.status(200).json(data)
+            })
+            .catch(err => {
+                res.status(400).json({ message: "Error in fetching data" })
+                respond = { message: "Error in fetching data: "+err }
+            })
+    }
 
     //update the respond object in the event
     let update = {
         id: id,
-        respond: users
+        respond: respond
     }
     let result = await updateRespond(update)
     return
@@ -98,5 +139,5 @@ const handleGet = async (req, res) => {
 }
 
 module.exports = { 
-    addEvent 
+    handleGet 
 }

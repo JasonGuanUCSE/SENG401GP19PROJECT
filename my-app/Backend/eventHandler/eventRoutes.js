@@ -1,12 +1,11 @@
 const express = require('express');
 const {
-    addEvent,
-
+    handleGet,
 } = require('./eventController');
 
 const router = express.Router()
 
-router.post('/', addEvent)
+router.get('/', handleGet)
 
 module.exports = router
 
