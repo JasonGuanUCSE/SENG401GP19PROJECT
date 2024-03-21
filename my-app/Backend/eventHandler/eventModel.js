@@ -21,7 +21,7 @@ const EventSchema = new Schema({
     },
     respond: {
         type: Object,
-        required: true
+        required: false
     }
   }, { timestamps: true })
 
