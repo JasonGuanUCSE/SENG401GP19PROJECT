@@ -23,6 +23,9 @@ https://seng401jstacartread.onrender.com/api/Jstacart/products
   GET:
   - default : return all products
   - /:ID : return product that is belongs to that ID
+  - /category/:category/store/:store
+  - /category/:category
+  - /store/:store
   
   POST:
   - default : add product information, will check if the ID exist or not
