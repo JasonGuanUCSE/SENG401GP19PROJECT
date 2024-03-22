@@ -144,9 +144,9 @@
   height: 60%;
   display: flex;
   padding-left: 20px;
-}
+} */
 
-.storeButtonsHome {
+/* .storeButtonsHome {
   width: 20%;
   position: absolute;
   padding: 10px;
@@ -161,7 +161,7 @@
 /* .storeSectionHome {
   text-align: center;
   margin: 10px;
-} */
+}  */
 
 /* .storeButtonsHome {
   padding: 10px;
@@ -169,20 +169,20 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
 
-.storeButtonsHome:hover {
+/* .storeButtonsHome:hover {
   background-color: #e1b52d;
   color: black;
-}
+} */
 
-.storeSectionHome {
+/* .storeSectionHome {
   display: flex;
-  align-items: center; /* Vertically center the content */
-/* }
+  align-items: center; /* Vertically center the content 
+} */
 
-.buttonContainer {
-  margin-left: 10px; /* Adjust as needed for spacing */
+/*.buttonContainer {
+  margin-left: 10px; Adjust as needed for spacing*/
 
 .stores {
   display: flex;
@@ -206,7 +206,19 @@
 .storeButtonsHome {
   margin-top: 10px; /* Adjust spacing between image and button */
   width: 100%; /* Ensure buttons have the same width */
+  padding: 10px;
+  background-color: black;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
+
+.storeButtonsHome:hover {
+  background-color: #e1b52d;
+  color: black;
+} 
 
 .logo {
   max-width: 30%;
