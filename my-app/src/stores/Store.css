@@ -24,7 +24,7 @@ header {
     background-color: white;
 }
 
-nav {
+/* nav {
     height: 5vh;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -33,9 +33,8 @@ nav {
     justify-content: space-between;
     padding: 10px;
     margin: 20px;
-    /* border-bottom: 5px solid #abcb42; */
-
-}
+    /* border-bottom: 5px solid #abcb42; 
+} */
 
 .main {
     display: flex;
@@ -127,25 +126,25 @@ nav {
 
 }
 
-.buttonNav {
-    /* Customize button styles */
+/* .buttonNav {
+    /* Customize button styles 
     padding: 10px 15px;
-    /* Adjust padding to set button size */
+    /* Adjust padding to set button size 
     background-color: #e2e4e6;
-    /* Example background color */
+    /* Example background color 
     color: #ffffff;
-    /* Example text color */
+    /* Example text color 
     border: none;
     border-radius: 5px;
     cursor: pointer;
     min-width: 100px;
-    /* Set a minimum width for each button */
+    /* Set a minimum width for each button 
     text-align: center;
-    /* Center-align the button text */
+    /* Center-align the button text 
     border-radius: 20px;
     color: black;
 
-}
+} */
 
 .buttonsCategoriesName {
     /* Customize button styles */

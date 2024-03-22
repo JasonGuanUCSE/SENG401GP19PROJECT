@@ -25,6 +25,17 @@ function App() {
     const handleLogout = () => {
       setUser(null);
     };
+
+    const buttonNames = [
+      "For You",
+      "Produce",
+      "Pharmacy",
+      "Beauty",
+      "Convenience",
+      "Retail",
+      "WholeSale",
+      "More",
+    ];
   
     return (
       <>
@@ -32,18 +43,33 @@ function App() {
           <>
             {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
               <>
-                <div>Top</div>
                 <div className="navBar">
                   <button className="logoIcon">Jstacart</button>
   
                   {/* <SearchBar /> */}
+
+                  <button className="navBarButtons">Search</button>
   
                   <button className="navBarButtons">Orders</button>
   
-                  <button className="navBarButtons">Cart</button>
+                  <button className="navBarButtons">
+                    
+                    Cart
+                  </button>
   
                   <button className="navBarButtons">Profile</button>
                 </div>
+
+                <div>
+                  <nav className="Nav">
+                    {buttonNames.map((button) => (
+                      <button key={button} className="buttonNav">
+                        {button}
+                      </button>
+                    ))}
+                  </nav>
+                </div>
+
                 <div className="mainPage">
                   <div className="banner">
                     <div className="bannerContent">
