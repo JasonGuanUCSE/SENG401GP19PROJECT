@@ -200,17 +200,8 @@ const handlePost = async (req, res) => {
         if (!req.body.quantity || req.body.quantity.length !== req.body.productID.length) {
             return res.status(400).json({ error: 'Please enter correct number of quantity' })
         }
-        if (!req.body.totalPrice) {
-            return res.status(400).json({ error: 'Please enter a totalPrice' })
-        }
-        if (!req.body.date) {
-            return res.status(400).json({ error: 'Please enter a date' })
-        }
         if (!req.body.paymentMethod) {
             return res.status(400).json({ error: 'Please enter a paymentMethod' })
-        }
-        if (!req.body.store) {
-            return res.status(400).json({ error: 'Please enter a store' })
         }
         if (!req.body.status) {
             return res.status(400).json({ error: 'Please enter a status' })
