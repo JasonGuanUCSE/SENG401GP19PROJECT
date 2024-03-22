@@ -54,11 +54,11 @@ const updateRespond = async (update) => {
 
 /*
 HandleGet
-Params: which collection are you looking, and search methods in header event object in request body
+Params: which collection are you looking, and search methods in header
 collections: users, products, orders
 search:
     users: [all, one by name(put name in body object)]
-    products: [all, one by id, some by category, some by store]
+    products: [all, one by id, some by category, some by store, some by both (category and store)]
     orders: [all, some by email]
 Returns: Get result of the search
 */
@@ -89,7 +89,7 @@ const handleGet = async (req, res) => {
         }
     } else if (collection === "products"){
         URL = URL + "products"
-        if (search !=="all" && search !== "id" && search !== "category" && search !== "store") {
+        if (search !=="all" && search !== "id" && search !== "category" && search !== "store" && search !== "both") {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "id") {
@@ -98,6 +98,9 @@ const handleGet = async (req, res) => {
             URL = URL + "/category/" + req.body.category
         } else if (search === "store") {
             URL = URL + "/store/" + req.body.store
+        } else if (search === "both") {
+            //WILL ADD THIS FUNCTIONALITY LATER
+            URL = URL + "/category/" + req.body.category + "/store/" + req.body.store
         }
     } else if (collection === "orders"){
         URL = URL + "orders"
@@ -118,26 +121,135 @@ const handleGet = async (req, res) => {
             .then(response => response.json())
             .then(data => {
                 const { status, message } = data
-                respond = [status, message]
-                console.log(status, message)
+                respond = {status, message}
                 res.status(200).json(data)
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
             })
             .catch(err => {
                 res.status(400).json({ message: "Error in fetching data" })
                 respond = { message: "Error in fetching data: "+err }
             })
     }
+    return respond
+}
 
-    //update the respond object in the event
-    let update = {
-        id: id,
-        respond: respond
+/*
+HandlePost
+Params: which collection are you looking, and sender in header, object in request body
+collections: users, products, orders
+Returns: Get result of the search
+*/
+const handlePost = async (req, res) => {
+    let collection = req.headers.collection
+    let source = req.headers.sender
+    let dest = source === "database"? "read":"write"
+    //prepare request object and call the addEvent function
+    let request = {
+        source: source,
+        dest: dest,
+        method: "POST",
+        body: req.body
     }
-    let result = await updateRespond(update)
-    return
-
+    let id = await addEvent(request)
+    let URL = "";
+    if (source === "database") {
+        URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
+    } else {
+        URL = "***JASON!!!!!!!!!!!!!!!!!!!!***";
+    }
+    let respond = null
+    if (collection === "users") {
+        //health check of the body object
+        if (!req.body.email || !req.body.email.includes('@')){
+            return res.status(400).json({ error: 'Please enter an valid email' })
+        }
+        if (!req.body.name) {
+            return res.status(400).json({ error: 'Please enter a name' })
+        }
+        if (!req.body.phoneNum) {
+            return res.status(400).json({ error: 'Please enter a phone number' })
+        }
+        URL = URL + "users"
+    } else if (collection === "products"){
+        //health check of the body object
+        if (!req.body.id) {
+            return res.status(400).json({ error: 'Please enter a id' })
+        }
+        if (!req.body.name) {
+            return res.status(400).json({ error: 'Please enter a name' })
+        }
+        if (!req.body.price) {
+            return res.status(400).json({ error: 'Please enter a price' })
+        }
+        URL = URL + "products"
+    } else if (collection === "orders"){
+        //health check of the body object
+        if (!req.body.customerEmail || !req.body.customerEmail.includes('@')){
+            return res.status(400).json({ error: 'Please enter an valid customerEmail' })
+        }
+        if (!req.body.customerName) {
+            return res.status(400).json({ error: 'Please enter a customerName' })
+        }
+        if (!req.body.productID || req.body.productID.length === 0) {
+            return res.status(400).json({ error: 'Please enter productID' })
+        }
+        if (!req.body.quantity || req.body.quantity.length !== req.body.productID.length) {
+            return res.status(400).json({ error: 'Please enter correct number of quantity' })
+        }
+        if (!req.body.totalPrice) {
+            return res.status(400).json({ error: 'Please enter a totalPrice' })
+        }
+        if (!req.body.date) {
+            return res.status(400).json({ error: 'Please enter a date' })
+        }
+        if (!req.body.paymentMethod) {
+            return res.status(400).json({ error: 'Please enter a paymentMethod' })
+        }
+        if (!req.body.store) {
+            return res.status(400).json({ error: 'Please enter a store' })
+        }
+        if (!req.body.status) {
+            return res.status(400).json({ error: 'Please enter a status' })
+        }
+        URL = URL + "orders"
+    } else {
+        res.status(400).json({ message: "Invalid collection" })
+        respond = { message: "Invalid collection" }
+    }
+    //send the request to the write server and save the response to respond object and send back to frontend via res
+    console.log("URL: "+URL)
+    if (respond === null) {
+        fetch(URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: req.body
+        })
+            .then(response => response.json())
+            .then(data => {
+                const { status, message } = data
+                respond = {status, message}
+                res.status(200).json(data)
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
+            })
+            .catch(err => {
+                res.status(400).json({ message: "Error in fetching data" })
+                respond = { message: "Error in fetching data: "+err }
+            })
+    }
+    return respond
 }
 
 module.exports = { 
-    handleGet 
+    handleGet,
+    handlePost
 }
