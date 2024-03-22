@@ -159,7 +159,7 @@ const handlePost = async (req, res) => {
     if (source === "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "***JASON!!!!!!!!!!!!!!!!!!!!***";
+        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
     }
     let respond = null
     if (collection === "users") {
@@ -235,12 +235,194 @@ const handlePost = async (req, res) => {
             .catch(err => {
                 res.status(400).json({ message: "Error in fetching data" })
                 respond = { message: "Error in fetching data: "+err }
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
             })
     }
     return respond
 }
 
+/*
+HandleDelete
+Params: which collection are you looking, and sender in header, parameter in request body
+collections: 
+    users: [email], 
+    products: [id], 
+    orders: [objectID, email]
+Returns: Delete result of the search
+*/
+const handleDelete = async (req, res) => {
+    let collection = req.headers.collection
+    let source = req.headers.sender
+    let dest = source === "database"? "read":"write"
+    //prepare request object and call the addEvent function
+    let request = {
+        source: source,
+        dest: dest,
+        method: "DELETE",
+        body: req.body
+    }
+    let id = await addEvent(request)
+    let URL = "";
+    if (source === "database") {
+        URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
+    } else {
+        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+    }
+    let respond = null
+    if (collection === "users") {
+        //health check of the body object
+        if (!req.body.email || !req.body.email.includes('@')){
+            return res.status(400).json({ error: 'Please enter an valid email' })
+        }
+        URL = URL + "users/" + req.body.email
+    } else if (collection === "products"){
+        //health check of the body object
+        if (!req.body.id) {
+            return res.status(400).json({ error: 'Please enter a id' })
+        }
+        URL = URL + "products/" + req.body.id
+    } else if (collection === "orders"){
+        //health check of the body object
+        if (!req.body.objectID) {
+            return res.status(400).json({ error: 'Please enter an objectID' })
+        }
+        if (!req.body.email || !req.body.email.includes('@')){
+            return res.status(400).json({ error: 'Please enter an valid email' })
+        }
+        URL = URL + "orders/" + req.body.objectID + "/" + req.body.email
+    } else {
+        res.status(400).json({ message: "Invalid collection" })
+        respond = { message: "Invalid collection" }
+    }
+    //send the request to the write server and save the response to respond object and send back to frontend via res
+    console.log("URL: "+URL)
+    if (respond === null) {
+        fetch(URL, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: req.body
+        })
+            .then(response => response.json())
+            .then(data => {
+                const { status, message } = data
+                respond = {status, message}
+                res.status(200).json(data)
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
+            }
+            )
+            .catch(err => {
+                res.status(400).json({ message: "Error in fetching data" })
+                respond = { message: "Error in fetching data: "+err }
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
+            })
+    }
+    return respond
+}
+
+/*
+HandlePatch
+Params: which collection are you looking, and sender in header, parameter in request body
+collections: 
+    users: [email], 
+    products: [id], 
+    orders: [objectID, email]
+Returns: Patch result of the search
+*/
+const handlePatch = async (req, res) => {
+    let collection = req.headers.collection
+    let source = req.headers.sender
+    let dest = source === "database"? "read":"write"
+    //prepare request object and call the addEvent function
+    let request = {
+        source: source,
+        dest: dest,
+        method: "PATCH",
+        body: req.body
+    }
+    let id = await addEvent(request)
+    let URL = "";
+    if (source === "database") {
+        URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
+    } else {
+        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+    }
+    let respond = null
+    if (collection === "users") {
+        //health check of the body object
+        if (!req.body.email || !req.body.email.includes('@')){
+            return res.status(400).json({ error: 'Please enter an valid email' })
+        }
+        URL = URL + "users/" + req.body.email
+    } else if (collection === "products"){
+        //health check of the body object
+        if (!req.body.id) {
+            return res.status(400).json({ error: 'Please enter a id' })
+        }
+        URL = URL + "products/" + req.body.id
+    } else if (collection === "orders"){
+        //health check of the body object
+        if (!req.body.objectID) {
+            return res.status(400).json({ error: 'Please enter an objectID' })
+        }
+        if (!req.body.email || !req.body.email.includes('@')){
+            return res.status(400).json({ error: 'Please enter an valid email' })
+        }
+        URL = URL + "orders/" + req.body.objectID + "/" + req.body.email
+    } else {
+        res.status(400).json({ message: "Invalid collection" })
+        respond = { message: "Invalid collection" }
+    }
+    //send the request to the write server and save the response to respond object and send back to frontend via res
+    console.log("URL: "+URL)
+    if (respond === null) {
+        fetch(URL, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: req.body.body
+        })
+            .then(response => response.json())
+            .then(data => {
+                const { status, message } = data
+                respond = {status, message}
+                res.status(200).json(data)
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
+            }).catch(err => {
+                res.status(400).json({ message: "Error in fetching data" })
+                respond = { message: "Error in fetching data: "+err }
+                let update = {
+                    id: id,
+                    respond: respond
+                }
+                return updateRespond(update)
+            })
+    }
+    return respond
+}
+
+
 module.exports = { 
     handleGet,
-    handlePost
+    handlePost,
+    handleDelete,
+    handlePatch
 }
