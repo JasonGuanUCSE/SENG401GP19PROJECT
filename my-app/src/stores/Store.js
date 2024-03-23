@@ -1,4 +1,3 @@
-import "./Store.css";
 import { useState } from "react";
 import logo from "./images/Instacart.png";
 import arrowLeft from "./images/arrow-left.png";
@@ -9,6 +8,8 @@ import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
 import data from "./data/data.json";
 
+import "./Store.css";
+
 function Store({
   store,
   id,
@@ -16,10 +17,11 @@ function Store({
   setPreviousStore,
   order,
   setOrder,
+  user,
 }) {
   const [items, setItems] = useState([]);
   // const [order, setOrder] = useState([]);
-  const [totalPrice, setTotalPrice] = useState("");
+  const [totalPrice, setTotalPrice] = useState(0);
   const [hideToggle, setHideTggle] = useState("hidden");
   const [visible, setVisible] = useState(false);
   let demoView = "";
@@ -50,21 +52,69 @@ function Store({
     setCurrentStore("HomePage");
   };
   const handleAdd = (id) => {
-    const addingItem = data.find((item) => item.id == parseInt(id));
+    let addingItem = data.find((item) => item.id == parseInt(id));
+    addingItem = {
+      name: addingItem.name,
+      id: addingItem.id,
+      quantity: 1,
+      price: addingItem.price,
+      image: addingItem.image,
+    };
     const updateOrder = [...order];
-    console.log(addingItem.name);
+
     updateOrder.push(addingItem);
     setOrder(updateOrder);
     let totalPrice = 0;
     for (const i of updateOrder) {
-      if (i.price == null) {
-        console.log("the price hasn't set up");
-      } else if (i.price !== null) {
-        totalPrice += parseFloat(i.price.slice(1));
-      }
-      console.log(i.price);
+      totalPrice = totalPrice + i.price * i.quantity;
+    }
+    console.log("total price is ", totalPrice);
+    setTotalPrice(totalPrice);
+  };
+  const calculateTotalPrice = (order) => {
+    let totalPrice = 0;
+    for (const i of order) {
+      totalPrice = totalPrice + i.price * i.quantity;
+
+      return totalPrice;
+    }
+  };
+
+  const handleAddQuantity = (id) => {
+    // Find the index of the item in the order array
+    const itemIndex = order.findIndex((item) => item.id === id);
+    // If item is not found, exit the function
+    if (itemIndex === -1) return;
+    order[itemIndex].quantity += 1;
+    setOrder([...order]);
+    let totalPrice = 0;
+    for (const i of order) {
+      totalPrice = totalPrice + i.price * i.quantity;
     }
     setTotalPrice(totalPrice);
+
+    const price = setTotalPrice(totalPrice);
+    console.log(order);
+  };
+  const handleDeleteQuantity = (id) => {
+    // Find the index of the item in the order array
+    const itemIndex = order.findIndex((item) => item.id === parseInt(id));
+    // If item is not found, exit the function
+    if (itemIndex === -1) return;
+    if (order[itemIndex].quantity > 1) {
+      order[itemIndex].quantity -= 1;
+    } else if (order[itemIndex].quantity == 1) {
+      order.splice(itemIndex, 1);
+    }
+    setOrder([...order]);
+    let totalPrice = 0;
+    for (const i of order) {
+      totalPrice = totalPrice + i.price * i.quantity;
+    }
+    setTotalPrice(totalPrice);
+
+    const price = setTotalPrice(totalPrice);
+    console.log(order);
   };
   const handleViewOrder = () => {
     if (visible == true) {
@@ -126,6 +176,7 @@ function Store({
 
   return (
     <>
+      <div>{user.name}</div>
       <div className="Store">
         <header className="Header">
           {/* <div>Logo</div> */}
@@ -174,9 +225,24 @@ function Store({
 
           <ul>
             {order.map((item) => (
-              <li key={item.id}>
-                {item.name} quantity: 1 price: {item.price}
-              </li>
+              <div className="eachItem">
+                {" "}
+                <li key={item.id}>
+                  {item.name} quantity: {item.quantity} price: {item.price}
+                </li>
+                <button
+                  className="AddDelete"
+                  onClick={() => handleAddQuantity(item.id)}
+                >
+                  Add 1
+                </button>
+                <button
+                  className="AddDelete"
+                  onClick={() => handleDeleteQuantity(item.id)}
+                >
+                  Delete 1
+                </button>
+              </div>
             ))}
           </ul>
           <div>The total price is {totalPrice}</div>

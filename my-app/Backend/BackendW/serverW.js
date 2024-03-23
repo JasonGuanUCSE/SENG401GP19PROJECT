@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'})
+require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('./node_modules/mongoose')
@@ -26,7 +26,7 @@ app.use('/api/JstacartW/Orders', OrderRoutes)
 console.log(process.env.MONGO_URI)
 
 // connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, {dbName: 'JstacartW'})
   .then(() => {
     console.log('connected to database')
     // listen to port
