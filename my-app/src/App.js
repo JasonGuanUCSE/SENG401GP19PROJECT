@@ -13,6 +13,56 @@ function App() {
   const [order, setOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
+  //fetch data from https://seng401jstacartread.onrender.com/api/Jstacart/products
+  // Function to fetch products data
+  async function fetchProductsData(productId = "") {
+    try {
+      // Construct the URL based on the productId parameter
+      const url = productId
+        ? `https://seng401jstacartread.onrender.com/api/Jstacart/products/${productId}`
+        : "https://seng401jstacartread.onrender.com/api/Jstacart/products";
+
+      // Fetch data from the URL
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      // Parse the JSON response
+      const productsData = await response.json();
+
+      // Return the data
+      return productsData;
+    } catch (error) {
+      console.error("Error fetching products data:", error);
+      return null;
+    }
+  }
+
+  // Example usage:
+  // Fetch all products
+  fetchProductsData()
+    .then((products) => {
+      console.log("All products:");
+      console.log(products);
+    })
+    .catch((error) => console.error("Error:", error));
+
+  // Fetch product by ID
+  const productId = "your_product_id_here";
+  fetchProductsData(productId)
+    .then((product) => {
+      console.log("Product:");
+      console.log(product);
+    })
+    .catch((error) => console.error("Error:", error));
 
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
@@ -30,6 +80,7 @@ function App() {
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
               <div>Top</div>
+              <div>{}</div>
               <div className="navBar">
                 <button className="logoIcon">Jstacart</button>
 

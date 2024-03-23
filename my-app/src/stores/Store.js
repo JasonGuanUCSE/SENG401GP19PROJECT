@@ -62,16 +62,18 @@ function Store({
     const updateOrder = [...order];
 
     updateOrder.push(addingItem);
-    let price = calculateTotalPrice(updateOrder);
-    setTotalPrice(price);
     setOrder(updateOrder);
-    console.log("order");
-    console.log(order);
+    let totalPrice = 0;
+    for (const i of updateOrder) {
+      totalPrice = totalPrice + i.price * i.quantity;
+    }
+    console.log("total price is ", totalPrice);
+    setTotalPrice(totalPrice);
   };
   const calculateTotalPrice = (order) => {
     let totalPrice = 0;
     for (const i of order) {
-      totalPrice += i.price * i.quantity;
+      totalPrice = totalPrice + i.price * i.quantity;
 
       return totalPrice;
     }
@@ -79,22 +81,23 @@ function Store({
 
   const handleAddQuantity = (id) => {
     // Find the index of the item in the order array
-    const itemIndex = order.findIndex((item) => item.id === parseInt(id));
-    console.log("itemIndex");
-    console.log(itemIndex);
+    const itemIndex = order.findIndex((item) => item.id === id);
     // If item is not found, exit the function
     if (itemIndex === -1) return;
     order[itemIndex].quantity += 1;
     setOrder([...order]);
-    setTotalPrice(calculateTotalPrice(order));
-    console.log("totalPrice");
-    console.log(setTotalPrice(calculateTotalPrice(order)));
+    let totalPrice = 0;
+    for (const i of order) {
+      totalPrice = totalPrice + i.price * i.quantity;
+    }
+    setTotalPrice(totalPrice);
+
+    const price = setTotalPrice(totalPrice);
+    console.log(order);
   };
   const handleDeleteQuantity = (id) => {
     // Find the index of the item in the order array
     const itemIndex = order.findIndex((item) => item.id === parseInt(id));
-    console.log("itemIndex");
-    console.log(itemIndex);
     // If item is not found, exit the function
     if (itemIndex === -1) return;
     if (order[itemIndex].quantity > 1) {
@@ -103,7 +106,14 @@ function Store({
       order.splice(itemIndex, 1);
     }
     setOrder([...order]);
-    setTotalPrice(calculateTotalPrice(order));
+    let totalPrice = 0;
+    for (const i of order) {
+      totalPrice = totalPrice + i.price * i.quantity;
+    }
+    setTotalPrice(totalPrice);
+
+    const price = setTotalPrice(totalPrice);
+    console.log(order);
   };
   const handleViewOrder = () => {
     if (visible == true) {

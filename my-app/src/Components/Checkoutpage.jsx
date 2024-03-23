@@ -43,6 +43,10 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
       }));
     }
   };
+  let quantity = 0;
+  for (const i of order) {
+    quantity = quantity + i.quantity;
+  }
 
   const handleInputFocus = (e) => {
     setState((prev) => ({
@@ -58,25 +62,19 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     }));
   };
 
-  const calculateItemTotals = () => {
-    const itemTotals = {};
-
-    order.forEach((item) => {
-      if (!itemTotals[item.id]) {
-        itemTotals[item.id] = {
-          totalCost: item.price,
-          count: 1,
-        };
-      } else {
-        itemTotals[item.id].totalCost += item.price;
-        itemTotals[item.id].count++;
-      }
-    });
-
-    return itemTotals;
-  };
-
-  const itemTotals = calculateItemTotals();
+  const itemTotals = {
+    ...order.reduce((acc, item) => {
+      const totalCost = item.price * item.quantity;
+      return {
+        ...acc,
+        [item.id]: {
+          count: (acc[item.id]?.count || 0) + 1,
+          totalCost: (acc[item.id]?.totalCost || 0) + totalCost,
+        },
+      };
+    }
+    , {}),
+  }
 
   const uniqueOrder = order.filter(
     (item, index, self) =>
@@ -116,7 +114,8 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
                     </div>
                     <div className="item-description">
                       <div className="item-name">{item.name}</div>
-                      <div className="item-price">${item.price}/ea</div>
+
+                      <div className="item-price">{item.price}/ea  x  {item.quantity}</div>
                     </div>
                     <div className="item-price-total">
                       <div className="price-column">
@@ -140,7 +139,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
               <div className="style1" id="first">
                 <div className="col-name">
                   Subtotal
-                  <span>({order.length} items)</span>
+                  <span>({quantity} items)</span>
                 </div>
                 <div className="col-flex">
                   <div className="right">${subtotal.estimate.toFixed(2)}</div>
