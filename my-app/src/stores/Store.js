@@ -189,26 +189,20 @@ function Store({
       <div className="Store">
 
         <div className="CartPopup" id={hideToggle}>
-          <div className="SubCardExtend">
-            <div>
-              <button className="backToStore" onClick={handleViewOrder}>
-                Back
-              </button>
-            </div>
 
-            <div>
-              <h2>View Order pageOrder</h2>
-            </div>
+          <div className="SubCardExtend">
+              <h2>Personal {store} shopping cart</h2>
 
           </div>
 
-          <ul>
+          {/* <ul className="productListCart">
             {order.map((item) => (
               <div className="eachItem">
                 {" "}
                 <li key={item.id}>
                   {item.name} quantity: {item.quantity} price: {item.price}
                 </li>
+                
                 <button
                   className="AddDelete"
                   onClick={() => handleAddQuantity(item.id)}
@@ -223,16 +217,50 @@ function Store({
                 </button>
               </div>
             ))}
+          </ul> */}
+
+          <ul className="productListCart">
+            {order.map((item) => (
+              <div className="eachItem" key={item.id}>
+
+                <div className="itemDetails">
+                  <div className="itemName">{item.name}</div>
+                  <div className="quantityPrice">
+                    <div>Quantity: {item.quantity}</div>
+                    <div>Individual Price: {item.price}</div>
+                  </div>
+                </div>
+
+                <div className="buttonsContainer">
+                  <button
+                    className="addDelete"
+                    onClick={() => handleAddQuantity(item.id)}
+                  >
+                    Add 1
+                  </button>
+                  <button
+                    className="addDelete"
+                    onClick={() => handleDeleteQuantity(item.id)}
+                  >
+                    Delete 1
+                  </button>
+                </div>
+
+              </div>
+            ))}
           </ul>
 
-          <div>The total price is {totalPrice}</div>
 
-          <div>
+          <div className="backCheckout">
+            The subtotal is ${totalPrice} <br/>
+            <button className="backToStore" onClick={handleViewOrder}>
+              Go back
+            </button>
             <button className="checkOut" onClick={handleCheckout}>
-              Go to checkout
+              Checkout
             </button>
           </div>
-          
+
         </div>
 
         <div className="main">

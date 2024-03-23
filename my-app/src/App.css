@@ -132,9 +132,9 @@
 }
 
 .shopNowButton:hover {
-  background-color: #e1b52d; /* Blue background color on hover */
-  color: #fff; /* White text color on hover */
-  border-color: #e1b52d; /* Blue border color on hover */
+  background-color: #e1b52d; 
+  color: #fff; 
+  border-color: #e1b52d; 
 }
 
 .storeSectionHome {
