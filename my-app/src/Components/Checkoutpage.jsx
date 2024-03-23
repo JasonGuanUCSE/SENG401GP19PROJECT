@@ -114,6 +114,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
                     </div>
                     <div className="item-description">
                       <div className="item-name">{item.name}</div>
+
                       <div className="item-price">{item.price}/ea  x  {item.quantity}</div>
                     </div>
                     <div className="item-price-total">
@@ -123,7 +124,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
                         </div>
                         {itemTotals[item.id].count > 1 ? (
                           <div className="item-price sum">
-                            {itemTotals[item.id].count} x {item.price}/ea
+                            {itemTotals[item.id].count} x ${item.price}/ea
                           </div>
                         ) : null}
                       </div>
