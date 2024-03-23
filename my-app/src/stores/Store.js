@@ -17,6 +17,7 @@ function Store({
   setPreviousStore,
   order,
   setOrder,
+  user,
 }) {
   const [items, setItems] = useState([]);
   // const [order, setOrder] = useState([]);
@@ -175,6 +176,7 @@ function Store({
 
   return (
     <>
+      <div>{user.name}</div>
       <div className="Store">
         <header className="Header">
           {/* <div>Logo</div> */}

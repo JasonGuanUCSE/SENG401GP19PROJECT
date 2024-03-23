@@ -9,7 +9,7 @@ import {
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./Checkoutpage.css";
 
-function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
+function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder }) {
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -17,6 +17,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     cvc: "",
     focus: "",
   });
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -94,8 +95,18 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     ),
     fees: 5.0,
   };
+  const handlePaymentConfirm = () => {
+    console.log("Payment Confirmed");
+    setCurrentStore("HomePage");
+    //Add the order to the viewOrder
+    setViewOrder([...viewOrder,...order]);
+    // Other logic related to payment confirmation can go here
+  }
+  
 
   return (
+    <>
+    <div>{user.name}</div>
     <div className="checkout-page">
       <div className="section-title">
         <h1>Cart</h1>
@@ -249,11 +260,12 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
             <button onClick={() => setCurrentStore(previousStore)}>
               Go Back
             </button>
-            <button>Confirm Payment</button>
+            <button onClick={()=>handlePaymentConfirm()}>Confirm Payment</button>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 

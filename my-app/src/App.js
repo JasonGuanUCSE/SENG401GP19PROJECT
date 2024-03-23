@@ -13,6 +13,7 @@ function App() {
   const [order, setOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
+  const [viewOrder, setViewOrder] = useState([]); //This is to view previous orders
   //fetch data from https://seng401jstacartread.onrender.com/api/Jstacart/products
   // Function to fetch products data
   async function fetchProductsData(productId = "") {
@@ -72,6 +73,12 @@ function App() {
     googleLogout();
     setUser(null);
   };
+  const handleViewOrder = () => {
+    //Pop up window to view previous orders
+    console.log("View Order");
+    console.log(viewOrder);
+    console.log("End view ORder");
+  };
 
   return (
     <>
@@ -79,6 +86,7 @@ function App() {
         <>
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
+              <div>{user.name}</div>
               <div>Top</div>
               <div>{}</div>
               <div className="navBar">
@@ -86,7 +94,12 @@ function App() {
 
                 {/* <SearchBar /> */}
 
-                <button className="navBarButtons">Orders</button>
+                <button
+                  className="navBarButtons"
+                  onClick={() => handleViewOrder()}
+                >
+                  Orders
+                </button>
 
                 <button className="navBarButtons">Cart</button>
 
@@ -152,20 +165,26 @@ function App() {
               <Store
                 store={currentStore}
                 id={1}
+                user={user}
                 setCurrentStore={setCurrentStore}
                 setPreviousStore={setPreviousStore}
                 order={order}
                 setOrder={setOrder}
               />
             )}
-          {currentStore == "CheckoutPage" && currentStore !== "HomePage" && (
-            <CheckoutPage
-              setCurrentStore={setCurrentStore}
-              previousStore={previousStore}
-              order={order}
-              setOrder={setOrder}
-            />
-          )}
+          {currentStore == "CheckoutPage" &&
+            currentStore !== "HomePage" &&
+            user !== null && (
+              <CheckoutPage
+                setCurrentStore={setCurrentStore}
+                previousStore={previousStore}
+                order={order}
+                setOrder={setOrder}
+                user={user}
+                setViewOrder={setViewOrder}
+                viewOrder={viewOrder}
+              />
+            )}
         </>
       ) : (
         <LoginSignup setUser={setUser} />
