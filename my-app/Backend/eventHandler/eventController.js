@@ -104,11 +104,13 @@ const handleGet = async (req, res) => {
         }
     } else if (collection === "orders"){
         URL = URL + "orders"
-        if (search !=="all" && search !== "email") {
+        if (search !=="all" && search !== "_id" && search !== "email") {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
+        } else if (search === "_id") {  
+            URL = URL + "/id/" + req.body._id
         } else if (search === "email") {
-            URL = URL + "/" + req.body.email
+            URL = URL + "/email/" + req.body.email
         }
     } else {
         res.status(400).json({ message: "Invalid collection" })
@@ -170,9 +172,6 @@ const handlePost = async (req, res) => {
         if (!req.body.name) {
             return res.status(400).json({ error: 'Please enter a name' })
         }
-        if (!req.body.phoneNum) {
-            return res.status(400).json({ error: 'Please enter a phone number' })
-        }
         URL = URL + "users"
     } else if (collection === "products"){
         //health check of the body object
@@ -219,7 +218,7 @@ const handlePost = async (req, res) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: req.body
+            body: JSON.stringify(req.body)
         })
             .then(response => response.json())
             .then(data => {
@@ -306,7 +305,7 @@ const handleDelete = async (req, res) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: req.body
+            body: JSON.stringify(req.body)
         })
             .then(response => response.json())
             .then(data => {
@@ -394,7 +393,7 @@ const handlePatch = async (req, res) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: req.body.body
+            body: JSON.stringify(req.body.body)
         })
             .then(response => response.json())
             .then(data => {
