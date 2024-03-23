@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
+import logo from "./icons/jstacart.png"
+import cart from "./icons/cart.png"
+import orders from "./icons/order.png"
+import profile from "./icons/profile.png"
 
 import "./App.css";
 
@@ -44,20 +48,24 @@ function App() {
             {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
               <>
                 <div className="navBar">
-                  <button className="logoIcon">Jstacart</button>
+                  <img id="logoImage" src={logo}/>
   
                   {/* <SearchBar /> */}
-
-                  <button className="navBarButtons">Search</button>
-  
-                  <button className="navBarButtons">Orders</button>
   
                   <button className="navBarButtons">
-                    
+                    <img src={orders}/>
+                    Orders
+                  </button>
+  
+                  <button className="navBarButtons">
+                    <img src={cart}/>
                     Cart
                   </button>
   
-                  <button className="navBarButtons">Profile</button>
+                  <button className="navBarButtons">
+                    <img src={profile}/>
+                    Profile
+                  </button>
                 </div>
 
                 <div>
