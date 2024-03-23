@@ -132,7 +132,7 @@ const handleGet = async (req, res) => {
                 return updateRespond(update)
             })
             .catch(err => {
-                res.status(400).json({ message: "Error in fetching data" })
+                res.status(400).json({ message: "Error in fetching data" +err})
                 respond = { message: "Error in fetching data: "+err }
             })
     }
@@ -232,7 +232,7 @@ const handlePost = async (req, res) => {
                 return updateRespond(update)
             })
             .catch(err => {
-                res.status(400).json({ message: "Error in fetching data" })
+                res.status(400).json({ message: "Error in fetching data"+ err})
                 respond = { message: "Error in fetching data: "+err }
                 let update = {
                     id: id,
@@ -320,7 +320,7 @@ const handleDelete = async (req, res) => {
             }
             )
             .catch(err => {
-                res.status(400).json({ message: "Error in fetching data" })
+                res.status(400).json({ message: "Error in fetching data"+ err})
                 respond = { message: "Error in fetching data: "+err }
                 let update = {
                     id: id,
@@ -406,7 +406,7 @@ const handlePatch = async (req, res) => {
                 }
                 return updateRespond(update)
             }).catch(err => {
-                res.status(400).json({ message: "Error in fetching data" })
+                res.status(400).json({ message: "Error in fetching data"+ err})
                 respond = { message: "Error in fetching data: "+err }
                 let update = {
                     id: id,
