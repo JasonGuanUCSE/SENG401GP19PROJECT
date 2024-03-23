@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
+import { googleLogout } from "@react-oauth/google";
 
 import "./App.css";
 
@@ -17,13 +18,8 @@ function App() {
     setCurrentStore(storeName);
   };
 
-  const handleLoginSuccess = (response) => {
-    setUser({
-      profile: response.profile,
-    });
-  };
-
   const handleLogout = () => {
+    googleLogout();
     setUser(null);
   };
 
@@ -121,7 +117,7 @@ function App() {
           )}
         </>
       ) : (
-        <LoginSignup handleLoginSuccess={handleLoginSuccess} />
+        <LoginSignup setUser={setUser} />
       )}
     </>
   );
