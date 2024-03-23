@@ -15,8 +15,6 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-
-
 }
 
 .goBack {
@@ -41,9 +39,6 @@ header {
     /* background-color: green; */
     flex-direction: row;
     flex: 1;
-
-
-
 }
 
 .Side {
@@ -52,7 +47,6 @@ header {
     /* background-color: aquamarine; */
     width: 30%;
     border-right: 1px solid gray;
-    ;
 }
 
 .TopSide {
@@ -63,7 +57,6 @@ header {
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid gray;
-
 }
 
 .BottomSide {
@@ -77,11 +70,7 @@ header {
 }
 
 .logo {
-    max-width: 30%;
-    max-height: 30%;
-    width: auto;
-    height: auto;
-
+    height: 80%;
 }
 
 .button-logo {
@@ -103,6 +92,7 @@ header {
     flex-direction: row;
     align-items: center;
     border-radius: 5px;
+
 }
 
 .goBack:hover {
@@ -111,19 +101,19 @@ header {
 
 .search {
     width: 20px;
-    /* Adjust the width of the logo */
     height: auto;
-    /* Automatically adjust height to maintain aspect ratio */
-    margin-right: 5px;
+    margin: 17px 0px 0px 5px;
     background-color: none;
+}
 
+.searchForm{
+    padding-top: 14px;
 }
 
 .submit {
     background-color: white;
     border: none;
     padding-top: 5px;
-
 }
 
 /* .buttonNav {
@@ -196,9 +186,6 @@ header {
     border-radius: 50px;
 }
 
-
-
-
 .itemBlock:hover {
     border-color: #feaf17;
     transform: scale(1.2);
@@ -213,10 +200,6 @@ header {
     /* padding-bottom: -20px; */
     margin-bottom: -15px;
 }
-
-
-
-
 
 .mainContent {
     display: flex;
@@ -246,15 +229,10 @@ header {
     background-color: #abcb42;
     border-color: none;
     margin-bottom: 15px;
-
-
-
-
 }
 
 .addItemButton:hover {
     /* max-width:  80px; */
-
     transform: scale(1.2);
     font-size: xx-small;
 }
@@ -301,7 +279,7 @@ header {
     /* Lower opacity to blur the main content */
 }
 
-.CardExtend {
+/* .CardPopup{
     width: 30%;
     height: 100vh;
     background-color: #abcb42;
@@ -310,11 +288,28 @@ header {
     right: 0;
     z-index: 1000;
     display: flex;
-    flex-direction: column;
-    /* Higher z-index to be above everything else */
+    flex-direction: row;
     opacity: 0.8;
-    /* Full opacity for the CardExtend */
-}
+} */
+
+.CartPopup {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    z-index: 999; 
+  }
+  
+  .SubCartExtend {
+    position: absolute; /* Position its children absolutely */
+    transform: translate(-50%, -50%); /* Center the content horizontally and vertically */
+    background-color: white; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
 
 #hidden {
     display: none;

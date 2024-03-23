@@ -1,7 +1,7 @@
 import { useState } from "react";
-import logo from "./images/Instacart.png";
+import logo from "../icons/jstacart.png";
 import arrowLeft from "./images/arrow-left.png";
-import search from "./images/search.png";
+import search from "../icons/search.png";
 import WalmartLogo from "./images/Walmart.png";
 import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
@@ -9,6 +9,7 @@ import SuperStoreLogo from "./images/Canadian.png";
 import data from "./data/data.json";
 
 import "./Store.css";
+import "../App.css";
 
 function Store({
   store,
@@ -114,16 +115,6 @@ function Store({
     }
   };
 
-  const buttonNames = [
-    "For You",
-    "Produce",
-    "Pharmacy",
-    "Beauty",
-    "Convenience",
-    "Retail",
-    "WholeSale",
-    "More",
-  ];
   const buttonsCategoriesName = [
     "Dairy&Milk",
     "Vegetables",
@@ -164,50 +155,51 @@ function Store({
 
   return (
     <>
+      <div className="navBar">
+        {/* <div>Logo</div> */}
+        <img src={logo} alt="Logo" className="logo" />
+
+        <button className="navBarButtons" onClick={handleGoBack}>
+          <img src={arrowLeft} alt="Logo" className="button-logo" />
+          <span className="button-text">Back</span>
+        </button>
+
+        <form onSubmit={handleSubmit} className="searchForm">
+          <input
+            type="text"
+            placeholder="Search for items"
+            value={searchTerm}
+            onChange={handleChange}
+            className="searchInput"
+          />
+           <button type="submit" className="navBarButtons">
+            <img src={search} alt="search" className="search" />
+          </button>
+        </form>
+
+        <button className="navBarButtons">Orders</button>
+
+        <button className="navBarButtons" onClick={handleViewOrder}>
+          Cart
+        </button>
+
+        <button className="navBarButtons">Profile</button>
+      </div>
+
       <div className="Store">
-        <header className="Header">
-          {/* <div>Logo</div> */}
-          <img src={logo} alt="Logo" className="logo" />
 
-          <button className="goBack" onClick={handleGoBack}>
-            <img src={arrowLeft} alt="Logo" className="button-logo" />
-            <span className="button-text">Back</span>
-          </button>
-          <form onSubmit={handleSubmit} className="submitForm">
-            <button type="submit" className="submit">
-              <img src={search} alt="Logo" className="search" />
-            </button>
-            <input
-              type="text"
-              placeholder="Search for items"
-              value={searchTerm}
-              onChange={handleChange}
-            />
-          </form>
-          <div>Order</div>
-          <button className="Cart" onClick={handleViewOrder}>
-            Cart
-          </button>
-          <div>Profile</div>
-        </header>
-
-        <nav className="Nav">
-          {buttonNames.map((button) => (
-            <button key={button} className="buttonNav">
-              {button}
-            </button>
-          ))}
-        </nav>
-        <div className="CardExtend" id={hideToggle}>
+        <div className="CartPopup" id={hideToggle}>
           <div className="SubCardExtend">
             <div>
               <button className="backToStore" onClick={handleViewOrder}>
                 Back
               </button>
             </div>
+
             <div>
               <h2>View Order pageOrder</h2>
             </div>
+
           </div>
 
           <ul>
@@ -232,6 +224,7 @@ function Store({
               </div>
             ))}
           </ul>
+
           <div>The total price is {totalPrice}</div>
 
           <div>
@@ -239,7 +232,9 @@ function Store({
               Go to checkout
             </button>
           </div>
+          
         </div>
+
         <div className="main">
           <div className="Side">
             <div className="TopSide">

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
-import logo from "./icons/jstacart.png"
-import cart from "./icons/cart.png"
-import orders from "./icons/order.png"
-import profile from "./icons/profile.png"
+import logo from "./icons/jstacart.png";
+import cart from "./icons/cart.png";
+import orders from "./icons/order.png";
+import profile from "./icons/profile.png";
 
 import "./App.css";
 

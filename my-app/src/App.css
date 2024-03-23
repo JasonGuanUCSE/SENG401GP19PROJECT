@@ -58,9 +58,9 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  font-size: 16px;
+  font-size: 14px;
   flex: 1;
-  width: 60%;
+  width: 70%;
 }
 
 .searchButton {
@@ -222,13 +222,13 @@
   color: black;
 } 
 
-.logo {
+/* .logo {
   max-width: 30%;
   max-height: 30%;
   width: auto;
   height: auto;
   padding-top: 40px;
-}
+} */
 
 .Nav {
   height: 5vh;
