@@ -116,7 +116,7 @@ function Store({
   };
 
   const buttonsCategoriesName = [
-    "Dairy&Milk",
+    "Dairy & Milk",
     "Vegetables",
     "Fruits",
     "Meat",
@@ -156,7 +156,6 @@ function Store({
   return (
     <>
       <div className="navBar">
-        {/* <div>Logo</div> */}
         <img src={logo} alt="Logo" className="logo" />
 
         <button className="navBarButtons" onClick={handleGoBack}>
@@ -195,30 +194,6 @@ function Store({
 
           </div>
 
-          {/* <ul className="productListCart">
-            {order.map((item) => (
-              <div className="eachItem">
-                {" "}
-                <li key={item.id}>
-                  {item.name} quantity: {item.quantity} price: {item.price}
-                </li>
-                
-                <button
-                  className="AddDelete"
-                  onClick={() => handleAddQuantity(item.id)}
-                >
-                  Add 1
-                </button>
-                <button
-                  className="AddDelete"
-                  onClick={() => handleDeleteQuantity(item.id)}
-                >
-                  Delete 1
-                </button>
-              </div>
-            ))}
-          </ul> */}
-
           <ul className="productListCart">
             {order.map((item) => (
               <div className="eachItem" key={item.id}>
@@ -250,7 +225,6 @@ function Store({
             ))}
           </ul>
 
-
           <div className="backCheckout">
             The subtotal is ${totalPrice} <br/>
             <button className="backToStore" onClick={handleViewOrder}>
@@ -260,16 +234,16 @@ function Store({
               Checkout
             </button>
           </div>
-
         </div>
 
         <div className="main">
           <div className="Side">
+
             <div className="TopSide">
-              {/* <img src={WalmartLogo} alt="Logo" className="WalmartLogo" /> */}
-              <img src={storeNames[store]} alt="Logo" className="WalmartLogo" />
+              <img src={storeNames[store]} alt="Logo" className="StoreLogo" />
               <div>Welcome to {store} online grocery</div>
             </div>
+
             <div className="BottomSide">
               {buttonsCategoriesName.map((button) => (
                 <button
@@ -281,6 +255,7 @@ function Store({
                 </button>
               ))}
             </div>
+            
           </div>
 
           <div className="mainContent">
@@ -292,7 +267,7 @@ function Store({
                   className="itemImage"
                 />
                 <div className="priceAndAdd">
-                  <p className="price">{item.price}</p>
+                  <p className="price">${item.price}</p>
                   <button
                     className="addItemButton"
                     id={item.name}
@@ -305,7 +280,6 @@ function Store({
                 <div>Many in stock</div>
               </div>
             ))}
-            {/* </div> */}
           </div>
         </div>
       </div>

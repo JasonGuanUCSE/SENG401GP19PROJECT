@@ -1,10 +1,8 @@
 .Store {
     height: 100vh;
-    /* Make the entire page height equal to the viewport height */
     width: 100vw;
     display: flex;
     flex-direction: column;
-    /* background-color: rgb(71, 4, 4); */
 }
 
 header {
@@ -34,23 +32,7 @@ header {
     /* border-bottom: 5px solid #abcb42; 
 } */
 
-.main {
-    display: flex;
-    /* background-color: green; */
-    flex-direction: row;
-    flex: 1;
-}
-
-.Side {
-    display: flex;
-    flex-direction: column;
-    /* background-color: aquamarine; */
-    width: 30%;
-    border-right: 1px solid gray;
-}
-
-.TopSide {
-    /* background-color: bisque; */
+/* .TopSide {
     flex: 0.4;
     display: flex;
     flex-direction: column;
@@ -61,13 +43,12 @@ header {
 
 .BottomSide {
     padding-top: 20px;
-
     flex: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
 .logo {
     height: 80%;
@@ -75,16 +56,12 @@ header {
 
 .button-logo {
     width: 20px;
-    /* Adjust the width of the logo */
     height: auto;
-    /* Automatically adjust height to maintain aspect ratio */
     margin-right: 5px;
-    /* Add space between the logo and text */
 }
 
 .button-text {
     font-size: 16px;
-    /* Adjust the font size as needed */
 }
 
 .goBack {
@@ -96,7 +73,7 @@ header {
 }
 
 .goBack:hover {
-    background-color: #feaf17
+    background-color: #e1b52d;
 }
 
 .search {
@@ -116,61 +93,33 @@ header {
     padding-top: 5px;
 }
 
-/* .buttonNav {
-    /* Customize button styles 
-    padding: 10px 15px;
-    /* Adjust padding to set button size 
-    background-color: #e2e4e6;
-    /* Example background color 
-    color: #ffffff;
-    /* Example text color 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    min-width: 100px;
-    /* Set a minimum width for each button 
-    text-align: center;
-    /* Center-align the button text 
-    border-radius: 20px;
-    color: black;
-
-} */
-
 .buttonsCategoriesName {
-    /* Customize button styles */
     padding: 10px 15px;
-    /* Adjust padding to set button size */
-    /* padding-bottom: 5px; */
     background-color: #e2e4e6;
-    /* Example background color */
     color: #ffffff;
-    /* Example text color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     min-width: 200px;
-    /* Set a minimum width for each button */
     text-align: center;
-    /* Center-align the button text */
     border-radius: 20px;
     color: black;
 }
 
-.buttonNav:hover {
-    background-color: #feaf17;
-}
-
 .buttonsCategoriesName:hover {
-    background-color: #feaf17;
-
+    background-color: #e1b52d;
 }
 
-.WalmartLogo {
+.buttonNav:hover {
+    background-color: #e1b52d;
+}
+
+.StoreLogo {
     max-height: 80%;
     max-width: 80%;
 }
 
-.itemBlock {
+/* .itemBlock {
     border: 1px solid #ffffff;
     padding: 10px;
     margin: 10px;
@@ -182,24 +131,22 @@ header {
     background-color: white;
     border-width: 5px;
     border-radius: 50px;
-}
+} */
 
-.itemBlock:hover {
+/* .itemBlock:hover {
     border-color: #feaf17;
-    transform: scale(1.2);
 
-}
+} */
 
-.priceAndAdd {
+/* .priceAndAdd {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* padding-bottom: -20px; */
     margin-bottom: -15px;
-}
+} */
 
-.mainContent {
+/* .mainContent {
     display: flex;
     flex-direction: row;
 
@@ -210,18 +157,14 @@ header {
 
 .itemImage {
     max-width: 100%;
-    /* Ensure the image does not exceed the width of the itemBlock */
     max-height: 50%;
-    /* Ensure the image does not exceed the height of the itemBlock */
     border-radius: 50px;
 }
 
 .addItemButton {
     content: "";
     max-width: 60px;
-    /* Ensure the image does not exceed the width of the itemBlock */
     max-height: 30px;
-    /* Ensure the image does not exceed the height of the itemBlock */
     border-radius: 20px;
     background-color: #abcb42;
     border-color: none;
@@ -241,6 +184,143 @@ header {
 .price {
     flex: 0.5;
     background-color: rgb(255, 255, 255);
+} */
+
+/* .mainContent {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.itemBlock {
+    width: calc(25% - 20px);
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+.itemImage {
+    max-width: 100%;
+    max-height: 80%;
+    border-radius: 15px;
+}
+
+.priceAndAdd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.price {
+    margin: 0;
+}
+  
+.addItemButton {
+    padding: 5px 10px;
+} */
+
+.main {
+    display: flex;
+}
+  
+.Side {
+    flex-shrink: 0;
+    width: 20%; 
+    padding: 20px; 
+    border-right: 1px solid gray;
+}
+
+.TopSide {
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid gray;
+    padding-bottom: 30px;
+}
+
+.BottomSide {
+    padding-top: 50px;
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.buttonsCategoriesName {
+    margin-bottom: 60px; 
+    flex-grow: 1; 
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+  
+.mainContent {
+    flex-grow: 1; 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px; 
+}
+  
+.itemBlock {
+    width: calc(25% - 20px);
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.itemBlock:hover{
+    border: 2px solid #e1b52d;
+}
+  
+.itemImage {
+    max-width: 100%;
+    max-height: 80%; 
+    border-radius: 15px;
+}
+  
+.priceAndAdd {
+    margin-top: auto; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.price {
+    margin: 0;
+    font-weight: bold; 
+    font-size: 1.5em; 
+  }
+  
+  .itemBlock > div:nth-child(4) {
+    font-weight: bold; /* Make the "Many in stock" text bold */
+    color: gray;
+  }
+  
+.addItemButton {
+    padding: 10px 15px;
+    background-color: #e1b52d;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 20px;
+    color: black;
+}
+
+.addItemButton:hover {
+    transform: scale(1.2);
+    font-size: xx-small;
+}
+
+.addItemButton:hover::after {
+    font-size: xx-small;
+    content: " to Cart";
 }
 
 .Cart {
@@ -250,7 +330,7 @@ header {
 
 .Cart:hover {
     transform: scale(2);
-    background-color: #feaf17;
+    background-color: #e1b52d;
     border-radius: 20px;
 }
 
