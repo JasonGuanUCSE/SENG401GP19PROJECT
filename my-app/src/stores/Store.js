@@ -116,7 +116,7 @@ function Store({
   };
 
   const buttonsCategoriesName = [
-    "Dairy & Milk",
+    "Dairy&Milk",
     "Vegetables",
     "Fruits",
     "Meat",
