@@ -137,7 +137,7 @@ const updateReadDB= async (data, collection, method) => {
     console.log(collection);
     console.log(method);
     try {
-        const response = await fetch('https://seng401gp19project.onrender.com/api/Jstacart/', {
+        const response = await fetch('https://seng401gp19project-gbhb.onrender.com/api/Jstacart', {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
