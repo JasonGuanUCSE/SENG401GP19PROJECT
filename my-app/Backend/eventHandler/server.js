@@ -6,7 +6,7 @@ const eventRoutes = require('./eventRoutes');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 4500
+const port = process.env.PORT || 4500;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
