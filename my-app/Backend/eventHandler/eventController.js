@@ -161,7 +161,7 @@ const handlePost = async (req, res) => {
     if (source == "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+        URL = "https://seng401gp19project.onrender.com/api/JstacartW/";
     }
     let respond = null
     console.log("collection: "+collection)
@@ -213,14 +213,14 @@ const handlePost = async (req, res) => {
     }
     //send the request to the write server and save the response to respond object and send back to frontend via res
     console.log("URL: "+URL)
-    console.log("body: "+req.body)
+    console.log("body: "+JSON.stringify(req.body))
     if (respond == null) {
         fetch(URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: req.body
+            body: JSON.stringify(req.body)
         })
             .then(response => response.json())
             .then(data => {
