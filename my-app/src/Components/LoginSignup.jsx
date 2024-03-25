@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
-import logo from "../Assets/Instacart.png";
+import logo from "../assets/Instacart.png";
 import "./LoginSignup.css";
 
-const LoginSignup = ({ setUser }) => {
+const LoginSignup = ({ navigate, setUser }) => {
   const [res, setRes] = useState(
     JSON.parse(localStorage.getItem("res")) || null
   );
@@ -22,8 +23,8 @@ const LoginSignup = ({ setUser }) => {
     if (profile) {
       localStorage.setItem("res", JSON.stringify(res));
       localStorage.setItem("profile", JSON.stringify(profile));
-      setUser(profile);
       console.log("User:", res);
+      setUser(profile);
     }
   }, [profile]);
 
