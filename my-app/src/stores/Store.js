@@ -7,6 +7,9 @@ import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
 import data from "./data/data.json";
+import cart from "../icons/cart.png";
+import profile from "../icons/cart.png";
+import orders from "../icons/order.png";
 
 import "./Store.css";
 import "../App.css";
@@ -176,13 +179,14 @@ function Store({
           </button>
         </form>
 
-        <button className="navBarButtons">Orders</button>
+        <button className="navBarButtons"><img src={orders}/>Orders</button>
 
         <button className="navBarButtons" onClick={handleViewOrder}>
+          <img src={cart}/>
           Cart
         </button>
 
-        <button className="navBarButtons">Profile</button>
+        <button className="navBarButtons"><img src={profile}/>Profile</button>
       </div>
 
       <div className="Store">
