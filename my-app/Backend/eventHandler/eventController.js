@@ -148,7 +148,7 @@ Returns: Get result of the search
 const handlePost = async (req, res) => {
     let collection = req.headers.collection
     let source = req.headers.sender
-    let dest = source === "database"? "read":"write"
+    let dest = source == "database"? "read":"write"
     //prepare request object and call the addEvent function
     let request = {
         source: source,
@@ -158,13 +158,14 @@ const handlePost = async (req, res) => {
     }
     let id = await addEvent(request)
     let URL = "";
-    if (source === "database") {
+    if (source == "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
         URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
     }
     let respond = null
-    if (collection === "users") {
+    console.log("collection: "+collection)
+    if (collection == "users") {
         //health check of the body object
         if (!req.body.email || !req.body.email.includes('@')){
             return res.status(400).json({ error: 'Please enter an valid email' })
@@ -173,7 +174,7 @@ const handlePost = async (req, res) => {
             return res.status(400).json({ error: 'Please enter a name' })
         }
         URL = URL + "users"
-    } else if (collection === "products"){
+    } else if (collection == "products"){
         //health check of the body object
         if (!req.body.id) {
             return res.status(400).json({ error: 'Please enter a id' })
@@ -185,7 +186,7 @@ const handlePost = async (req, res) => {
             return res.status(400).json({ error: 'Please enter a price' })
         }
         URL = URL + "products"
-    } else if (collection === "orders"){
+    } else if (collection == "orders"){
         //health check of the body object
         if (!req.body.customerEmail || !req.body.customerEmail.includes('@')){
             return res.status(400).json({ error: 'Please enter an valid customerEmail' })
@@ -212,7 +213,7 @@ const handlePost = async (req, res) => {
     }
     //send the request to the write server and save the response to respond object and send back to frontend via res
     console.log("URL: "+URL)
-    if (respond === null) {
+    if (respond == null) {
         fetch(URL, {
             method: 'POST',
             headers: {
