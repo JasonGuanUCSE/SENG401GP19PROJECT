@@ -99,6 +99,7 @@ function App() {
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
               <div>{user.name}</div>
+              <div>{user.email}</div>
               <div>Top</div>
               <div>{}</div>
               <div className="navBar">
