@@ -76,7 +76,7 @@ const addUser = async (req, res) => {
         res.status(201).json(newUser)
 
         // //update the Read database
-        await updateReadDB(req.body, 'user',  'POST');
+        await updateReadDB(req.body, 'users',  'POST');
 
     } catch (err) {
         res.status(400).json({ message: err.message })
