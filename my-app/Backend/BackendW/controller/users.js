@@ -2,7 +2,7 @@ const mongoose = require('../node_modules/mongoose');
 const Users = require('../model/userModel');
 // const axios = require('axios');
 
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
 /*
 helper function to check if email exists
