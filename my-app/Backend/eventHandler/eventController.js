@@ -212,6 +212,7 @@ const handlePost = async (req, res) => {
     }
     //send the request to the write server and save the response to respond object and send back to frontend via res
     console.log("URL: "+URL)
+    console.log("body: "+JSON.stringify(req.body))
     if (respond === null) {
         fetch(URL, {
             method: 'POST',
