@@ -146,9 +146,9 @@ const updateReadDB= async (data, collection, method) => {
             },
             body: JSON.stringify(data)
         });
-
+        console.log(response);
         if (!response.ok) {
-            throw new Error('Failed to update other database');
+            throw new Error('Failed to update other database'+ response.status);
         }
     } catch (error) {
         console.error('Error updating other database:', error);
