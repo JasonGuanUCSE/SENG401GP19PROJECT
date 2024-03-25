@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "./images/Instacart.png";
 import arrowLeft from "./images/arrow-left.png";
 import search from "./images/search.png";
@@ -6,18 +6,22 @@ import WalmartLogo from "./images/Walmart.png";
 import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
-import data from "./data/data.json";
+// import data from "./data/data.json";
 
 import "./Store.css";
 
 function Store({
   store,
   id,
+  user,
   setCurrentStore,
   setPreviousStore,
   order,
   setOrder,
-  user,
+  meta_data,
+  setMetaData,
+  data,
+  setData,
 }) {
   const [items, setItems] = useState([]);
   // const [order, setOrder] = useState([]);
@@ -41,7 +45,6 @@ function Store({
     setItems([]);
     event.preventDefault();
     // onSeach(searchTerm);
-    console.log(searchTerm);
     setItems(
       data.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -50,6 +53,7 @@ function Store({
   };
   const handleGoBack = () => {
     setCurrentStore("HomePage");
+    setMetaData(meta_data);
   };
   const handleAdd = (id) => {
     let addingItem = data.find((item) => item.id == parseInt(id));
@@ -68,17 +72,32 @@ function Store({
     for (const i of updateOrder) {
       totalPrice = totalPrice + i.price * i.quantity;
     }
-    console.log("total price is ", totalPrice);
     setTotalPrice(totalPrice);
   };
-  const calculateTotalPrice = (order) => {
-    let totalPrice = 0;
-    for (const i of order) {
-      totalPrice = totalPrice + i.price * i.quantity;
 
-      return totalPrice;
-    }
-  };
+  useEffect(() => {
+    // This will run every time 'items' state changes
+    // Update the main content area based on the new 'items'
+    setContent(
+      items.map((item) => (
+        <div key={item.id} className="itemBlock">
+          <img src={item.image} alt="itemImage" className="itemImage" />
+          <div className="priceAndAdd">
+            <p className="price">{item.price}</p>
+            <button
+              className="addItemButton"
+              id={item.name}
+              onClick={() => handleAdd(item.id)}
+            >
+              + Add
+            </button>
+          </div>
+          <div>{item.name}</div>
+          <div>Many in stock</div>
+        </div>
+      ))
+    );
+  }, [items]);
 
   const handleAddQuantity = (id) => {
     // Find the index of the item in the order array
@@ -94,7 +113,6 @@ function Store({
     setTotalPrice(totalPrice);
 
     const price = setTotalPrice(totalPrice);
-    console.log(order);
   };
   const handleDeleteQuantity = (id) => {
     // Find the index of the item in the order array
@@ -114,7 +132,6 @@ function Store({
     setTotalPrice(totalPrice);
 
     const price = setTotalPrice(totalPrice);
-    console.log(order);
   };
   const handleViewOrder = () => {
     if (visible == true) {
@@ -149,19 +166,16 @@ function Store({
     if (content == "Dairy&Milk") {
       // setItems([]);
       setItems(filterItemsByCategory(data, "dairy"));
-      console.log("click for dairy");
-    } else if (content == "Vegetables") {
+    } else if (content === "Vegetables") {
       // setItems([]);
       setItems(filterItemsByCategory(data, "fresh-produce"));
-      console.log("click for vegetable");
-    } else if (content == "Fruits") {
+    } else if (content === "Fruits") {
       setItems(filterItemsByCategory(data, "fruits"));
-    } else if (content == "Meat") {
+    } else if (content === "Meat") {
       setItems(filterItemsByCategory(data, "meat-seafood"));
-    } else if (content == "Beverages") {
+    } else if (content === "Beverages") {
       setItems(filterItemsByCategory(data, "beverages"));
     }
-    console.log("click here ");
 
     setContent(content);
   };
@@ -169,7 +183,6 @@ function Store({
     return dat.filter((item) => item.category === category);
   }
   const handleCheckout = () => {
-    console.log("click on handle checkout");
     setPreviousStore(store);
     setCurrentStore("CheckoutPage");
   };
@@ -272,31 +285,7 @@ function Store({
               ))}
             </div>
           </div>
-
-          <div className="mainContent">
-            {items.map((item) => (
-              <div key={item.id} className="itemBlock">
-                <img
-                  src={item["image"]}
-                  alt="itemImage"
-                  className="itemImage"
-                />
-                <div className="priceAndAdd">
-                  <p className="price">{item.price}</p>
-                  <button
-                    className="addItemButton"
-                    id={item.name}
-                    onClick={() => handleAdd(item.id)}
-                  >
-                    + Add
-                  </button>
-                </div>
-                <div>{item.name}</div>
-                <div>Many in stock</div>
-              </div>
-            ))}
-            {/* </div> */}
-          </div>
+          <div className="mainContent">{content}</div>
         </div>
       </div>
     </>
