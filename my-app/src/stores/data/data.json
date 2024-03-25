@@ -4,21 +4,27 @@
     "category": "coffee",
     "name": "Starbucks Coffee Variety Pack, 100% Arabica",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 4646,
     "category": "coffee",
     "name": "Ethical Bean Medium Dark Roast, Espresso",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 4641,
     "category": "coffee",
     "name": "Don Francisco Colombia Supremo Medium Roast",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 2585,
@@ -26,7 +32,9 @@
     "name": "Green Cabbage Organic",
     "image": "https://i.imgur.com/OTVbzeu.jpg",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 5851,
@@ -34,7 +42,9 @@
     "name": "Cucumber Organic",
     "image": "https://i.imgur.com/XTwCpUn.png",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 1234,
@@ -42,7 +52,9 @@
     "name": "Fresh Spinach Organic",
     "image": "https://i.imgur.com/2zbTin7.jpg",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 2685,
@@ -50,7 +62,9 @@
     "name": "Tomatoes",
     "image": "https://i.imgur.com/Wifnbwp.jpg",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 5852,
@@ -58,7 +72,9 @@
     "name": "Yellow Potato",
     "image": "https://i.imgur.com/movFgHH.png",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 8739,
@@ -66,14 +82,18 @@
     "name": "Carrot Bulk",
     "image": "https://i.imgur.com/mySsA8z.jpg",
     "inStock": true,
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 2177,
     "category": "meat-seafood",
     "name": "Beef Stew/lbs",
     "price": 9.99,
-    "image": "https://i.imgur.com/UzatpiY.jpg"
+    "image": "https://i.imgur.com/UzatpiY.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 1709,
@@ -81,7 +101,9 @@
     "name": "Chicken breast/lbs",
     "price": 13.99,
     "image": "https://i.imgur.com/me2rpyc.jpg",
-    "inStock": true
+    "inStock": true,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 1710,
@@ -89,7 +111,9 @@
     "name": "Cad Prim S-Loin Steak/lbs",
     "price": 19.99,
     "image": "https://i.imgur.com/W2a7cDn.jpg",
-    "inStock": true
+    "inStock": true,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7395,
@@ -97,13 +121,17 @@
     "name": "Ex-lean Ground Beef/lbs",
     "price": 8.99,
     "image": "https://i.imgur.com/yf8TnCW.jpg",
-    "inStock": true
+    "inStock": true,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 8554,
     "category": "candy",
     "name": "Kinder Joy Eggs",
-    "inStock": true
+    "inStock": true,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
 
   {
@@ -112,7 +140,9 @@
     "name": "Reduced Fat Milk",
     "inStock": true,
     "image": "https://i.imgur.com/lM2nhBu.jpg",
-    "price": 6.0
+    "price": 6.0,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 9483,
@@ -120,7 +150,9 @@
     "name": "Whole Milk",
     "inStock": true,
     "image": "https://i.imgur.com/yCeoZ5I.jpg",
-    "price": 6.0
+    "price": 6.0,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 5477,
@@ -128,7 +160,9 @@
     "name": "Cream Cheese",
     "inStock": true,
     "image": "https://i.imgur.com/3VtoPZX.png",
-    "price": 5.0
+    "price": 5.0,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 5478,
@@ -136,22 +170,20 @@
     "name": "Low Fat Vanilla Yogurt",
     "inStock": true,
     "image": "https://i.imgur.com/28mYLgZ.png",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
-  {
-    "id": 4875,
-    "category": "bread-bakery",
-    "name": "2800 Watt Inverter Generator",
-    "inStock": true,
-    "price": 9.99
-  },
+
   {
     "id": 5479,
     "category": "dairy",
     "name": "2% Partly Milk",
     "inStock": true,
     "image": "https://i.imgur.com/6FkgbRj.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 6011,
@@ -159,7 +191,9 @@
     "name": "Dairyland Skim Milk",
     "inStock": true,
     "image": "https://i.imgur.com/F43mSj7.jpg",
-    "price": 8.99
+    "price": 8.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 9999,
@@ -167,7 +201,9 @@
     "name": "Bananas",
     "inStock": true,
     "image": "https://i.imgur.com/WNTuHC2.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 9998,
@@ -175,7 +211,9 @@
     "name": "Pineapple",
     "inStock": true,
     "image": "https://i.imgur.com/nP2HFr3.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 9987,
@@ -183,7 +221,9 @@
     "name": "Watermelon",
     "inStock": true,
     "image": "https://i.imgur.com/r55Js8N.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 9986,
@@ -191,7 +231,9 @@
     "name": "Avocado",
     "inStock": true,
     "image": "https://i.imgur.com/EVeKRWj.jpg",
-    "price": 8.99
+    "price": 8.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 4444,
@@ -199,7 +241,9 @@
     "name": "Pepsi 12Cans",
     "inStock": true,
     "image": "https://res.cloudinary.com/dcxtiqe44/image/upload/v1707898016/large_270bf559-b45e-4c96-af7b-db0c40e24477_ugqcum.jpg",
-    "price": 7.99
+    "price": 7.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 4445,
@@ -207,7 +251,9 @@
     "name": "Pepsi 2L bottle",
     "inStock": true,
     "image": "https://res.cloudinary.com/dcxtiqe44/image/upload/v1707898661/large_075c1bbb-5ae9-41d3-bfde-82e7ffb36501_mi2k3x.jpg",
-    "price": 2.99
+    "price": 2.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7000,
@@ -215,15 +261,19 @@
     "name": "Kiwi",
     "inStock": true,
     "image": "https://i.imgur.com/wSyRSBs.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
-    "id":7001 ,
+    "id": 7001,
     "category": "fruits",
     "name": "orange",
     "inStock": true,
     "image": "https://i.imgur.com/LKl47dR.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7002,
@@ -231,7 +281,9 @@
     "name": "grarlic",
     "inStock": true,
     "price": 9.99,
-    "image": "https://i.imgur.com/K0XCX6z.jpg"
+    "image": "https://i.imgur.com/K0XCX6z.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7004,
@@ -239,39 +291,49 @@
     "name": "Yellow Bell Pepper",
     "inStock": true,
     "image": "https://i.imgur.com/Amdnrnm.jpg",
-    "price": 2.99
+    "price": 2.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7005,
     "category": "fruits",
-    "name":"Mango", 
+    "name": "Mango",
     "inStock": true,
     "image": "https://i.imgur.com/xiymLA5.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7006,
     "category": "fruits",
-    "name":"BlueBerries", 
+    "name": "BlueBerries",
     "inStock": true,
     "image": "https://i.imgur.com/e0ho9VU.jpg",
-    "price": 9.99
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7007,
     "category": "bread-bakery",
     "name": "Dempster's 100% Whole Grains",
     "inStock": true,
-    "image":"https://i.imgur.com/exd1M94.jpg",
-    "price": 9.99
+    "image": "https://i.imgur.com/exd1M94.jpg",
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7008,
     "category": "bread-bakery",
     "name": "White Bread Wonder",
     "inStock": true,
-    "image":"https://i.imgur.com/WQoqmAr.jpg",
-    "price": 9.99
+    "image": "https://i.imgur.com/WQoqmAr.jpg",
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7009,
@@ -279,23 +341,29 @@
     "name": "celery",
     "inStock": true,
     "price": 9.99,
-    "image": "https://i.imgur.com/CK3BVzI.jpg"
-  },  
+    "image": "https://i.imgur.com/CK3BVzI.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
   {
     "id": 7010,
     "category": "fresh-produce",
     "name": "Green Bell Pepper",
     "inStock": true,
     "price": 9.99,
-    "image": "https://i.imgur.com/itcFqvQ.jpg"
+    "image": "https://i.imgur.com/itcFqvQ.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7011,
     "category": "bread-bakery",
     "name": "Dempster's 100% Whole Wheat",
     "inStock": true,
-    "image":"https://i.imgur.com/lhUGn4j.jpg",
-    "price": 9.99
+    "image": "https://i.imgur.com/lhUGn4j.jpg",
+    "price": 9.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7012,
@@ -303,7 +371,9 @@
     "name": "Green Onion",
     "inStock": true,
     "price": 9.99,
-    "image": "https://i.imgur.com/jjj2zhQ.jpg"
+    "image": "https://i.imgur.com/jjj2zhQ.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7013,
@@ -311,7 +381,9 @@
     "name": "Nectarine",
     "inStock": true,
     "price": 9.99,
-    "image": "https://i.imgur.com/dJNpyul.jpg"
+    "image": "https://i.imgur.com/dJNpyul.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7014,
@@ -319,7 +391,9 @@
     "name": "Egg Great Value",
     "inStock": true,
     "price": 9.99,
-    "image": "https://i.imgur.com/x9a6Rtg.jpg"
+    "image": "https://i.imgur.com/x9a6Rtg.jpg",
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7015,
@@ -327,7 +401,9 @@
     "name": "eska water",
     "inStock": true,
     "image": "https://i.imgur.com/Gpp32sy.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7016,
@@ -335,22 +411,29 @@
     "name": "PureLife water 12pk",
     "inStock": true,
     "image": "https://i.imgur.com/rUMChX2.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
-  "id": 7017,
-  "category": "beverages",
-  "name": "Oasis Mix 960ml",
-  "inStock": true,
-  "image": "https://i.imgur.com/wkTLCoX.jpg",
-  "price": 4.99},
+    "id": 7017,
+    "category": "beverages",
+    "name": "Oasis Mix 960ml",
+    "inStock": true,
+    "image": "https://i.imgur.com/wkTLCoX.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
   {
     "id": 7018,
     "category": "beverages",
     "name": "Water Value Greate 960ml",
     "inStock": true,
     "image": "https://i.imgur.com/GrusDpg.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7019,
@@ -358,7 +441,9 @@
     "name": "Kool-aid Jammers",
     "inStock": true,
     "image": "https://i.imgur.com/atCBcJi.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7020,
@@ -366,7 +451,9 @@
     "name": "Yogurt iogo",
     "inStock": true,
     "image": "https://i.imgur.com/UyVVogR.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
     "id": 7021,
@@ -374,87 +461,78 @@
     "name": "Ginger Ale 12pk",
     "inStock": true,
     "image": "https://i.imgur.com/1adS3zV.jpg",
-    "price": 4.99
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   },
   {
-  "id": 7022,
-  "category": "dairy",
-  "name": "Yogust iogo 12pk",
-  "inStock": true,
-  "image": "https://i.imgur.com/IorTBur.jpg",
-  "price": 4.99
-},
-{
-  "id": 7022,
-  "category": "beverages",
-  "name": "Pineapple Tropicana",
-  "inStock": true,
-  "image": "https://i.imgur.com/D3GStcs.jpg",
-  "price": 4.99
-},
-{
-  "id": 7023,
-  "category": "beverages",
-  "name": "Simply orange juice",
-  "inStock": true,
-  "image": "https://i.imgur.com/dps4c54.jpg",
-  "price": 4.99
-},
-{
-  "id": 7023,
-  "category": "beverages",
-  "name": "Juice munute maid 12pk",
-  "inStock": true,
-  "image": "https://i.imgur.com/vDSIrHB.jpg",
-  "price": 4.99
-}
-,{
-  "id": 7024,
-  "category": "beverages",
-  "name": "Juice munute maid mango 960ml",
-  "inStock": true,
-  "image": "https://i.imgur.com/4YS73jF.jpg",
-  "price": 4.99
-}
-,
-{
-  "id": 7024,
-  "category": "meat-seafood",
-  "name": "Chicken Thigh",
-  "inStock": true,
-  "image": "https://i.imgur.com/WR4Fm2V.jpg",
-  "price": 4.99
-},
-{
-  "id": 7024,
-  "category": "meat-seafood",
-  "name": "Turkey BAcon Ham",
-  "inStock": true,
-  "image": "https://i.imgur.com/mGTdcJR.jpg",
-  "price": 4.99
-}
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-  
-
-  
-
-
-
+    "id": 7022,
+    "category": "dairy",
+    "name": "Yogust iogo 12pk",
+    "inStock": true,
+    "image": "https://i.imgur.com/IorTBur.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7022,
+    "category": "beverages",
+    "name": "Pineapple Tropicana",
+    "inStock": true,
+    "image": "https://i.imgur.com/D3GStcs.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7023,
+    "category": "beverages",
+    "name": "Simply orange juice",
+    "inStock": true,
+    "image": "https://i.imgur.com/dps4c54.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7023,
+    "category": "beverages",
+    "name": "Juice munute maid 12pk",
+    "inStock": true,
+    "image": "https://i.imgur.com/vDSIrHB.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7024,
+    "category": "beverages",
+    "name": "Juice munute maid mango 960ml",
+    "inStock": true,
+    "image": "https://i.imgur.com/4YS73jF.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7024,
+    "category": "meat-seafood",
+    "name": "Chicken Thigh",
+    "inStock": true,
+    "image": "https://i.imgur.com/WR4Fm2V.jpg",
+    "price": 4.99,
+    "store": ["Walmart", "Costco", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7024,
+    "category": "meat-seafood",
+    "name": "Turkey BAcon Ham",
+    "inStock": true,
+    "image": "https://i.imgur.com/mGTdcJR.jpg",
+    "price": 4.99,
+    "store": ["Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  }
 ]

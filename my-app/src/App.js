@@ -4,12 +4,13 @@ import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
-
+import data_json from "./stores/data/data.json";
 import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [data, setData] = useState("");
+  const [data, setData] = useState(data_json);
+  const [eachStoreData, setEachStoreData] = useState([]);
   const [order, setOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
@@ -66,7 +67,18 @@ function App() {
     .catch((error) => console.error("Error:", error));
 
   const handleSwitchStore = (storeName) => {
+    //filter data based on store name
+    // console.log(data);
+    // setCurrentStore(storeName);
+    // setData(data.filter((item) => item.store.includes(storeName)));
+    // Set the current store first
     setCurrentStore(storeName);
+
+    // Filter the data based on the store name
+    const filteredData = data.filter((item) => item.store.includes(storeName));
+    console.log("StoreName: ", filteredData);
+    // Update the data state with the filtered data
+    setEachStoreData(filteredData);
   };
 
   const handleLogout = () => {
@@ -87,6 +99,7 @@ function App() {
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
               <div>{user.name}</div>
+              <div>{user.email}</div>
               <div>Top</div>
               <div>{}</div>
               <div className="navBar">
@@ -170,6 +183,10 @@ function App() {
                 setPreviousStore={setPreviousStore}
                 order={order}
                 setOrder={setOrder}
+                meta_data={data}
+                data={eachStoreData}
+                setMetaData={setData}
+                setData={setEachStoreData}
               />
             )}
           {currentStore == "CheckoutPage" &&
