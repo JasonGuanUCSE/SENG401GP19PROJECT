@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const eventRoutes = require('./eventRoutes');
 
+require('dotenv').config();
+
 const app = express();
-const port = 4500;
+const port = process.env.PORT || 4500
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -13,7 +15,7 @@ app.use(cors());
 // Define your routes and event handlers here
 app.use('/api/Jstacart/', eventRoutes);
 
-const uri = "mongodb+srv://SENG401:seng401@jstacart.ou5rinu.mongodb.net/?retryWrites=true&w=majority&appName=Jstacart"
+const uri = process.env.MONGO_URI;
 // connect to db
 mongoose.connect(uri,{dbName: 'events'})
   .then(() => {
