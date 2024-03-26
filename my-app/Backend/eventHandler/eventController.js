@@ -74,7 +74,7 @@ const handleGet = async (req, res) => {
         source: source,
         dest: dest,
         method: "GET",
-        body: req.body
+        body: req.headers
     }
     let id = await addEvent(request)
     let URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
@@ -85,7 +85,7 @@ const handleGet = async (req, res) => {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "name") {
-            URL = URL + "/" + req.body.name
+            URL = URL + "/" + req.headers.name
         }
     } else if (collection === "products"){
         URL = URL + "products"
@@ -93,14 +93,14 @@ const handleGet = async (req, res) => {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "id") {
-            URL = URL + "/" + req.body.id
+            URL = URL + "/" + req.headers.id
         } else if (search === "category") {
-            URL = URL + "/category/" + req.body.category
+            URL = URL + "/category/" + req.headers.category
         } else if (search === "store") {
-            URL = URL + "/store/" + req.body.store
+            URL = URL + "/store/" + req.headers.store
         } else if (search === "both") {
             //WILL ADD THIS FUNCTIONALITY LATER
-            URL = URL + "/category/" + req.body.category + "/store/" + req.body.store
+            URL = URL + "/category/" + req.headers.category + "/store/" + req.headers.store
         }
     } else if (collection === "orders"){
         URL = URL + "orders"
@@ -108,9 +108,9 @@ const handleGet = async (req, res) => {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "_id") {  
-            URL = URL + "/id/" + req.body._id
+            URL = URL + "/id/" + req.headers._id
         } else if (search === "email") {
-            URL = URL + "/email/" + req.body.email
+            URL = URL + "/email/" + req.headers.email
         }
     } else {
         res.status(400).json({ message: "Invalid collection" })
