@@ -23,17 +23,6 @@ function App() {
   const [previousStore, setPreviousStore] = useState("");
   const [viewOrder, setViewOrder] = useState([]);
 
-  const buttonNames = [
-    "For You",
-    "Produce",
-    "Pharmacy",
-    "Beauty",
-    "Convenience",
-    "Retail",
-    "WholeSale",
-    "More",
-  ];
-
   useEffect(() => {
     if (user) {
       fetchProductsData()
@@ -205,6 +194,7 @@ function App() {
       console.log("Current user's orders:", currentUserOrders);
       setUserOrder(currentUserOrders);
     });
+
     let display = "";
     for (let i = 0; i < userOrder.length; i++) {
       display +=
@@ -255,15 +245,6 @@ function App() {
                   LogOut
                 </button>
 
-{/* 
-                <nav className="Nav">
-                  {buttonNames.map((button) => (
-                    <button key={button} className="buttonNav">
-                      {button}
-                    </button>
-                  ))}
-                </nav> */}
-
               </div>
               <div className="mainPage">
                 <div className="banner">
@@ -290,8 +271,7 @@ function App() {
                     <button
                       className="storeButtonsHome"
                       id="Costco"
-                      onClick={() => handleSwitchStore("Costco")}
-                    >
+                      onClick={() => handleSwitchStore("Costco")}>
                       Costco
                     </button>
                   </div>
@@ -319,6 +299,7 @@ function App() {
               </div>
             </>
           )}
+
           {currentStore !== null &&
             currentStore !== "HomePage" &&
             currentStore !== "CheckoutPage" && (
@@ -336,6 +317,7 @@ function App() {
                 setData={setEachStoreData}
               />
             )}
+
           {currentStore == "CheckoutPage" &&
             currentStore !== "HomePage" &&
             user !== null && (
