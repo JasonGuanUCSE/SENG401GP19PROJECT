@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
-import logo from "../assets/Instacart.png";
+import logo from "../Assets/Instacart.png";
 import "./LoginSignup.css";
 
-const LoginSignup = ({ navigate, setUser }) => {
+const LoginSignup = ({ setUser }) => {
   const [res, setRes] = useState(
     JSON.parse(localStorage.getItem("res")) || null
   );
@@ -20,56 +19,33 @@ const LoginSignup = ({ navigate, setUser }) => {
   });
 
   useEffect(() => {
-    const fetchProfileAndPostToDatabase = async () => {
-      if (res) {
-        try {
-          const response = await axios.get(
-            `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${res.access_token}`,
-            {
-              headers: {
-                Authorization: `Bearer ${res.access_token}`,
-                Accept: "application/json",
-              },
-            }
-          );
-          setProfile(response.data);
-
-          const addUserRes = await fetch(
-            "https://seng401gp19project-gbhb.onrender.com/api/Jstacart",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                collection: "users",
-                sender: "web",
-              },
-              body: JSON.stringify(response.data),
-            }
-          );
-
-          if (!addUserRes.ok) {
-            throw new Error("Failed to add user to database");
-          } else {
-            console.log("User added to database");
-            navigate("/");
-          }
-        } catch (error) {
-          console.error("Error occurred:", error);
-        }
-      }
-    };
-
-    fetchProfileAndPostToDatabase();
-  }, [res]);
-
-  useEffect(() => {
     if (profile) {
       localStorage.setItem("res", JSON.stringify(res));
       localStorage.setItem("profile", JSON.stringify(profile));
-      console.log("User:", res);
       setUser(profile);
+      console.log("User:", res);
     }
-  }, [profile, res]);
+  }, [profile]);
+
+  useEffect(() => {
+    if (res) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${res.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${res.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          setProfile(response.data);
+          console.log(response.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [res]);
 
   return (
     <div className="container">
