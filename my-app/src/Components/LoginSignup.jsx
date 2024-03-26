@@ -19,26 +19,6 @@ const LoginSignup = ({ navigate, setUser }) => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  // useEffect(() => {
-  //   if (res) {
-  //     axios
-  //       .get(
-  //         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${res.access_token}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${res.access_token}`,
-  //             Accept: "application/json",
-  //           },
-  //         }
-  //       )
-  //       .then((response) => {
-  //         setProfile(response.data);
-  //         console.log(response.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [res]);
-
   useEffect(() => {
     const fetchProfileAndPostToDatabase = async () => {
       if (res) {
@@ -89,7 +69,7 @@ const LoginSignup = ({ navigate, setUser }) => {
       console.log("User:", res);
       setUser(profile);
     }
-  }, [profile, res, setUser]);
+  }, [profile, res]);
 
   return (
     <div className="container">
