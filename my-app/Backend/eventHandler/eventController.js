@@ -312,7 +312,6 @@ const handleDelete = async (req, res) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(req.body)
         })
             .then(response => response.json())
             .then(data => {
