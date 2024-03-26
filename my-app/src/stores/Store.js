@@ -206,6 +206,7 @@ function Store({
   const handleCheckout = () => {
     setPreviousStore(store);
     setCurrentStore("CheckoutPage");
+    console.log("previousStore: ", store);
   };
 
   return (
