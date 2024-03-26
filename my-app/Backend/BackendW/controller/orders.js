@@ -146,8 +146,12 @@ const deleteOrder = async (req, res) => {
         const deletedOrder = await order.deleteOne({ orderID: req.params.ID });
         res.status(200).json(deletedOrder)
 
+        let body = {
+            orderID: req.params.ID,
+            customerEmail: req.params.email
+        }
         //update the Read database
-        await updateReadDB(req.body, 'orders',  'DELETE');
+        await updateReadDB(body, 'orders',  'DELETE');
 
     } catch (err) {
         res.status(500).json({ message: err.message })
