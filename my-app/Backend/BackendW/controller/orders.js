@@ -97,6 +97,7 @@ const addOrder = async (req, res) => {
     try{
         if (req.body.productID && req.body.quantity && req.body.productID.length === req.body.quantity.length 
             && req.body.status === 'paid'){
+            console.log("This is the productID:",req.body.productID);
             const promises = req.body.productID.map(async (productId, index) => {
                 const product = await Product.findOne({ id: productId });
                 const newQuantity = product.quantity - req.body.quantity[index];
