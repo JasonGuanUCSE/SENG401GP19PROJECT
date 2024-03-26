@@ -108,7 +108,11 @@ const addOrder = async (req, res) => {
                 } else {
                     await Product.updateOne({ id: productId }, { quantity: newQuantity });
                 }
+                console.log("This is the product price:",product.price);
+                console.log("This is the quantity index",req.body.quantity[index]);
+                console.log("This is the product price type",typeof(product.price));
                 totalPrice += product.price * req.body.quantity[index];
+                
             });
             await Promise.all(promises);}
         
