@@ -136,6 +136,8 @@ const deleteOrder = async (req, res) => {
         return res.status(400).json({ error: 'Invalid ID' })
     }
 
+    console.log("email: "+ req.param.email)
+    console.log("ID: "+ req.params.ID)
     try {
         const order = await Order.findOne({ orderID: req.params.ID, customerEmail: req.params.email })
         if (!order) {
