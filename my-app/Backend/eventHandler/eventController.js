@@ -19,6 +19,7 @@ const addEvent = async (requests) => {
     const event = new Event({
         from: source,
         to: dest,
+        collection: collection,
         method: method,
         body: body
     })
@@ -73,6 +74,7 @@ const handleGet = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "GET",
         body: req.body
     }
@@ -153,6 +155,7 @@ const handlePost = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "POST",
         body: req.body
     }
@@ -263,6 +266,7 @@ const handleDelete = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "DELETE",
         body: req.body
     }
@@ -351,6 +355,7 @@ const handlePatch = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "PATCH",
         body: req.body
     }
