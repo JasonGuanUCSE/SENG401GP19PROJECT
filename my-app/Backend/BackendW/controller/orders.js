@@ -93,6 +93,10 @@ const addOrder = async (req, res) => {
         req.body.totalPrice = totalPrice
         const newOrder = await Order.create(req.body)
         res.status(201).json(newOrder)
+        
+        //update the Read database
+        await updateReadDB(req.body, 'orders',  'POST');
+
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -116,6 +120,10 @@ const deleteOrder = async (req, res) => {
         }
         const deletedOrder = await order.deleteOne({ _id: req.params.ID });
         res.status(200).json(deletedOrder)
+
+        //update the Read database
+        await updateReadDB(req.body, 'orders',  'DELETE');
+
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
@@ -165,10 +173,38 @@ const updateOrder = async (req, res) => {
         }
         const updatedOrder = await Order.updateOne({ _id: req.params.ID }, req.body)
         res.status(200).json(updatedOrder)
+
+        //update the Read database
+        await updateReadDB(req.body, 'orders',  'PATCH');
+
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
 }
+
+//helper function to update the other database
+const updateReadDB= async (data, collection, method) => {
+    console.log(data);
+    console.log(collection);
+    console.log(method);
+    try {
+        const response = await fetch('https://seng401gp19project-gbhb.onrender.com/api/Jstacart', {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                "collection": collection,
+                "sender": 'database'
+            },
+            body: JSON.stringify(data)
+        });
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Failed to update other database'+ response.status);
+        }
+    } catch (error) {
+        console.error('Error updating other database:', error);
+    }
+};
 
 module.exports = {
     getAllOrders,

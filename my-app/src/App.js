@@ -4,18 +4,20 @@ import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
-
+import data_json from "./stores/data/data.json";
 import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [data, setData] = useState("");
+  const [data, setData] = useState(data_json);
+  const [eachStoreData, setEachStoreData] = useState([]);
   const [order, setOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
   const [viewOrder, setViewOrder] = useState([]); //This is to view previous orders
   //fetch data from https://seng401jstacartread.onrender.com/api/Jstacart/products
   // Function to fetch products data
+
   async function fetchProductsData(productId = "") {
     try {
       // Construct the URL based on the productId parameter
@@ -67,9 +69,16 @@ function App() {
 
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
+
+    // Filter the data based on the store name
+    const filteredData = data.filter((item) => item.store.includes(storeName));
+    console.log("StoreName1: ", filteredData);
+    // Update the data state with the filtered data
+    setEachStoreData(filteredData);
   };
 
   const handleLogout = () => {
+    localStorage.clear();
     googleLogout();
     setUser(null);
   };
@@ -87,6 +96,7 @@ function App() {
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
               <div>{user.name}</div>
+              <div>{user.email}</div>
               <div>Top</div>
               <div>{}</div>
               <div className="navBar">
@@ -102,6 +112,7 @@ function App() {
                 </button>
 
                 <button className="navBarButtons">Cart</button>
+                <button onClick={() => handleLogout("")}>LogOut</button>
 
                 <button className="navBarButtons">Profile</button>
               </div>
@@ -170,6 +181,10 @@ function App() {
                 setPreviousStore={setPreviousStore}
                 order={order}
                 setOrder={setOrder}
+                meta_data={data}
+                data={eachStoreData}
+                setMetaData={setData}
+                setData={setEachStoreData}
               />
             )}
           {currentStore == "CheckoutPage" &&
