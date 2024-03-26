@@ -113,6 +113,8 @@ const deleteOrder = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
         return res.status(400).json({ error: 'Invalid ID' })
     }
+    console.log("email: "+ req.param.email)
+    console.log("ID: "+ req.params.ID)
     try {
         const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
         if (!order) {
