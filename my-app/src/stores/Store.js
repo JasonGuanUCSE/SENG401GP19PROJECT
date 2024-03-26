@@ -11,6 +11,7 @@ import SuperStoreLogo from "./images/Canadian.png";
 import "./Store.css";
 
 function Store({
+  navigate,
   store,
   id,
   user,
@@ -24,23 +25,22 @@ function Store({
   setData,
 }) {
   const [items, setItems] = useState([]);
-  // const [order, setOrder] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [hideToggle, setHideTggle] = useState("hidden");
   const [visible, setVisible] = useState(false);
-  let demoView = "";
-  // let toggle = 0;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [content, setContent] = useState("");
+
   const storeNames = {
     Walmart: WalmartLogo,
     Costco: CostcoLogo,
     SuperStore: SuperStoreLogo,
     TandT: TandTLogo,
   };
-  const [searchTerm, setSearchTerm] = useState("");
-  const [content, setContent] = useState("");
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
+
   const handleSubmit = (event) => {
     setItems([]);
     event.preventDefault();
@@ -51,11 +51,15 @@ function Store({
       )
     );
   };
+
   const handleGoBack = () => {
     setCurrentStore("HomePage");
     setMetaData(meta_data);
     setOrder([]);
+    navigate("/");
+
   };
+
   const handleAdd = (id) => {
     let addingItem = data.find((item) => item.id == parseInt(id));
     addingItem = {
@@ -115,6 +119,7 @@ function Store({
 
     const price = setTotalPrice(totalPrice);
   };
+
   const handleDeleteQuantity = (id) => {
     // Find the index of the item in the order array
     const itemIndex = order.findIndex((item) => item.id === parseInt(id));
@@ -134,6 +139,7 @@ function Store({
 
     const price = setTotalPrice(totalPrice);
   };
+
   const handleViewOrder = () => {
     if (visible == true) {
       setVisible(false);
@@ -154,6 +160,7 @@ function Store({
     "WholeSale",
     "More",
   ];
+
   const buttonsCategoriesName = [
     "Dairy&Milk",
     "Vegetables",
@@ -203,14 +210,15 @@ function Store({
   function filterItemsByCategory(dat, category) {
     return dat.filter((item) => item.category === category);
   }
+
   const handleCheckout = () => {
     setPreviousStore(store);
     setCurrentStore("CheckoutPage");
+    navigate("/checkout");
   };
 
   return (
     <>
-      <div>{user.name}</div>
       <div className="Store">
         <header className="Header">
           {/* <div>Logo</div> */}
