@@ -14,6 +14,7 @@ const addEvent = async (requests) => {
     //get the method from the request - GET, POST, PUT, DELETE
     let method = requests.method
     let body = requests.body
+    let collection = requests.collection
 
     console.log("Adding event")
     const event = new Event({
