@@ -1,6 +1,6 @@
 const mongoose = require('../node_modules/mongoose');
 const Order = require('../model/orderModel');
-
+const Product = require('../model/productsModel');
 /*
 Get all orders
 Params: none
@@ -57,17 +57,11 @@ const addOrder = async (req, res) => {
     if (!req.body.quantity) {
         emptyFields.push('quantity')
     }
-    if (!req.body.totalPrice) {
-        emptyFields.push('totalPrice')
-    }
     if (!req.body.date) {
         req.body.date = new Date()
     }
     if (!req.body.paymentMethod) {
         emptyFields.push('paymentMethod')
-    }
-    if (!req.body.store) {
-        emptyFields.push('store')
     }
     if (!req.body.status) {
         emptyFields.push('status')
@@ -76,9 +70,33 @@ const addOrder = async (req, res) => {
         res.status(400).json({ message: 'The following fields are required: ' + emptyFields.join(', ') })
         return
     }
+    //loop through the products and check if they exist, and update the quantity
+    let totalPrice = 0
     try{
+        if (req.body.productID && req.body.quantity && req.body.productID.length === req.body.quantity.length 
+            && req.body.status === 'paid'){
+            const promises = req.body.productID.map(async (productId, index) => {
+                const product = await Product.findOne({ id: productId });
+                const newQuantity = product.quantity - req.body.quantity[index];
+                console.log(newQuantity);
+                if (newQuantity < 0) {
+                    throw new Error('Not enough stock');
+                } else if (newQuantity === 0) {
+                    await Product.updateOne({ id: productId }, { quantity: newQuantity, Instock: false });
+                } else {
+                    await Product.updateOne({ id: productId }, { quantity: newQuantity });
+                }
+                totalPrice += product.price * req.body.quantity[index];
+            });
+            await Promise.all(promises);}
+        
+        req.body.totalPrice = totalPrice
         const newOrder = await Order.create(req.body)
         res.status(201).json(newOrder)
+        
+        //update the Read database
+        await updateReadDB(req.body, 'orders',  'POST');
+
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -102,6 +120,10 @@ const deleteOrder = async (req, res) => {
         }
         const deletedOrder = await order.deleteOne({ _id: req.params.ID });
         res.status(200).json(deletedOrder)
+
+        //update the Read database
+        await updateReadDB(req.body, 'orders',  'DELETE');
+
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
@@ -123,12 +145,66 @@ const updateOrder = async (req, res) => {
         if (!order) {
             return res.status(404).json({ error: 'Order not found' })
         }
+        //loop through the products and check if they exist, and update the quantity
+        if (req.body.status && req.body.status === 'paid' && req.body.productID!==order.productID && req.body.quantity!==order.quantity) {
+            for (let i = 0; i < req.body.productID.length; i++) {
+                //if req.body.productID[i] is in order.productID, and req.body.quantity[i] === order.quantity[order.productID.indexOf(req.body.productID[i])]
+                if (order.productID.includes(req.body.productID[i]) && req.body.quantity[i] === order.quantity[order.productID.indexOf(req.body.productID[i])]) {
+                    continue
+                }
+                if (order.productID.includes(req.body.productID[i]) && req.body.quantity[i] !== order.quantity[order.productID.indexOf(req.body.productID[i])]) {
+                    req.body.quantity[i] = req.body.quantity[i]-order.quantity[order.productID.indexOf(req.body.productID[i])]
+                }
+                let product = {};
+                let quantity = 0;
+                let inStock = true;
+                await Product.findOne({ id:req.body.productID[i] })
+                    .then((result) => {
+                        product = result
+                        quantity = product.quantity-req.body.quantity[i]
+                        if (quantity < 0) {
+                            return res.status(400).json({ error: 'Not enough stock' })
+                        } else if (quantity === 0) {
+                            inStock = false
+                        }
+                        Product.update({ id: req.body.productID[i] }, { quantity: quantity, Instock: inStock })
+                    })
+            }
+        }
         const updatedOrder = await Order.updateOne({ _id: req.params.ID }, req.body)
         res.status(200).json(updatedOrder)
+
+        //update the Read database
+        await updateReadDB(req.body, 'orders',  'PATCH');
+
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
 }
+
+//helper function to update the other database
+const updateReadDB= async (data, collection, method) => {
+    console.log(data);
+    console.log(collection);
+    console.log(method);
+    try {
+        const response = await fetch('https://seng401gp19project-gbhb.onrender.com/api/Jstacart', {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                "collection": collection,
+                "sender": 'database'
+            },
+            body: JSON.stringify(data)
+        });
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Failed to update other database'+ response.status);
+        }
+    } catch (error) {
+        console.error('Error updating other database:', error);
+    }
+};
 
 module.exports = {
     getAllOrders,

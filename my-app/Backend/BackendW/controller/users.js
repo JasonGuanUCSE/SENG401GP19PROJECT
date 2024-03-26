@@ -1,5 +1,8 @@
 const mongoose = require('../node_modules/mongoose');
 const Users = require('../model/userModel');
+// const axios = require('axios');
+
+// const fetch = require('node-fetch');
 
 /*
 helper function to check if email exists
@@ -64,12 +67,6 @@ const addUser = async (req, res) => {
     if (!req.body.name) {
         emptyFields.push('name')
     }
-    if (!req.body.phoneNum) {
-        emptyFields.push('phoneNum')
-    }
-    if (!req.body.address) {
-        emptyFields.push('address')
-    }
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
@@ -77,6 +74,10 @@ const addUser = async (req, res) => {
     try {
         const newUser = await Users.create(req.body)
         res.status(201).json(newUser)
+
+        //update the Read database
+        await updateReadDB(req.body, 'users',  'POST');
+
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -98,6 +99,8 @@ const deleteUser = async (req, res) => {
             const user = await Users.deleteOne({ email: req.params.email })
             res.status(200).json(result);
         }
+        //update the Read database
+        await updateReadDB(req.body, 'users',  'DELETE');
     }
     catch (err) {
         res.status(500).json({ message: err.message })
@@ -120,12 +123,37 @@ const updateUser = async (req, res) => {
             const user = await Users.updateOne({ email: req.params.email }, req.body)
             res.status(200).json(result);
         }
+        //update the Read database
+        await updateReadDB(req.body, 'user',  'PATCH');
     }
     catch (err) {
         res.status(500).json({ message: err.message })
     }
 }
 
+//helper function to update the other database
+const updateReadDB= async (data, collection, method) => {
+    console.log(data);
+    console.log(collection);
+    console.log(method);
+    try {
+        const response = await fetch('https://seng401gp19project-gbhb.onrender.com/api/Jstacart', {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                "collection": collection,
+                "sender": 'database'
+            },
+            body: JSON.stringify(data)
+        });
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Failed to update other database'+ response.status);
+        }
+    } catch (error) {
+        console.error('Error updating other database:', error);
+    }
+};
 module.exports = {
     getAllUsers,
     getOneUser,

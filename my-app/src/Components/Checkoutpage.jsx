@@ -3,13 +3,13 @@ import Cards from "react-credit-cards-2";
 import {
   formatCreditCardNumber,
   formatCVC,
-  formatExpirationDate,
+  formatExpirationDate
 } from "./utils/utils";
 
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./Checkoutpage.css";
 
-function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
+function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder,currentStore,setUerOrder }) {
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -17,6 +17,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     cvc: "",
     focus: "",
   });
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +44,10 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
       }));
     }
   };
+  let quantity = 0;
+  for (const i of order) {
+    quantity = quantity + i.quantity;
+  }
 
   const handleInputFocus = (e) => {
     setState((prev) => ({
@@ -58,25 +63,19 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     }));
   };
 
-  const calculateItemTotals = () => {
-    const itemTotals = {};
-
-    order.forEach((item) => {
-      if (!itemTotals[item.id]) {
-        itemTotals[item.id] = {
-          totalCost: item.price,
-          count: 1,
-        };
-      } else {
-        itemTotals[item.id].totalCost += item.price;
-        itemTotals[item.id].count++;
-      }
-    });
-
-    return itemTotals;
-  };
-
-  const itemTotals = calculateItemTotals();
+  const itemTotals = {
+    ...order.reduce((acc, item) => {
+      const totalCost = item.price * item.quantity;
+      return {
+        ...acc,
+        [item.id]: {
+          count: (acc[item.id]?.count || 0) + 1,
+          totalCost: (acc[item.id]?.totalCost || 0) + totalCost,
+        },
+      };
+    }
+    , {}),
+  }
 
   const uniqueOrder = order.filter(
     (item, index, self) =>
@@ -96,8 +95,55 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
     ),
     fees: 5.0,
   };
+  
+
+  const handlePaymentConfirm = async () => {
+    if (!state.number || !state.name || !state.expiry || !state.cvc) {
+      alert("Please fill in all the fields");
+      return;
+    }
+    try {
+      const customerOrder = {
+        customerEmail: user.email,
+        customerName: user.name,
+        productID: order.map((item) => item.id),
+        quantity: order.map((item) => item.quantity),
+        price: order.map((item) => item.price),
+        paymentMethod: "Credit Card",
+        status: "Paid",
+        store: previousStore,
+      };
+
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          collection: "orders",
+          sender: "web",
+        },
+        body: JSON.stringify(customerOrder),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add order");
+      }
+
+      console.log("Order added successfully");
+
+      // If you need to perform any actions after successfully adding the order, you can do it here
+
+      setCurrentStore("HomePage");
+      setViewOrder([...viewOrder, ...order]);
+    } catch (error) {
+      console.error("Error adding order:", error);
+    }
+  };
+  
 
   return (
+    <>
+    <div>{user.name}</div>
     <div className="checkout-page">
       <div className="section-title">
         <h1>Cart</h1>
@@ -116,7 +162,8 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
                     </div>
                     <div className="item-description">
                       <div className="item-name">{item.name}</div>
-                      <div className="item-price">{item.price}/ea</div>
+
+                      <div className="item-price">{item.price}/ea  x  {item.quantity}</div>
                     </div>
                     <div className="item-price-total">
                       <div className="price-column">
@@ -125,7 +172,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
                         </div>
                         {itemTotals[item.id].count > 1 ? (
                           <div className="item-price sum">
-                            {itemTotals[item.id].count} x {item.price}/ea
+                            {itemTotals[item.id].count} x ${item.price}/ea
                           </div>
                         ) : null}
                       </div>
@@ -140,7 +187,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
               <div className="style1" id="first">
                 <div className="col-name">
                   Subtotal
-                  <span>({order.length} items)</span>
+                  <span>({quantity} items)</span>
                 </div>
                 <div className="col-flex">
                   <div className="right">${subtotal.estimate.toFixed(2)}</div>
@@ -194,7 +241,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
           </div>
           <div className="input-fields">
             <div>
-              <label for="name">Full Name</label>
+              <label htmlFor="name">Full Name</label>
               <input
                 name="name"
                 type="text"
@@ -206,7 +253,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
               />
             </div>
             <div>
-              <label for="number">Card Number</label>
+              <label htmlFor="number">Card Number</label>
               <input
                 name="number"
                 type="tel"
@@ -220,7 +267,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
             </div>
             <div className="small-input">
               <div>
-                <label for="expiry">Expiry Date</label>
+                <label htmlFor="expiry">Expiry Date</label>
                 <input
                   type="text"
                   name="expiry"
@@ -232,7 +279,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
                 />
               </div>
               <div>
-                <label for="cvc">Security Code</label>
+                <label htmlFor="cvc">Security Code</label>
                 <input
                   type="number"
                   name="cvc"
@@ -250,11 +297,12 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder }) {
             <button onClick={() => setCurrentStore(previousStore)}>
               Go Back
             </button>
-            <button>Confirm Payment</button>
+            <button onClick={()=>handlePaymentConfirm()}>Confirm Payment</button>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
