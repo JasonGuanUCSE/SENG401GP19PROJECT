@@ -11,70 +11,179 @@ function App() {
   const [user, setUser] = useState(null);
   const [data, setData] = useState(data_json);
   const [eachStoreData, setEachStoreData] = useState([]);
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState([]); //Order will retrieve all the order from the backend;
+  const [userOrder, setUserOrder] = useState([]); //UserOrder will retrieve all the order from specific user;
   const [currentStore, setCurrentStore] = useState("HomePage");
-  const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
-  const [viewOrder, setViewOrder] = useState([]); //This is to view previous orders
-  //fetch data from https://seng401jstacartread.onrender.com/api/Jstacart/products
-  // Function to fetch products data
+  const [previousStore, setPreviousStore] = useState("");
+  const [viewOrder, setViewOrder] = useState([]);
 
-  async function fetchProductsData(productId = "") {
+  useEffect(() => {
+    if (user) {
+      // Fetch all products
+      fetchProductsData()
+        .then((products) => {
+          console.log("All products:");
+          console.log(products);
+        })
+        .catch((error) => console.error("Error:", error));
+
+      // Call the function to add a new user
+      addUser(user)
+        .then((newUser) => {
+          if (newUser) {
+            console.log("User added successfully:", newUser);
+          } else {
+            console.log("Failed to add user.");
+            console.log("User: ", user);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      // Call the function to get all users
+      AllUser().then((users) => {
+        console.log("All users:");
+        console.log(users);
+      });
+
+      // Call the function to get all orders
+      // AllOrder().then((orders) => {
+      //   console.log("user email:", user.email);
+      //   console.log("All orders:");
+      //   console.log(orders);
+      //   const currentUserOrders = orders.filter(
+      //     (order) => order.customerEmail === user.email
+      //   );
+      //   console.log("Current user's orders:", currentUserOrders);
+      //   setUserOrder(currentUserOrders);
+      // });
+    }
+  }, [user]);
+  useEffect(() => {
+    console.log("User Orders Updated:", userOrder);
+    // Perform any additional actions you want with userOrder here
+  }, [userOrder]);
+
+  useEffect(() => {
+    if (currentStore !== "HomePage" && currentStore !== "CheckoutPage") {
+      const filteredData = data.filter((item) =>
+        item.store.includes(currentStore)
+      );
+      console.log("StoreName1: ", filteredData);
+      setEachStoreData(filteredData);
+    }
+  }, [currentStore, data]);
+
+  const fetchProductsData = async () => {
     try {
-      // Construct the URL based on the productId parameter
-      const url = productId
-        ? `https://seng401jstacartread.onrender.com/api/Jstacart/products/${productId}`
-        : "https://seng401jstacartread.onrender.com/api/Jstacart/products";
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart";
 
-      // Fetch data from the URL
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          collection: "products",
+          sender: "web",
+          search: "all",
         },
       });
 
-      // Check if the response is successful
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
 
-      // Parse the JSON response
       const productsData = await response.json();
-
-      // Return the data
       return productsData;
     } catch (error) {
       console.error("Error fetching products data:", error);
       return null;
     }
-  }
+  };
 
-  // Example usage:
-  // Fetch all products
-  fetchProductsData()
-    .then((products) => {
-      console.log("All products:");
-      console.log(products);
-    })
-    .catch((error) => console.error("Error:", error));
+  const addUser = async (userInfo) => {
+    const user_Email_Name = {
+      name: userInfo.name,
+      email: userInfo.email,
+    };
 
-  // Fetch product by ID
-  const productId = "your_product_id_here";
-  fetchProductsData(productId)
-    .then((product) => {
-      console.log("Product:");
-      console.log(product);
-    })
-    .catch((error) => console.error("Error:", error));
+    try {
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          collection: "users",
+          sender: "web",
+        },
+        body: JSON.stringify(user_Email_Name),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add user");
+      }
+
+      const newUser = await response.json();
+      return newUser;
+    } catch (error) {
+      console.error("Error adding user:", error);
+      return null;
+    }
+  };
+
+  const AllUser = async () => {
+    try {
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          collection: "users",
+          search: "all",
+          sender: "web",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
+      }
+
+      const users = await response.json();
+      return users;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return null;
+    }
+  };
+
+  const AllOrder = async () => {
+    try {
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          collection: "orders",
+          search: "all",
+          sender: "web",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch orders");
+      }
+
+      const orders = await response.json();
+      return orders;
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      return null;
+    }
+  };
 
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
-
-    // Filter the data based on the store name
-    const filteredData = data.filter((item) => item.store.includes(storeName));
-    console.log("StoreName1: ", filteredData);
-    // Update the data state with the filtered data
-    setEachStoreData(filteredData);
   };
 
   const handleLogout = () => {
@@ -82,11 +191,35 @@ function App() {
     googleLogout();
     setUser(null);
   };
+
   const handleViewOrder = () => {
-    //Pop up window to view previous orders
-    console.log("View Order");
-    console.log(viewOrder);
-    console.log("End view ORder");
+    //fetch all orders
+    AllOrder().then((orders) => {
+      console.log("user email:", user.email);
+      console.log("All orders:");
+      console.log(orders);
+      const currentUserOrders = orders.filter(
+        (order) => order.customerEmail === user.email
+      );
+      console.log("Current user's orders:", currentUserOrders);
+      setUserOrder(currentUserOrders);
+    });
+    // Check if userOrder is not empty
+    let display = "";
+    for (let i = 0; i < userOrder.length; i++) {
+      display +=
+        userOrder[i].productID +
+        " " +
+        userOrder[i].quantity +
+        " " +
+        userOrder[i].price +
+        " " +
+        userOrder[i].store +
+        " " +
+        userOrder[i].status +
+        "\n";
+    }
+    window.alert(display);
   };
 
   return (
@@ -111,7 +244,12 @@ function App() {
                   Orders
                 </button>
 
-                <button className="navBarButtons">Cart</button>
+                <button
+                  className="navBarButtons"
+                  // onClick={() => handleDisplayCart()}
+                >
+                  Cart
+                </button>
                 <button onClick={() => handleLogout("")}>LogOut</button>
 
                 <button className="navBarButtons">Profile</button>
@@ -198,6 +336,8 @@ function App() {
                 user={user}
                 setViewOrder={setViewOrder}
                 viewOrder={viewOrder}
+                currentStore={currentStore}
+                setUserOrder={setUserOrder}
               />
             )}
         </>

@@ -16,6 +16,19 @@ const getAllOrders = async (req, res) => {
     }
 }
 
+
+const getOrderByID = async (req, res) => {
+    try {
+        const order = await Order.findOne({ orderID: req.params._id })
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' })
+        }
+        res.status(200).json(order)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
 /*
 Get all order by customer email
 Params: email
@@ -45,6 +58,9 @@ const addOrder = async (req, res) => {
     if (!req.body.customerEmail.includes('@')) {
         return res.status(400).json({ error: 'Please enter a valid email' })
     }
+    if (!req.body.orderID) {
+        emptyFields.push('orderID')
+    }
     if (!req.body.customerEmail) {
         emptyFields.push('customerEmail')
     }
@@ -70,6 +86,12 @@ const addOrder = async (req, res) => {
         res.status(400).json({ message: 'The following fields are required: ' + emptyFields.join(', ') })
         return
     }
+    //check if the orderID exists, if yes, retry with a new orderID, use the first 5 char and add date.now(), try until not exists
+    let orderID = req.body.orderID
+    while (await Order.findOne({ orderID: orderID })) {
+        orderID = orderID.substring(0, 5) + Date.now()
+    }
+    req.body.orderID = orderID
     //loop through the products and check if they exist, and update the quantity
     let totalPrice = 0
     try{
@@ -93,7 +115,7 @@ const addOrder = async (req, res) => {
         req.body.totalPrice = totalPrice
         const newOrder = await Order.create(req.body)
         res.status(201).json(newOrder)
-        
+
         //update the Read database
         await updateReadDB(req.body, 'orders',  'POST');
 
@@ -109,20 +131,27 @@ Returns: result of deleting order
 URL: /api/Jstacart/Orders/:ID/:email
 */
 const deleteOrder = async (req, res) => {
-    //verify if the id valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
+    //verify if the id valid, 5 letters and a result from date.now(), use regular expression
+    if (!/^[a-zA-Z0-9]{5}\d+$/.test(req.params.ID)) {
         return res.status(400).json({ error: 'Invalid ID' })
     }
+
+    console.log("email: "+ req.param.email)
+    console.log("ID: "+ req.params.ID)
     try {
-        const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
+        const order = await Order.findOne({ orderID: req.params.ID, customerEmail: req.params.email })
         if (!order) {
             return res.status(404).json({ error: 'Order not found' })
         }
-        const deletedOrder = await order.deleteOne({ _id: req.params.ID });
+        const deletedOrder = await order.deleteOne({ orderID: req.params.ID });
         res.status(200).json(deletedOrder)
 
+        let body = {
+            orderID: req.params.ID,
+            customerEmail: req.params.email
+        }
         //update the Read database
-        await updateReadDB(req.body, 'orders',  'DELETE');
+        await updateReadDB(body, 'orders',  'DELETE');
 
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -136,12 +165,12 @@ Returns: result of updating order
 URL: /api/Jstacart/Orders/:ID/:email
 */
 const updateOrder = async (req, res) => {
-    //verify if the id valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
+    //verify if the id valid, 5 letters and a result from date.now(), use regular expression
+    if (!/^[a-zA-Z0-9]{5}\d+$/.test(req.params.ID)) {
         return res.status(400).json({ error: 'Invalid ID' })
     }
     try {
-        const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
+        const order = await Order.findOne({ orderID: req.params.ID, customerEmail: req.params.email })
         if (!order) {
             return res.status(404).json({ error: 'Order not found' })
         }
@@ -171,7 +200,7 @@ const updateOrder = async (req, res) => {
                     })
             }
         }
-        const updatedOrder = await Order.updateOne({ _id: req.params.ID }, req.body)
+        const updatedOrder = await Order.updateOne({ orderID: req.params.ID }, req.body)
         res.status(200).json(updatedOrder)
 
         //update the Read database
