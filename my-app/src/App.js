@@ -183,7 +183,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [data, setData] = useState(data_json);
   const [eachStoreData, setEachStoreData] = useState([]);
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState([]); //Order will retrieve all the order from the backend;
+  const [userOrder, setUserOrder] = useState([]); //UserOrder will retrieve all the order from specific user;
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState("");
   const [viewOrder, setViewOrder] = useState([]);
@@ -468,6 +469,7 @@ function App() {
                 user={user}
                 setViewOrder={setViewOrder}
                 viewOrder={viewOrder}
+                currentStore={currentStore}
               />
             )}
         </>

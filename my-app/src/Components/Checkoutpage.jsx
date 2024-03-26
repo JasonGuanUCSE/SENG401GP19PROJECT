@@ -9,7 +9,7 @@ import {
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./Checkoutpage.css";
 
-function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder }) {
+function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder,currentStore }) {
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -96,59 +96,61 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
     fees: 5.0,
   };
   
-  const handlePaymentConfirm = () => {
-    // addOrder();
-    //addOrder and check if the addOrder is working
-    // addOrder();
+  // const handlePaymentConfirm = () => {
+  //   // addOrder();
+  //   //addOrder and check if the addOrder is working
+  //   // addOrder();
 
-    //Check if addOrder is working
-    console.log("Payment Confirmed");
-    if (!state.number || !state.name || !state.expiry || !state.cvc) {
-      alert("Please fill in all the fields");
-      return;
-    }
-    setCurrentStore("HomePage");
-    //Add the order to the viewOrder
-    setViewOrder([...viewOrder,...order]);
-    // Other logic related to payment confirmation can go here
-
-  }
-  // const handlePaymentConfirm = async () => {
-  //   try {
-  //     const customerOrder = {
-  //       customerEmail: user.email,
-  //       customerName: user.name,
-  //       productID: order.map((item) => item.id),
-  //       quantity: order.map((item) => item.quantity),
-  //       price: order.map((item) => item.price),
-  //       paymentMethod: "Credit Card",
-  //     };
-
-  //     const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
-  //     const response = await fetch(url, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         collection: "orders",
-  //         sender: "web",
-  //       },
-  //       body: JSON.stringify(customerOrder),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to add order");
-  //     }
-
-  //     console.log("Order added successfully");
-
-  //     // If you need to perform any actions after successfully adding the order, you can do it here
-
-  //     setCurrentStore("HomePage");
-  //     setViewOrder([...viewOrder, ...order]);
-  //   } catch (error) {
-  //     console.error("Error adding order:", error);
+  //   //Check if addOrder is working
+  //   console.log("Payment Confirmed");
+  //   if (!state.number || !state.name || !state.expiry || !state.cvc) {
+  //     alert("Please fill in all the fields");
+  //     return;
   //   }
-  // };
+  //   setCurrentStore("HomePage");
+  //   //Add the order to the viewOrder
+  //   setViewOrder([...viewOrder,...order]);
+  //   // Other logic related to payment confirmation can go here
+
+  // }
+  const handlePaymentConfirm = async () => {
+    try {
+      const customerOrder = {
+        customerEmail: user.email,
+        customerName: user.name,
+        productID: order.map((item) => item.id),
+        quantity: order.map((item) => item.quantity),
+        price: order.map((item) => item.price),
+        paymentMethod: "Credit Card",
+        status: "Paid",
+        store: previousStore,
+      };
+
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          collection: "orders",
+          sender: "web",
+        },
+        body: JSON.stringify(customerOrder),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add order");
+      }
+
+      console.log("Order added successfully");
+
+      // If you need to perform any actions after successfully adding the order, you can do it here
+
+      setCurrentStore("HomePage");
+      setViewOrder([...viewOrder, ...order]);
+    } catch (error) {
+      console.error("Error adding order:", error);
+    }
+  };
   
 
   return (
