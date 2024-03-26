@@ -22,8 +22,19 @@ describe("Product controller tests", () => {
     }, timeout);
 
     it("should return one product", async () => {
-    // Mock getOneProduct function
-    // Expects 200 status code
+        // Mock getOneProduct function
+        const req = {
+            params: {
+                id: 1
+            }
+        };
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+        await products.getOneProduct(req, res);
+        // Expects 200 status code
+        expect(res.status).toHaveBeenCalledWith(200);
     }, timeout);
 
     it("should return products by category", async () => {
