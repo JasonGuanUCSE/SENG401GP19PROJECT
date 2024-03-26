@@ -297,8 +297,8 @@ const handleDelete = async (req, res) => {
         URL = URL + "products/" + req.body.id
     } else if (collection === "orders"){
         //health check of the body object
-        if (!req.body.objectID) {
-            return res.status(400).json({ error: 'Please enter an objectID' })
+        if (!req.body.orderID) {
+            return res.status(400).json({ error: 'Please enter an orderID' })
         }
         if (!req.body.email || !req.body.email.includes('@')){
             return res.status(400).json({ error: 'Please enter an valid email' })
