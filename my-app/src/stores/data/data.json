@@ -476,7 +476,7 @@
     "quantity": 10000
   },
   {
-    "id": 7022,
+    "id": 7100,
     "category": "beverages",
     "name": "Pineapple Tropicana",
     "inStock": true,
@@ -486,7 +486,7 @@
     "quantity": 10000
   },
   {
-    "id": 7023,
+    "id": 7102,
     "category": "beverages",
     "name": "Simply orange juice",
     "inStock": true,
@@ -516,7 +516,7 @@
     "quantity": 10000
   },
   {
-    "id": 7024,
+    "id": 7124,
     "category": "meat-seafood",
     "name": "Chicken Thigh",
     "inStock": true,
@@ -526,7 +526,7 @@
     "quantity": 10000
   },
   {
-    "id": 7024,
+    "id": 7125,
     "category": "meat-seafood",
     "name": "Turkey BAcon Ham",
     "inStock": true,

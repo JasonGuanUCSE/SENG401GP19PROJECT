@@ -54,6 +54,7 @@ function Store({
   const handleGoBack = () => {
     setCurrentStore("HomePage");
     setMetaData(meta_data);
+    setOrder([]);
   };
   const handleAdd = (id) => {
     let addingItem = data.find((item) => item.id == parseInt(id));
@@ -68,36 +69,36 @@ function Store({
 
     updateOrder.push(addingItem);
     setOrder(updateOrder);
+    console.log("Adding test: ", updateOrder);
     let totalPrice = 0;
     for (const i of updateOrder) {
       totalPrice = totalPrice + i.price * i.quantity;
     }
     setTotalPrice(totalPrice);
   };
-
-  useEffect(() => {
-    // This will run every time 'items' state changes
-    // Update the main content area based on the new 'items'
-    setContent(
-      items.map((item) => (
-        <div key={item.id} className="itemBlock">
-          <img src={item.image} alt="itemImage" className="itemImage" />
-          <div className="priceAndAdd">
-            <p className="price">{item.price}</p>
-            <button
-              className="addItemButton"
-              id={item.name}
-              onClick={() => handleAdd(item.id)}
-            >
-              + Add
-            </button>
-          </div>
-          <div>{item.name}</div>
-          <div>Many in stock</div>
-        </div>
-      ))
-    );
-  }, [items]);
+  // useEffect(() => {
+  //   // This will run every time 'items' state changes
+  //   // Update the main content area based on the new 'items'
+  //   setContent(
+  //     items.map((item) => (
+  //       <div key={item.id} className="itemBlock">
+  //         <img src={item.image} alt="itemImage" className="itemImage" />
+  //         <div className="priceAndAdd">
+  //           <p className="price">{item.price}</p>
+  //           <button
+  //             className="addItemButton"
+  //             id={item.name}
+  //             onClick={() => handleAdd(item.id)}
+  //           >
+  //             + Add
+  //           </button>
+  //         </div>
+  //         <div>{item.name}</div>
+  //         <div>Many in stock</div>
+  //       </div>
+  //     ))
+  //   );
+  // }, [items]);
 
   const handleAddQuantity = (id) => {
     // Find the index of the item in the order array
@@ -162,7 +163,7 @@ function Store({
   ];
 
   const handleMainContent = (content) => {
-    setItems([]);
+    setItems();
     if (content == "Dairy&Milk") {
       // setItems([]);
       setItems(filterItemsByCategory(data, "dairy"));
@@ -177,8 +178,28 @@ function Store({
       setItems(filterItemsByCategory(data, "beverages"));
     }
 
-    setContent(content);
+    console.log("Items: ", items);
+    // setContent(
+    //   items.map((item) => (
+    //     <div key={item.id} className="itemBlock">
+    //       <img src={item.image} alt="itemImage" className="itemImage" />
+    //       <div className="priceAndAdd">
+    //         <p className="price">{item.price}</p>
+    //         <button
+    //           className="addItemButton"
+    //           id={item.name}
+    //           onClick={() => handleAdd(item.id)}
+    //         >
+    //           + Add
+    //         </button>
+    //       </div>
+    //       <div>{item.name}</div>
+    //       <div>Many in stock</div>
+    //     </div>
+    //   ))
+    // );
   };
+
   function filterItemsByCategory(dat, category) {
     return dat.filter((item) => item.category === category);
   }
@@ -285,7 +306,25 @@ function Store({
               ))}
             </div>
           </div>
-          <div className="mainContent">{content}</div>
+          <div className="mainContent">
+            {items.map((item) => (
+              <div key={item.id} className="itemBlock">
+                <img src={item.image} alt="itemImage" className="itemImage" />
+                <div className="priceAndAdd">
+                  <p className="price">{item.price}</p>
+                  <button
+                    className="addItemButton"
+                    id={item.name}
+                    onClick={() => handleAdd(item.id)}
+                  >
+                    + Add
+                  </button>
+                </div>
+                <div>{item.name}</div>
+                <div>Many in stock</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

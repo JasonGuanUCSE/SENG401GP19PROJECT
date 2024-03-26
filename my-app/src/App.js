@@ -17,6 +17,7 @@ function App() {
   const [viewOrder, setViewOrder] = useState([]); //This is to view previous orders
   //fetch data from https://seng401jstacartread.onrender.com/api/Jstacart/products
   // Function to fetch products data
+
   async function fetchProductsData(productId = "") {
     try {
       // Construct the URL based on the productId parameter
@@ -67,21 +68,17 @@ function App() {
     .catch((error) => console.error("Error:", error));
 
   const handleSwitchStore = (storeName) => {
-    //filter data based on store name
-    // console.log(data);
-    // setCurrentStore(storeName);
-    // setData(data.filter((item) => item.store.includes(storeName)));
-    // Set the current store first
     setCurrentStore(storeName);
 
     // Filter the data based on the store name
     const filteredData = data.filter((item) => item.store.includes(storeName));
-    console.log("StoreName: ", filteredData);
+    console.log("StoreName1: ", filteredData);
     // Update the data state with the filtered data
     setEachStoreData(filteredData);
   };
 
   const handleLogout = () => {
+    localStorage.clear();
     googleLogout();
     setUser(null);
   };
@@ -115,6 +112,7 @@ function App() {
                 </button>
 
                 <button className="navBarButtons">Cart</button>
+                <button onClick={() => handleLogout("")}>LogOut</button>
 
                 <button className="navBarButtons">Profile</button>
               </div>
