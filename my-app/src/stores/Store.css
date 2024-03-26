@@ -222,12 +222,13 @@ header {
     display: flex; 
     flex-direction: row;
     justify-content: space-around; 
-    background-color: white; 
+    background-color: #e1b52d; 
     padding: 20px;
     border: 1px solid #ccc;
+    border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    width: 80%;
-    max-width: 600px; 
+    width: 40%;
+    max-width: 80%; 
     margin: 20px auto; 
 }
 
@@ -241,9 +242,6 @@ header {
 
 .Store {
     position: relative;
-}
-.SubCardExtend{
-    flex-direction: column;
 }
 
 .productListCart {

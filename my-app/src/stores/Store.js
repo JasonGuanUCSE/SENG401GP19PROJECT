@@ -32,6 +32,8 @@ function Store({
   const [hideToggle, setHideTggle] = useState("hidden");
   const [visible, setVisible] = useState(false); 
   const [searchTerm, setSearchTerm] = useState("");
+  const [showProfile, setShowProfile] = useState(false);
+  const [profileToggle, setProfileToggle] = useState("hidden");
 
   const storeNames = {
     Walmart: WalmartLogo,
@@ -159,9 +161,18 @@ function Store({
     console.log("previousStore: ", store);
   };
 
+  const handleViewProfile = () => {
+    if (showProfile == true) {
+      setShowProfile(false);
+      setProfileToggle("hidden");
+    } else {
+      setShowProfile(true);
+      setProfileToggle("visible");
+    }
+  };
+
   return (
     <>
-      <div>{user.name}</div>
       <div className="navBar">
         <img src={logo} alt="Logo" className="logo" />
 
@@ -193,16 +204,17 @@ function Store({
           <img src={cart}/>
           Cart
         </button>
-
-        <button className="navBarButtons">
+          
+        <button className="navBarButtons" onClick={handleViewProfile}>
           <img src={profile}/>
           Profile
         </button>
+
       </div>
 
       <div className="Store">
         <div className="CartPopup" id={hideToggle}>
-          <div className="SubCardExtend">
+          <div className="SubCartExtend">
             <h2>Personal {store} shopping cart</h2>
           </div>
 
@@ -249,6 +261,15 @@ function Store({
             </div>
           </div>
 
+        </div>
+
+        <div className="profilePopup" id={profileToggle}>
+          <div>{user.name}</div>
+          <div>{user.email}</div>
+
+          <button className="backToStore" onClick={handleViewProfile}>
+            Back
+          </button>
         </div>
 
         <div className="main">
