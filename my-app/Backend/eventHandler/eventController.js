@@ -276,7 +276,7 @@ const handleDelete = async (req, res) => {
     if (source === "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+        URL = "https://seng401gp19project.onrender.com/api/JstacartW/";
     }
     let respond = null
     if (collection === "users") {
@@ -364,7 +364,7 @@ const handlePatch = async (req, res) => {
     if (source === "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+        URL = "https://seng401gp19project.onrender.com/api/JstacartW/";
     }
     let respond = null
     if (collection === "users") {
