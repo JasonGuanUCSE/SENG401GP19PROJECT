@@ -9,7 +9,7 @@ import {
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./Checkoutpage.css";
 
-function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder,currentStore }) {
+function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder,currentStore,setUerOrder }) {
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -96,24 +96,12 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
     fees: 5.0,
   };
   
-  // const handlePaymentConfirm = () => {
-  //   // addOrder();
-  //   //addOrder and check if the addOrder is working
-  //   // addOrder();
 
-  //   //Check if addOrder is working
-  //   console.log("Payment Confirmed");
-  //   if (!state.number || !state.name || !state.expiry || !state.cvc) {
-  //     alert("Please fill in all the fields");
-  //     return;
-  //   }
-  //   setCurrentStore("HomePage");
-  //   //Add the order to the viewOrder
-  //   setViewOrder([...viewOrder,...order]);
-  //   // Other logic related to payment confirmation can go here
-
-  // }
   const handlePaymentConfirm = async () => {
+    if (!state.number || !state.name || !state.expiry || !state.cvc) {
+      alert("Please fill in all the fields");
+      return;
+    }
     try {
       const customerOrder = {
         customerEmail: user.email,
