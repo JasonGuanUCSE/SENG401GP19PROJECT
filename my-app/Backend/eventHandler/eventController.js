@@ -210,6 +210,10 @@ const handlePost = async (req, res) => {
         if (!req.body.status) {
             return res.status(400).json({ error: 'Please enter a status' })
         }
+        if (!req.body.orderID){
+            // set id to be first 5 characters of customer email + current time in milliseconds
+            req.body.orderID = req.body.customerEmail.substring(0, 5) + Date.now()
+        }
         URL = URL + "orders"
     } else {
         res.status(400).json({ message: "Invalid collection" })
