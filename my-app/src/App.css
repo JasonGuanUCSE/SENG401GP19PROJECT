@@ -47,6 +47,7 @@
   justify-content: space-between;
   height: 10vh;
   margin: 0px 15px 0px 15px;
+  border-bottom: 1px solid gray;
 }
 
 .searchBar {

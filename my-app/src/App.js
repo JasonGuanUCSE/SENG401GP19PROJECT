@@ -4,14 +4,21 @@ import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
 import data_json from "./stores/data/data.json";
+
+import logo from "./icons/jstacart.png";
+import orders from "./icons/order.png";
+import cart from "./icons/cart.png";
+import profile from "./icons/profile.png";
+import logout from "./icons/logout.png";
+
 import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
   const [data, setData] = useState(data_json);
   const [eachStoreData, setEachStoreData] = useState([]);
-  const [order, setOrder] = useState([]); //Order will retrieve all the order from the backend;
-  const [userOrder, setUserOrder] = useState([]); //UserOrder will retrieve all the order from specific user;
+  const [order, setOrder] = useState([]); 
+  const [userOrder, setUserOrder] = useState([]); 
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState("");
   const [viewOrder, setViewOrder] = useState([]);
@@ -29,7 +36,6 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      // Fetch all products
       fetchProductsData()
         .then((products) => {
           console.log("All products:");
@@ -37,7 +43,6 @@ function App() {
         })
         .catch((error) => console.error("Error:", error));
 
-      // Call the function to add a new user
       addUser(user)
         .then((newUser) => {
           if (newUser) {
@@ -51,28 +56,15 @@ function App() {
           console.error("Error:", error);
         });
 
-      // Call the function to get all users
       AllUser().then((users) => {
         console.log("All users:");
         console.log(users);
       });
 
-      // Call the function to get all orders
-      // AllOrder().then((orders) => {
-      //   console.log("user email:", user.email);
-      //   console.log("All orders:");
-      //   console.log(orders);
-      //   const currentUserOrders = orders.filter(
-      //     (order) => order.customerEmail === user.email
-      //   );
-      //   console.log("Current user's orders:", currentUserOrders);
-      //   setUserOrder(currentUserOrders);
-      // });
     }
   }, [user]);
   useEffect(() => {
     console.log("User Orders Updated:", userOrder);
-    // Perform any additional actions you want with userOrder here
   }, [userOrder]);
 
   useEffect(() => {
@@ -203,7 +195,6 @@ function App() {
   };
 
   const handleViewOrder = () => {
-    //fetch all orders
     AllOrder().then((orders) => {
       console.log("user email:", user.email);
       console.log("All orders:");
@@ -214,7 +205,6 @@ function App() {
       console.log("Current user's orders:", currentUserOrders);
       setUserOrder(currentUserOrders);
     });
-    // Check if userOrder is not empty
     let display = "";
     for (let i = 0; i < userOrder.length; i++) {
       display +=
@@ -240,37 +230,40 @@ function App() {
             <>
               <div>{user.name}</div>
               <div>{user.email}</div>
-              <div>Top</div>
-              <div>{}</div>
               <div className="navBar">
-                <button className="logoIcon">Jstacart</button>
-
-                {/* <SearchBar /> */}
+                <img src={logo} className="logo"/>
 
                 <button
                   className="navBarButtons"
-                  onClick={() => handleViewOrder()}
-                >
+                  onClick={() => handleViewOrder()}>
+                  <img src={orders}/>
                   Orders
                 </button>
 
-                <button
-                  className="navBarButtons"
-                  // onClick={() => handleDisplayCart()}
-                >
+                <button className="navBarButtons">
+                  <img src={cart}/>
                   Cart
                 </button>
-                <button onClick={() => handleLogout("")}>LogOut</button>
 
-                <button className="navBarButtons">Profile</button>
+                <button className="navBarButtons">
+                  <img src={profile}/>
+                  Profile
+                </button>
 
+                <button className="navBarButtons" onClick={() => handleLogout("")}>
+                  <img src={logout}/>
+                  LogOut
+                </button>
+
+{/* 
                 <nav className="Nav">
                   {buttonNames.map((button) => (
                     <button key={button} className="buttonNav">
                       {button}
                     </button>
                   ))}
-                </nav>
+                </nav> */}
+
               </div>
               <div className="mainPage">
                 <div className="banner">
