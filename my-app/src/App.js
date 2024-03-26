@@ -16,6 +16,17 @@ function App() {
   const [previousStore, setPreviousStore] = useState("");
   const [viewOrder, setViewOrder] = useState([]);
 
+  const buttonNames = [
+    "For You",
+    "Produce",
+    "Pharmacy",
+    "Beauty",
+    "Convenience",
+    "Retail",
+    "WholeSale",
+    "More",
+  ];
+
   useEffect(() => {
     if (user) {
       // Fetch all products
@@ -252,6 +263,14 @@ function App() {
                 <button onClick={() => handleLogout("")}>LogOut</button>
 
                 <button className="navBarButtons">Profile</button>
+
+                <nav className="Nav">
+                  {buttonNames.map((button) => (
+                    <button key={button} className="buttonNav">
+                      {button}
+                    </button>
+                  ))}
+                </nav>
               </div>
               <div className="mainPage">
                 <div className="banner">
@@ -315,7 +334,7 @@ function App() {
                 id={1}
                 user={user}
                 setCurrentStore={setCurrentStore}
-                previousStore={previousStore}
+                setPreviousStore={setPreviousStore}
                 order={order}
                 setOrder={setOrder}
                 meta_data={data}

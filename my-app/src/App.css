@@ -64,11 +64,11 @@
 }
 
 .searchButton {
-  background-color: #ccc;
+  background-color: none;
   color: black;
   border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 0 10px 10px 10px;
+  border-radius: 30px;
   margin-left: 10px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
@@ -76,6 +76,7 @@
 
 .searchButton:hover {
   background-color: #e1b52d;
+  cursor: pointer;
 }
 
 .logoIcon {
@@ -93,12 +94,12 @@
   padding: 0;
   font-size: 16px;
   cursor: pointer;
-  text-decoration: none;
+  border-radius: 20px;
 }
 
 .navBarButtons:hover {
-  text-decoration: underline;
-  color: #e1b52d;
+  background-color: #e1b52d;
+  cursor: pointer;
 }
 
 .mainPage {
@@ -137,55 +138,6 @@
   border-color: #e1b52d; 
 }
 
-.storeSectionHome {
-  /* make items in each grid item centered*/
-}
-
-/* .storeSectionHome img {
-  width: 60%;
-  height: 60%;
-  display: flex;
-  padding-left: 20px;
-} */
-
-/* .storeButtonsHome {
-  width: 20%;
-  position: absolute;
-  padding: 10px;
-  background-color: black;
-  border-radius: 5px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}  */
-
-/* .storeSectionHome {
-  text-align: center;
-  margin: 10px;
-}  */
-
-/* .storeButtonsHome {
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-} */
-
-/* .storeButtonsHome:hover {
-  background-color: #e1b52d;
-  color: black;
-} */
-
-/* .storeSectionHome {
-  display: flex;
-  align-items: center; /* Vertically center the content 
-} */
-
-/*.buttonContainer {
-  margin-left: 10px; Adjust as needed for spacing*/
-
 .stores {
   display: flex;
   justify-content: space-between; /* Aligns items with space between */
@@ -221,14 +173,6 @@
   background-color: #e1b52d;
   color: black;
 } 
-
-/* .logo {
-  max-width: 30%;
-  max-height: 30%;
-  width: auto;
-  height: auto;
-  padding-top: 40px;
-} */
 
 .Nav {
   height: 5vh;
