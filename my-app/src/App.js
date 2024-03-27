@@ -5,6 +5,7 @@ import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
 import data_json from "./stores/data/data.json";
+import Background from "./Components/Background";
 import "./App.css";
 
 function App() {
@@ -342,7 +343,10 @@ function App() {
             )}
         </>
       ) : (
-        <LoginSignup setUser={setUser} />
+        <>
+          <Background />
+          <LoginSignup setUser={setUser} />
+        </>
       )}
     </>
   );
