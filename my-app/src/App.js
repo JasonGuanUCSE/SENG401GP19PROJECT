@@ -17,7 +17,6 @@ import Carousel from "./Components/Carousel";
 
 function App() {
   const [user, setUser] = useState(null);
-  // const [data, setData] = useState(data_json);
   const [data, setData] = useState([]);
 
   const [eachStoreData, setEachStoreData] = useState([]);
@@ -30,14 +29,13 @@ function App() {
   const [profileToggle, setProfileToggle] = useState("hidden");
   const [showOverlay, setShowOverlay] = useState(false);
   const [orderToggle, setOrderToggle] = useState("hidden");
-  const [displayOrderHistory, setDisplayOrderHistory] = useState(false);
+  const [displayOrderHistory, setDisplayOrderHistory] = useState("");
 
   useEffect(() => {
     if (user) {
       fetchProductsData()
         .then((products) => {
           console.log("All products:");
-          // console.log(products);
           setData(products);
           console.log("Data:", data);
           console.log("Data1:", data_json);
@@ -63,11 +61,11 @@ function App() {
       });
     }
   }, [user]);
-  //when product data is updated, setData will be called
+
   useEffect(() => {
     console.log("Data Updated:", data);
-    // Perform any additional actions you want with data here
   }, [data]);
+
   useEffect(() => {
     console.log("User Orders Updated:", userOrder);
   }, [userOrder]);
@@ -218,22 +216,22 @@ function App() {
         const currentUserOrders = orders.filter(
           (order) => order.customerEmail === user.email
         );
-
         console.log("Current user's orders:", currentUserOrders);
         setUserOrder(currentUserOrders);
 
-        let display = currentUserOrders
-          .map(
-            (order) =>
-              `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
-                order.totalPrice
-              }  Purchase at store: ${order.store} Status: ${order.status}`
-          )
-          .join("\n");
+        let display = currentUserOrders.map((order, index) => (
+          <tr key={index}>
+            <td>{new Date(order.date).toLocaleString()}</td>
+            <td>${order.totalPrice}</td>
+            <td>{order.store}</td>
+            <td>{order.status}</td>
+          </tr>
+        ));
 
         setDisplayOrderHistory(display);
 
-        if (showOverlay == true) {
+        if (showOverlay) {
+
           setShowOverlay(false);
           setOrderToggle("hidden");
         } else {
@@ -257,6 +255,7 @@ function App() {
               <div className="navBar">
                 <img src={logo} className="logo" />
 
+
                 <button
                   className="navBarButtons"
                   onClick={() => handleViewOrder()}
@@ -264,6 +263,31 @@ function App() {
                   <img src={orders} />
                   Orders
                 </button>
+
+                <div>
+                  <div>
+                    <div className="orderPopup" id={orderToggle}>
+                      <div className="SubCartExtend">Order History</div>
+                      <table className="popupContent">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                            <th>Store</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>{displayOrderHistory}</tbody>
+                      </table>
+
+                      <div className="backCheckout">
+                        <button className="backToStore" onClick={handleViewOrder}>
+                          Back
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <button className="navBarButtons" onClick={handleViewProfile}>
                   <img src={profile} />
@@ -277,17 +301,6 @@ function App() {
                   <img src={logout} />
                   LogOut
                 </button>
-
-                <div>
-                  <div className="orderPopup" id={orderToggle}>
-                    {displayOrderHistory}
-                    <div className="backCheckout">
-                      <button className="backToStore" onClick={handleViewOrder}>
-                        Back
-                      </button>
-                    </div>
-                  </div>
-                </div>
 
                 <div className="profilePopup" id={profileToggle}>
                   <div>
