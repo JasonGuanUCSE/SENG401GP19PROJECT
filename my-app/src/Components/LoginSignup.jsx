@@ -50,9 +50,7 @@ const LoginSignup = ({ setUser }) => {
   return (
     <div className="container">
       <div className="header-bar">
-        <a>
-          <img src={logo} alt="logo" />
-        </a>
+        <img src={logo} alt="logo" />
       </div>
       <div className="row">
         <div className="signup-container">
@@ -62,7 +60,7 @@ const LoginSignup = ({ setUser }) => {
             </div>
           </div>
           <div className="google-button">
-            <button class="google-button">
+            <button class="google-button" onClick={login}>
               <div class="google-icon-wrapper">
                 <svg
                   version="1.1"
