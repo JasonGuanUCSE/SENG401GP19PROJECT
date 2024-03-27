@@ -42,11 +42,11 @@ URL: /api/Jstacart/Orders
 const addOrder = async (req, res) => {
     let emptyFields = []
     //check if the email is valid
-    if (!req.body.customerEmail.includes('@')) {
-        return res.status(400).json({ error: 'Please enter a valid email' })
-    }
     if (!req.body.customerEmail) {
         emptyFields.push('customerEmail')
+    }
+    else if (!req.body.customerEmail.includes('@')) {
+        return res.status(400).json({ error: 'Please enter a valid email' })
     }
     if (!req.body.customerName) {
         emptyFields.push('customerName')
