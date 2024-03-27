@@ -146,9 +146,11 @@ const deleteProduct = async (req, res) => {
         }
         await Products.deleteOne({ id: req.params.id })
         res.status(200).json({ message: 'Product deleted' })
-
+        let body = {
+            id: req.params.ID,
+        }
         //update the Read database
-        await updateReadDB(req.body, 'products',  'DELETE');
+        await updateReadDB(body, 'products',  'DELETE');
 
     } catch (err) {
         res.status(500).json({ message: err.message })
