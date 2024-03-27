@@ -38,7 +38,7 @@ function App() {
           console.log("All products:");
           setData(products);
           console.log("Data:", data);
-          console.log("Data1:", data_json);
+          // console.log("Data1:", data_json);
         })
         .catch((error) => console.error("Error:", error));
 
@@ -231,7 +231,6 @@ function App() {
         setDisplayOrderHistory(display);
 
         if (showOverlay) {
-
           setShowOverlay(false);
           setOrderToggle("hidden");
         } else {
@@ -254,7 +253,6 @@ function App() {
             <>
               <div className="navBar">
                 <img src={logo} className="logo" />
-
 
                 <button
                   className="navBarButtons"
@@ -281,7 +279,10 @@ function App() {
                       </table>
 
                       <div className="backCheckout">
-                        <button className="backToStore" onClick={handleViewOrder}>
+                        <button
+                          className="backToStore"
+                          onClick={handleViewOrder}
+                        >
                           Back
                         </button>
                       </div>
@@ -336,12 +337,9 @@ function App() {
                     <h1>Become a member</h1>
                     <p>Get your groceries delivered to your doorstep</p>
                     <button className="shopNowButton">Shop Now!</button>
-                    <Carousel />
                   </div>
-                  <Carousel />
                 </div> */}
-                <Carousel />
-
+                {!showOverlay ? <Carousel /> : null}
                 <div className="stores">
                   <div className="storeSectionHome">
                     <img src="https://assets-global.website-files.com/64248e7fd5f30d79c9e57d64/64e6177329c2d71389b1b219_walmart.png"></img>

@@ -46,13 +46,24 @@ function Store({
   };
 
   const handleSubmit = (event) => {
+    console.log("Search data testing: ", data);
     setItems([]);
     event.preventDefault();
-    setItems(
-      data.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    const searchData = data.filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    //change price to number in search data
+    const modifiedSearchData = searchData.map((item) => {
+      const itemPrice = parseFloat(item.price.$numberDecimal);
+      return { ...item, price: itemPrice };
+    });
+    // setItems(
+    //   data.filter((item) =>
+    //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    //   )
+    // );
+    setItems(modifiedSearchData);
+    console.log("Search data testing 1: ", items);
   };
 
   const handleGoBack = () => {
@@ -270,31 +281,24 @@ function Store({
 
         <div className="profilePopup" id={profileToggle}>
           <div>
-            <img id="profilePic" src={user.picture}/>
+            <img id="profilePic" src={user.picture} />
           </div>
-          
+
           <div>
             <div className="profileInfo">Name</div>
-            <div id="userName">
-              {user.given_name}
-            </div>
+            <div id="userName">{user.given_name}</div>
 
             <div className="profileInfo">Surname</div>
-            <div id="lastName">
-              {user.family_name}
-            </div>
+            <div id="lastName">{user.family_name}</div>
 
             <div className="profileInfo">Email</div>
-            <div id="userEmail">
-              {user.email}
-            </div>
-            
+            <div id="userEmail">{user.email}</div>
+
             <div className="backCheckout">
               <button className="backToStore" onClick={handleViewProfile}>
                 Back
               </button>
             </div>
-
           </div>
         </div>
 
