@@ -16,7 +16,6 @@ import "./stores/Store.css"
 
 function App() {
   const [user, setUser] = useState(null);
-  // const [data, setData] = useState(data_json);
   const [data, setData] = useState([]);
 
   const [eachStoreData, setEachStoreData] = useState([]);
@@ -36,7 +35,6 @@ function App() {
       fetchProductsData()
         .then((products) => {
           console.log("All products:");
-          // console.log(products);
           setData(products);
           console.log("Data:", data);
           console.log("Data1:", data_json);
@@ -62,11 +60,11 @@ function App() {
       });
     }
   }, [user]);
-  //when product data is updated, setData will be called
+
   useEffect(() => {
     console.log("Data Updated:", data);
-    // Perform any additional actions you want with data here
   }, [data]);
+
   useEffect(() => {
     console.log("User Orders Updated:", userOrder);
   }, [userOrder]);
@@ -208,46 +206,6 @@ function App() {
     }
   }
 
-  // const handleViewOrder = async () => {
-  //   try {
-  //     const orders = await AllOrder();
-  //     if (orders) {
-  //       console.log("user email:", user.email);
-  //       console.log("All orders:", orders);
-  //       const currentUserOrders = orders.filter(
-  //         (order) => order.customerEmail === user.email
-  //       );
-
-  //       console.log("Current user's orders:", currentUserOrders);
-  //       setUserOrder(currentUserOrders);
-
-  //       let display = currentUserOrders
-  //         .map(
-  //           (order) =>
-  //             `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
-  //               order.totalPrice
-  //             }  Purchase at store: ${order.store} Status: ${order.status}`
-  //         )
-  //         .join("\n");
-        
-  //       setDisplayOrderHistory(display);
-        
-  //       if (showOverlay == true) {
-  //       setShowOverlay(false);
-  //       setOrderToggle("hidden");
-  //     } else {
-  //       setShowOverlay(true);
-  //       setOrderToggle("visible");
-  //     }
-
-  //     } else {
-  //       console.log("Failed to fetch orders");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching orders:", error);
-  //   }
-  // };
-
   const handleViewOrder = async () => {
     try {
       const orders = await AllOrder();
@@ -342,19 +300,6 @@ function App() {
                   <img src={logout} />
                   LogOut
                 </button>
-
-                {/* <div>
-                  <div className="orderPopup" id={orderToggle}>
-
-                    <div>{displayOrderHistory}</div>
-                    <div className="backCheckout">
-                      <button className="backToStore" onClick={handleViewOrder}>
-                        Back
-                      </button>
-                    </div>
-                  </div>
-                </div> */}
-
 
                 <div className="profilePopup" id={profileToggle}>
                   <div>
