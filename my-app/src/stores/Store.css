@@ -234,7 +234,7 @@ header {
 
 .profilePopup{
     display: flex; 
-    flex-direction: column; 
+    flex-direction: row; 
     align-items: center; 
     justify-content: space-evenly; 
     position: fixed; 
@@ -249,15 +249,28 @@ header {
 
 #profilePic{
     border-radius: 50%;
+    width: 20vw;
+}
+
+.profileInfo{
+    color: gray;
 }
 
 #userName{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
 
+#lastName{
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 #userEmail{
-
+    font-weight: bold;
+    font-size: 1.5rem;
 }
+
 
 #hidden {
     display: none;
