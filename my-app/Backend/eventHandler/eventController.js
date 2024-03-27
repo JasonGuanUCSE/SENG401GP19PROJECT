@@ -306,7 +306,7 @@ const handleDelete = async (req, res) => {
         if (!req.body.email || !req.body.email.includes('@')){
             return res.status(400).json({ error: 'Please enter an valid email' })
         }
-        URL = URL + "orders/" + req.body.objectID + "/" + req.body.email
+        URL = URL + "orders/" + req.body.orderID + "/" + req.body.email
     } else {
         res.status(400).json({ message: "Invalid collection" })
         respond = { message: "Invalid collection" }
