@@ -52,16 +52,12 @@ function Store({
     const searchData = data.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    //change price to number in search data
+
     const modifiedSearchData = searchData.map((item) => {
       const itemPrice = parseFloat(item.price.$numberDecimal);
       return { ...item, price: itemPrice };
     });
-    // setItems(
-    //   data.filter((item) =>
-    //     item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    //   )
-    // );
+
     setItems(modifiedSearchData);
     console.log("Search data testing 1: ", items);
   };
@@ -92,7 +88,6 @@ function Store({
       totalPrice = totalPrice + i.price * i.quantity;
     }
     setTotalPrice(totalPrice);
-    console.log(totalPrice);
   };
 
   const handleAddQuantity = (id) => {
@@ -160,12 +155,12 @@ function Store({
       filteredItems = filterItemsByCategory(data, "beverages");
     }
     setItems(filteredItems);
-    console.log("Items Items: ", items);
+    console.log("Items: ", items);
   };
 
   function filterItemsByCategory(dat, cat) {
     const filteredItems = dat.filter((item) => item.category.includes(cat));
-    // Create a new array with modified prices
+
     const modifiedItems = filteredItems.map((item) => {
       const itemPrice = parseFloat(item.price.$numberDecimal);
       return { ...item, price: itemPrice };

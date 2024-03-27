@@ -136,8 +136,6 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
 
       console.log("Order added successfully");
 
-      // If you need to perform any actions after successfully adding the order, you can do it here
-
       setCurrentStore("HomePage");
       setViewOrder([...viewOrder, ...order]);
       setOrder([]);

@@ -3,7 +3,6 @@ import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
-import data_json from "./stores/data/data.json";
 
 import Background from "./Components/Background";
 import logo from "./icons/jstacart.png";
@@ -38,7 +37,6 @@ function App() {
           console.log("All products:");
           setData(products);
           console.log("Data:", data);
-          // console.log("Data1:", data_json);
         })
         .catch((error) => console.error("Error:", error));
 
@@ -331,14 +329,6 @@ function App() {
               </div>
 
               <div className="mainPage">
-                {/* <div className="banner">
-                  <div className="bannerContent">
-                    <h3>$5 Delivery Fee</h3>
-                    <h1>Become a member</h1>
-                    <p>Get your groceries delivered to your doorstep</p>
-                    <button className="shopNowButton">Shop Now!</button>
-                  </div>
-                </div> */}
                 {!showOverlay ? <Carousel /> : null}
                 <div className="stores">
                   <div className="storeSectionHome">
