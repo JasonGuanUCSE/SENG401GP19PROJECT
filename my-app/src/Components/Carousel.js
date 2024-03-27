@@ -21,18 +21,9 @@ const Carousel = () => {
         },
       }}
     >
-      <div
-        className="image"
-        data-src="https://st5.depositphotos.com/67168396/64955/v/450/depositphotos_649553962-stock-illustration-vector-online-grocery-store-banner.jpg"
-      />
-      <div
-        className="image"
-        data-src="https://st5.depositphotos.com/67168396/64955/v/450/depositphotos_649553962-stock-illustration-vector-online-grocery-store-banner.jpg"
-      />
-      <div
-        className="image"
-        data-src="https://st5.depositphotos.com/67168396/64955/v/450/depositphotos_649553962-stock-illustration-vector-online-grocery-store-banner.jpg"
-      />
+      <div className="image" data-src="https://i.imgur.com/Kn3nF4I.png" />
+      <div className="image" data-src="https://i.imgur.com/lqsePZE.png" />
+      <div className="image" data-src="https://i.imgur.com/TGaCrwL.png" />
       {/* Add more slides as needed */}
     </AutoplaySlider>
   );
