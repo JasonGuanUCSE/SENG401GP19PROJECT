@@ -9,7 +9,9 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [data, setData] = useState(data_json);
+  // const [data, setData] = useState(data_json);
+  const [data, setData] = useState([]);
+
   const [eachStoreData, setEachStoreData] = useState([]);
   const [order, setOrder] = useState([]); //Order will retrieve all the order from the backend;
   const [userOrder, setUserOrder] = useState([]); //UserOrder will retrieve all the order from specific user;
@@ -23,7 +25,10 @@ function App() {
       fetchProductsData()
         .then((products) => {
           console.log("All products:");
-          console.log(products);
+          // console.log(products);
+          setData(products);
+          console.log("Data:", data);
+          console.log("Data1:", data_json);
         })
         .catch((error) => console.error("Error:", error));
 
@@ -46,20 +51,13 @@ function App() {
         console.log("All users:");
         console.log(users);
       });
-
-      // Call the function to get all orders
-      // AllOrder().then((orders) => {
-      //   console.log("user email:", user.email);
-      //   console.log("All orders:");
-      //   console.log(orders);
-      //   const currentUserOrders = orders.filter(
-      //     (order) => order.customerEmail === user.email
-      //   );
-      //   console.log("Current user's orders:", currentUserOrders);
-      //   setUserOrder(currentUserOrders);
-      // });
     }
   }, [user]);
+  //when product data is updated, setData will be called
+  useEffect(() => {
+    console.log("Data Updated:", data);
+    // Perform any additional actions you want with data here
+  }, [data]);
   useEffect(() => {
     console.log("User Orders Updated:", userOrder);
     // Perform any additional actions you want with userOrder here
@@ -198,6 +196,7 @@ function App() {
       console.log("user email:", user.email);
       console.log("All orders:");
       console.log(orders);
+      // setData(orders);
       const currentUserOrders = orders.filter(
         (order) => order.customerEmail === user.email
       );

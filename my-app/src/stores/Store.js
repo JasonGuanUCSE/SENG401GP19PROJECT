@@ -75,30 +75,8 @@ function Store({
       totalPrice = totalPrice + i.price * i.quantity;
     }
     setTotalPrice(totalPrice);
+    console.log(totalPrice);
   };
-  // useEffect(() => {
-  //   // This will run every time 'items' state changes
-  //   // Update the main content area based on the new 'items'
-  //   setContent(
-  //     items.map((item) => (
-  //       <div key={item.id} className="itemBlock">
-  //         <img src={item.image} alt="itemImage" className="itemImage" />
-  //         <div className="priceAndAdd">
-  //           <p className="price">{item.price}</p>
-  //           <button
-  //             className="addItemButton"
-  //             id={item.name}
-  //             onClick={() => handleAdd(item.id)}
-  //           >
-  //             + Add
-  //           </button>
-  //         </div>
-  //         <div>{item.name}</div>
-  //         <div>Many in stock</div>
-  //       </div>
-  //     ))
-  //   );
-  // }, [items]);
 
   const handleAddQuantity = (id) => {
     // Find the index of the item in the order array
@@ -166,42 +144,37 @@ function Store({
     setItems();
     if (content == "Dairy&Milk") {
       // setItems([]);
-      setItems(filterItemsByCategory(data, "dairy"));
+      // setItems(filterItemsByCategory(data, "dairy"));
+      // console.log("Meta: ", data);
+      // console.log("Items: ", items);
+      filterItemsByCategory(data, "dairy");
     } else if (content === "Vegetables") {
       // setItems([]);
-      setItems(filterItemsByCategory(data, "fresh-produce"));
+      // setItems(filterItemsByCategory(data, "fresh-produce"));
+      filterItemsByCategory(data, "fresh-produce");
     } else if (content === "Fruits") {
-      setItems(filterItemsByCategory(data, "fruits"));
+      // setItems(filterItemsByCategory(data, "fruits"));
+      filterItemsByCategory(data, "fruits");
     } else if (content === "Meat") {
-      setItems(filterItemsByCategory(data, "meat-seafood"));
+      // setItems(filterItemsByCategory(data, "meat-seafood"));
+      filterItemsByCategory(data, "meat-seafood");
     } else if (content === "Beverages") {
-      setItems(filterItemsByCategory(data, "beverages"));
+      // setItems(filterItemsByCategory(data, "beverages"));
+      filterItemsByCategory(data, "beverages");
     }
 
     console.log("Items: ", items);
-    // setContent(
-    //   items.map((item) => (
-    //     <div key={item.id} className="itemBlock">
-    //       <img src={item.image} alt="itemImage" className="itemImage" />
-    //       <div className="priceAndAdd">
-    //         <p className="price">{item.price}</p>
-    //         <button
-    //           className="addItemButton"
-    //           id={item.name}
-    //           onClick={() => handleAdd(item.id)}
-    //         >
-    //           + Add
-    //         </button>
-    //       </div>
-    //       <div>{item.name}</div>
-    //       <div>Many in stock</div>
-    //     </div>
-    //   ))
-    // );
   };
 
-  function filterItemsByCategory(dat, category) {
-    return dat.filter((item) => item.category === category);
+  function filterItemsByCategory(dat, cat) {
+    const i = dat.filter((item) => item.category.includes(cat));
+    //each item in i change i.price to a number
+    for (const item of i) {
+      const itemPrice = parseFloat(item.price.$numberDecimal);
+      item.price = itemPrice;
+    }
+    console.log("Filtered: ", i);
+    setItems(dat.filter((item) => item.category.includes(cat)));
   }
   const handleCheckout = () => {
     setPreviousStore(store);
@@ -280,7 +253,7 @@ function Store({
               </div>
             ))}
           </ul>
-          <div>The total price is {totalPrice}</div>
+          <div>The total price is {totalPrice.toFixed(2)}</div>
 
           <div>
             <button className="checkOut" onClick={handleCheckout}>
