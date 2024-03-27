@@ -140,6 +140,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
 
       setCurrentStore("HomePage");
       setViewOrder([...viewOrder, ...order]);
+      setOrder([]);
     } catch (error) {
       console.error("Error adding order:", error);
     }
