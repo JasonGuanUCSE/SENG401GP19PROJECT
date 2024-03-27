@@ -11,7 +11,6 @@ import orders from "./icons/order.png";
 import profile from "./icons/profile.png";
 import logout from "./icons/logout.png";
 
-
 import "./App.css";
 import "./stores/Store.css"
 
@@ -21,8 +20,8 @@ function App() {
   const [data, setData] = useState([]);
 
   const [eachStoreData, setEachStoreData] = useState([]);
-  const [order, setOrder] = useState([]); 
-  const [userOrder, setUserOrder] = useState([]); 
+  const [order, setOrder] = useState([]);
+  const [userOrder, setUserOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
   const [previousStore, setPreviousStore] = useState("");
   const [viewOrder, setViewOrder] = useState([]);
@@ -60,7 +59,6 @@ function App() {
         console.log("All users:");
         console.log(users);
       });
-
     }
   }, [user]);
   //when product data is updated, setData will be called
@@ -199,41 +197,6 @@ function App() {
     setUser(null);
   };
 
-  const handleViewOrder = () => {
-    AllOrder().then((orders) => {
-      console.log("user email:", user.email);
-      console.log("All orders:");
-      console.log(orders);
-
-      const currentUserOrders = orders.filter(
-        (order) => order.customerEmail === user.email
-      );
-      console.log("Current user's orders:", currentUserOrders);
-      setUserOrder(currentUserOrders);
-    });
-
-    let display = "";
-    for (let i = 0; i < userOrder.length; i++) {
-      display +=
-        userOrder[i].productID +
-        " " +
-        userOrder[i].quantity +
-        " " +
-        userOrder[i].price +
-        " " +
-        userOrder[i].store +
-        " " +
-        userOrder[i].status +
-        "\n";
-    }
-    if (showOverlay == true) {
-      setShowOverlay(false);
-      setOrderToggle("hidden");
-    } else {
-      setShowOverlay(true);
-      setOrderToggle("visible");
-    }
-  };
 
 
   const handleViewProfile = () => {
@@ -244,6 +207,44 @@ function App() {
       setShowProfile(true);
       setProfileToggle("visible");
     }
+
+  const handleViewOrder = async () => {
+    try {
+      const orders = await AllOrder();
+      if (orders) {
+        console.log("user email:", user.email);
+        console.log("All orders:", orders);
+        const currentUserOrders = orders.filter(
+          (order) => order.customerEmail === user.email
+        );
+        console.log("Current user's orders:", currentUserOrders);
+        setUserOrder(currentUserOrders);
+        //format order.date
+
+        // Display user orders
+        let display = currentUserOrders
+          .map(
+            (order) =>
+              //format order.date
+              `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
+                order.totalPrice
+              }  Purchase at store: ${order.store} Status: ${order.status}`
+          )
+          .join("\n");
+      if (showOverlay == true) {
+      setShowOverlay(false);
+      setOrderToggle("hidden");
+    } else {
+      setShowOverlay(true);
+      setOrderToggle("visible");
+    }
+      } else {
+        console.log("Failed to fetch orders");
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+
   };
 
   return (
@@ -253,22 +254,28 @@ function App() {
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
               <div className="navBar">
-                <img src={logo} className="logo"/>
+                <img src={logo} className="logo" />
 
                 <button
                   className="navBarButtons"
-                  onClick={() => handleViewOrder()}>
-                  <img src={orders}/>
+                  onClick={() => handleViewOrder()}
+                >
+                  <img src={orders} />
                   Orders
                 </button>
 
+
                 <button className="navBarButtons" onClick={handleViewProfile}>
                   <img src={profile}/>
+
                   Profile
                 </button>
 
-                <button className="navBarButtons" onClick={() => handleLogout("")}>
-                  <img src={logout}/>
+                <button
+                  className="navBarButtons"
+                  onClick={() => handleLogout("")}
+                >
+                  <img src={logout} />
                   LogOut
                 </button>
 
@@ -328,7 +335,8 @@ function App() {
                     <button
                       className="storeButtonsHome"
                       id="Walmart"
-                      onClick={() => handleSwitchStore("Walmart")}>
+                      onClick={() => handleSwitchStore("Walmart")}
+                    >
                       Walmart
                     </button>
                   </div>
@@ -338,7 +346,8 @@ function App() {
                     <button
                       className="storeButtonsHome"
                       id="Costco"
-                      onClick={() => handleSwitchStore("Costco")}>
+                      onClick={() => handleSwitchStore("Costco")}
+                    >
                       Costco
                     </button>
                   </div>
@@ -348,7 +357,8 @@ function App() {
                     <button
                       className="storeButtonsHome"
                       id="SuperStore"
-                      onClick={() => handleSwitchStore("SuperStore")}>
+                      onClick={() => handleSwitchStore("SuperStore")}
+                    >
                       SuperStore
                     </button>
                   </div>
@@ -358,11 +368,11 @@ function App() {
                     <button
                       className="storeButtonsHome"
                       id="TT"
-                      onClick={() => handleSwitchStore("TandT")}>
+                      onClick={() => handleSwitchStore("TandT")}
+                    >
                       T&T SuperMarket
                     </button>
                   </div>
-
                 </div>
               </div>
             </>
