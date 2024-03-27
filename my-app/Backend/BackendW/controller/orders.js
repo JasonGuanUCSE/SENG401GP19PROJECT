@@ -109,10 +109,10 @@ Returns: result of deleting order
 URL: /api/Jstacart/Orders/:ID/:email
 */
 const deleteOrder = async (req, res) => {
-    //verify if the id valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
-        return res.status(400).json({ error: 'Invalid ID' })
-    }
+    // //verify if the id valid
+    // if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
+    //     return res.status(400).json({ error: 'Invalid ID' })
+    // }
     try {
         const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
         if (!order) {
@@ -136,10 +136,10 @@ Returns: result of updating order
 URL: /api/Jstacart/Orders/:ID/:email
 */
 const updateOrder = async (req, res) => {
-    //verify if the id valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
-        return res.status(400).json({ error: 'Invalid ID' })
-    }
+    // //verify if the id valid
+    // if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
+    //     return res.status(400).json({ error: 'Invalid ID' })
+    // }
     try {
         const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
         if (!order) {
