@@ -3,13 +3,13 @@ import Cards from "react-credit-cards-2";
 import {
   formatCreditCardNumber,
   formatCVC,
-  formatExpirationDate,
+  formatExpirationDate
 } from "./utils/utils";
 
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import "./Checkoutpage.css";
 
-function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder }) {
+function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,viewOrder,setViewOrder,currentStore,setUerOrder }) {
   const [state, setState] = useState({
     number: "",
     name: "",
@@ -95,18 +95,58 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
     ),
     fees: 5.0,
   };
-  const handlePaymentConfirm = () => {
-    console.log("Payment Confirmed");
-    setCurrentStore("HomePage");
-    //Add the order to the viewOrder
-    setViewOrder([...viewOrder,...order]);
-    // Other logic related to payment confirmation can go here
-  }
+  
+
+  const handlePaymentConfirm = async () => {
+    if (!state.number || !state.name || !state.expiry || !state.cvc) {
+      alert("Please fill in all the fields");
+      return;
+    }
+    try {
+      const customerOrder = {
+        customerEmail: user.email,
+        customerName: user.name,
+        productID: order.map((item) => item.id),
+        quantity: order.map((item) => item.quantity),
+        price: order.map((item) => item.price),
+        paymentMethod: "Credit Card",
+        status: "paid",
+        store: previousStore,
+        totalPrice:((
+          subtotal.taxes +
+          subtotal.estimate +
+          subtotal.fees
+        ).toFixed(1) + 0),
+      };
+
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          collection: "orders",
+          sender: "web",
+        },
+        body: JSON.stringify(customerOrder),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add order");
+      }
+
+      console.log("Order added successfully");
+
+      setCurrentStore("HomePage");
+      setViewOrder([...viewOrder, ...order]);
+      setOrder([]);
+    } catch (error) {
+      console.error("Error adding order:", error);
+    }
+  };
   
 
   return (
     <>
-    <div>{user.name}</div>
     <div className="checkout-page">
       <div className="section-title">
         <h1>Cart</h1>
@@ -204,7 +244,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
           </div>
           <div className="input-fields">
             <div>
-              <label for="name">Full Name</label>
+              <label htmlFor="name">Full Name</label>
               <input
                 name="name"
                 type="text"
@@ -216,7 +256,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
               />
             </div>
             <div>
-              <label for="number">Card Number</label>
+              <label htmlFor="number">Card Number</label>
               <input
                 name="number"
                 type="tel"
@@ -230,7 +270,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
             </div>
             <div className="small-input">
               <div>
-                <label for="expiry">Expiry Date</label>
+                <label htmlFor="expiry">Expiry Date</label>
                 <input
                   type="text"
                   name="expiry"
@@ -242,7 +282,7 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
                 />
               </div>
               <div>
-                <label for="cvc">Security Code</label>
+                <label htmlFor="cvc">Security Code</label>
                 <input
                   type="number"
                   name="cvc"

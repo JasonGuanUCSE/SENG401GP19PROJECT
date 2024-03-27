@@ -476,7 +476,7 @@
     "quantity": 10000
   },
   {
-    "id": 7100,
+    "id": 7022,
     "category": "beverages",
     "name": "Pineapple Tropicana",
     "inStock": true,
@@ -486,7 +486,7 @@
     "quantity": 10000
   },
   {
-    "id": 7102,
+    "id": 7023,
     "category": "beverages",
     "name": "Simply orange juice",
     "inStock": true,
@@ -516,7 +516,7 @@
     "quantity": 10000
   },
   {
-    "id": 7124,
+    "id": 7024,
     "category": "meat-seafood",
     "name": "Chicken Thigh",
     "inStock": true,
@@ -526,13 +526,44 @@
     "quantity": 10000
   },
   {
-    "id": 7125,
+    "id": 7024,
     "category": "meat-seafood",
-    "name": "Turkey BAcon Ham",
+    "name": "Turkey Bacon Ham",
     "inStock": true,
     "image": "https://i.imgur.com/mGTdcJR.jpg",
     "price": 4.99,
     "store": ["Costco", "SuperStore", "TandT"],
     "quantity": 10000
+  },
+  {
+    "id": 7200,
+    "category": "meat-seafood",
+    "name": "Fish Golden",
+    "inStock": true,
+    "image": "https://i.imgur.com/LCbvvgz.jpg",
+    "price": 10.99,
+    "store": ["Walmart","Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7221,
+    "category": "meat-seafood",
+    "name": "Salmon",
+    "inStock": true,
+    "image": "https://i.imgur.com/UfKVPaj.jpg",
+    "price": 11.99,
+    "store": ["Walmart","Costco", "SuperStore", "TandT"],
+    "quantity": 10000
+  },
+  {
+    "id": 7222,
+    "category": "meat-seafood",
+    "name": "Friend for sale",
+    "inStock": true,
+    "image": "https://i.imgur.com/pmhFJ1I.jpg",
+    "price": 11.99,
+    "store": ["Walmart","Costco", "SuperStore", "TandT"],
+    "quantity": 10000
   }
+
 ]

@@ -1,80 +1,192 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Store from "./stores/Store";
 import CheckoutPage from "./Components/Checkoutpage";
 import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
-import data_json from "./stores/data/data.json";
+
+import Background from "./Components/Background";
+import logo from "./icons/jstacart.png";
+import orders from "./icons/order.png";
+import profile from "./icons/profile.png";
+import logout from "./icons/logout.png";
+
 import "./App.css";
+import "./stores/Store.css";
+import Carousel from "./Components/Carousel";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [data, setData] = useState(data_json);
+  const [data, setData] = useState([]);
+
   const [eachStoreData, setEachStoreData] = useState([]);
   const [order, setOrder] = useState([]);
+  const [userOrder, setUserOrder] = useState([]);
   const [currentStore, setCurrentStore] = useState("HomePage");
-  const [previousStore, setPreviousStore] = useState(""); //To go back to from checkout to store
-  const [viewOrder, setViewOrder] = useState([]); //This is to view previous orders
-  //fetch data from https://seng401jstacartread.onrender.com/api/Jstacart/products
-  // Function to fetch products data
+  const [previousStore, setPreviousStore] = useState("");
+  const [viewOrder, setViewOrder] = useState([]);
+  const [showProfile, setShowProfile] = useState(false);
+  const [profileToggle, setProfileToggle] = useState("hidden");
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [orderToggle, setOrderToggle] = useState("hidden");
+  const [displayOrderHistory, setDisplayOrderHistory] = useState("");
 
-  async function fetchProductsData(productId = "") {
+  useEffect(() => {
+    if (user) {
+      fetchProductsData()
+        .then((products) => {
+          console.log("All products:");
+          setData(products);
+          console.log("Data:", data);
+        })
+        .catch((error) => console.error("Error:", error));
+
+      addUser(user)
+        .then((newUser) => {
+          if (newUser) {
+            console.log("User added successfully:", newUser);
+          } else {
+            console.log("Failed to add user.");
+            console.log("User: ", user);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      AllUser().then((users) => {
+        console.log("All users:");
+        console.log(users);
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("Data Updated:", data);
+  }, [data]);
+
+  useEffect(() => {
+    console.log("User Orders Updated:", userOrder);
+  }, [userOrder]);
+
+  useEffect(() => {
+    if (currentStore !== "HomePage" && currentStore !== "CheckoutPage") {
+      const filteredData = data.filter((item) =>
+        item.store.includes(currentStore)
+      );
+      console.log("StoreName1: ", filteredData);
+      setEachStoreData(filteredData);
+    }
+  }, [currentStore, data]);
+
+  const fetchProductsData = async () => {
     try {
-      // Construct the URL based on the productId parameter
-      const url = productId
-        ? `https://seng401jstacartread.onrender.com/api/Jstacart/products/${productId}`
-        : "https://seng401jstacartread.onrender.com/api/Jstacart/products";
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart";
 
-      // Fetch data from the URL
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          collection: "products",
+          sender: "web",
+          search: "all",
         },
       });
 
-      // Check if the response is successful
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
 
-      // Parse the JSON response
       const productsData = await response.json();
-
-      // Return the data
       return productsData;
     } catch (error) {
       console.error("Error fetching products data:", error);
       return null;
     }
-  }
+  };
 
-  // Example usage:
-  // Fetch all products
-  fetchProductsData()
-    .then((products) => {
-      console.log("All products:");
-      console.log(products);
-    })
-    .catch((error) => console.error("Error:", error));
+  const addUser = async (userInfo) => {
+    const user_Email_Name = {
+      name: userInfo.name,
+      email: userInfo.email,
+    };
 
-  // Fetch product by ID
-  const productId = "your_product_id_here";
-  fetchProductsData(productId)
-    .then((product) => {
-      console.log("Product:");
-      console.log(product);
-    })
-    .catch((error) => console.error("Error:", error));
+    try {
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          collection: "users",
+          sender: "web",
+        },
+        body: JSON.stringify(user_Email_Name),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add user");
+      }
+
+      const newUser = await response.json();
+      return newUser;
+    } catch (error) {
+      console.error("Error adding user:", error);
+      return null;
+    }
+  };
+
+  const AllUser = async () => {
+    try {
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          collection: "users",
+          search: "all",
+          sender: "web",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
+      }
+
+      const users = await response.json();
+      return users;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return null;
+    }
+  };
+
+  const AllOrder = async () => {
+    try {
+      const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          collection: "orders",
+          search: "all",
+          sender: "web",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch orders");
+      }
+
+      const orders = await response.json();
+      return orders;
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      return null;
+    }
+  };
 
   const handleSwitchStore = (storeName) => {
     setCurrentStore(storeName);
-
-    // Filter the data based on the store name
-    const filteredData = data.filter((item) => item.store.includes(storeName));
-    console.log("StoreName1: ", filteredData);
-    // Update the data state with the filtered data
-    setEachStoreData(filteredData);
   };
 
   const handleLogout = () => {
@@ -82,11 +194,53 @@ function App() {
     googleLogout();
     setUser(null);
   };
-  const handleViewOrder = () => {
-    //Pop up window to view previous orders
-    console.log("View Order");
-    console.log(viewOrder);
-    console.log("End view ORder");
+
+  const handleViewProfile = () => {
+    if (showProfile == true) {
+      setShowProfile(false);
+      setProfileToggle("hidden");
+    } else {
+      setShowProfile(true);
+      setProfileToggle("visible");
+    }
+  };
+
+  const handleViewOrder = async () => {
+    try {
+      const orders = await AllOrder();
+      if (orders) {
+        console.log("user email:", user.email);
+        console.log("All orders:", orders);
+        const currentUserOrders = orders.filter(
+          (order) => order.customerEmail === user.email
+        );
+        console.log("Current user's orders:", currentUserOrders);
+        setUserOrder(currentUserOrders);
+
+        let display = currentUserOrders.map((order, index) => (
+          <tr key={index}>
+            <td>{new Date(order.date).toLocaleString()}</td>
+            <td>${order.totalPrice}</td>
+            <td>{order.store}</td>
+            <td>{order.status}</td>
+          </tr>
+        ));
+
+        setDisplayOrderHistory(display);
+
+        if (showOverlay) {
+          setShowOverlay(false);
+          setOrderToggle("hidden");
+        } else {
+          setShowOverlay(true);
+          setOrderToggle("visible");
+        }
+      } else {
+        console.log("Failed to fetch orders");
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
   };
 
   return (
@@ -95,36 +249,87 @@ function App() {
         <>
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
-              <div>{user.name}</div>
-              <div>{user.email}</div>
-              <div>Top</div>
-              <div>{}</div>
               <div className="navBar">
-                <button className="logoIcon">Jstacart</button>
-
-                {/* <SearchBar /> */}
+                <img src={logo} className="logo" />
 
                 <button
                   className="navBarButtons"
                   onClick={() => handleViewOrder()}
                 >
+                  <img src={orders} />
                   Orders
                 </button>
 
-                <button className="navBarButtons">Cart</button>
-                <button onClick={() => handleLogout("")}>LogOut</button>
+                <div>
+                  <div>
+                    <div className="orderPopup" id={orderToggle}>
+                      <div className="SubCartExtend">Order History</div>
+                      <table className="popupContent">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                            <th>Store</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>{displayOrderHistory}</tbody>
+                      </table>
 
-                <button className="navBarButtons">Profile</button>
-              </div>
-              <div className="mainPage">
-                <div className="banner">
-                  <div className="bannerContent">
-                    <h3>Free delivery over $20</h3>
-                    <h1>Become a member</h1>
-                    <p>Get your groceries delivered to your doorstep</p>
-                    <button className="shopNowButton">Shop Now!</button>
+                      <div className="backCheckout">
+                        <button
+                          className="backToStore"
+                          onClick={handleViewOrder}
+                        >
+                          Back
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <button className="navBarButtons" onClick={handleViewProfile}>
+                  <img src={profile} />
+                  Profile
+                </button>
+
+                <button
+                  className="navBarButtons"
+                  onClick={() => handleLogout("")}
+                >
+                  <img src={logout} />
+                  LogOut
+                </button>
+
+                <div className="profilePopup" id={profileToggle}>
+                  <div>
+                    <img id="profilePic" src={user.picture} />
+                  </div>
+
+                  <div>
+                    <div className="profileInfo">Name</div>
+                    <div id="userName">{user.given_name}</div>
+
+                    <div className="profileInfo">Surname</div>
+                    <div id="lastName">{user.family_name}</div>
+
+                    <div className="profileInfo">Email</div>
+                    <div id="userEmail">{user.email}</div>
+
+                    <div className="backCheckout">
+                      <button
+                        className="backToStore"
+                        onClick={handleViewProfile}
+                      >
+                        Back
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mainPage">
+                {!showOverlay ? <Carousel /> : null}
                 <div className="stores">
                   <div className="storeSectionHome">
                     <img src="https://assets-global.website-files.com/64248e7fd5f30d79c9e57d64/64e6177329c2d71389b1b219_walmart.png"></img>
@@ -136,6 +341,7 @@ function App() {
                       Walmart
                     </button>
                   </div>
+
                   <div className="storeSectionHome">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Costco_Wholesale_logo_2010-10-26.svg/800px-Costco_Wholesale_logo_2010-10-26.svg.png"></img>
                     <button
@@ -146,6 +352,7 @@ function App() {
                       Costco
                     </button>
                   </div>
+
                   <div className="storeSectionHome">
                     <img src="https://www.instacart.com/assets/domains/store_configuration/logo/1007/white_label_landing_page_556ecd01-f795-4043-98e7-ad10da94ef05.png"></img>
                     <button
@@ -156,6 +363,7 @@ function App() {
                       SuperStore
                     </button>
                   </div>
+
                   <div className="storeSectionHome">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/T%26T_Supermarket_Logo.svg/2560px-T%26T_Supermarket_Logo.svg.png"></img>
                     <button
@@ -170,6 +378,7 @@ function App() {
               </div>
             </>
           )}
+
           {currentStore !== null &&
             currentStore !== "HomePage" &&
             currentStore !== "CheckoutPage" && (
@@ -187,6 +396,7 @@ function App() {
                 setData={setEachStoreData}
               />
             )}
+
           {currentStore == "CheckoutPage" &&
             currentStore !== "HomePage" &&
             user !== null && (
@@ -198,11 +408,16 @@ function App() {
                 user={user}
                 setViewOrder={setViewOrder}
                 viewOrder={viewOrder}
+                currentStore={currentStore}
+                setUserOrder={setUserOrder}
               />
             )}
         </>
       ) : (
-        <LoginSignup setUser={setUser} />
+        <>
+          <Background />
+          <LoginSignup setUser={setUser} />
+        </>
       )}
     </>
   );

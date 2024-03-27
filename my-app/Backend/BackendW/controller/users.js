@@ -95,12 +95,16 @@ const deleteUser = async (req, res) => {
         const check = await emailExists(req.params.email);
         if (!check) {
             return res.status(400).json({ message: 'User does not exist' })
-        }else{
-            const user = await Users.deleteOne({ email: req.params.email })
-            res.status(200).json(result);
+        }
+        const user = await Users.deleteOne({ email: req.params.email })
+        
+    
+        let body = {
+            email: req.params.email
         }
         //update the Read database
-        await updateReadDB(req.body, 'users',  'DELETE');
+        await updateReadDB(body, 'users',  'DELETE');
+        res.status(200).json(result);
     }
     catch (err) {
         res.status(500).json({ message: err.message })

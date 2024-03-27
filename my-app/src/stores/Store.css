@@ -1,10 +1,8 @@
 .Store {
     height: 100vh;
-    /* Make the entire page height equal to the viewport height */
     width: 100vw;
     display: flex;
     flex-direction: column;
-    /* background-color: rgb(71, 4, 4); */
 }
 
 header {
@@ -15,8 +13,6 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-
-
 }
 
 .goBack {
@@ -24,79 +20,18 @@ header {
     background-color: white;
 }
 
-nav {
-    height: 5vh;
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    margin: 20px;
-    /* border-bottom: 5px solid #abcb42; */
-
-}
-
-.main {
-    display: flex;
-    /* background-color: green; */
-    flex-direction: row;
-    flex: 1;
-
-
-
-}
-
-.Side {
-    display: flex;
-    flex-direction: column;
-    /* background-color: aquamarine; */
-    width: 30%;
-    border-right: 1px solid gray;
-    ;
-}
-
-.TopSide {
-    /* background-color: bisque; */
-    flex: 0.4;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid gray;
-
-}
-
-.BottomSide {
-    padding-top: 20px;
-
-    flex: 0.5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .logo {
-    max-width: 30%;
-    max-height: 30%;
-    width: auto;
-    height: auto;
-
+    height: 80%;
 }
 
 .button-logo {
     width: 20px;
-    /* Adjust the width of the logo */
     height: auto;
-    /* Automatically adjust height to maintain aspect ratio */
     margin-right: 5px;
-    /* Add space between the logo and text */
 }
 
 .button-text {
     font-size: 16px;
-    /* Adjust the font size as needed */
 }
 
 .goBack {
@@ -104,158 +39,150 @@ nav {
     flex-direction: row;
     align-items: center;
     border-radius: 5px;
+
 }
 
 .goBack:hover {
-    background-color: #feaf17
+    background-color: #e1b52d;
 }
 
 .search {
     width: 20px;
-    /* Adjust the width of the logo */
     height: auto;
-    /* Automatically adjust height to maintain aspect ratio */
-    margin-right: 5px;
+    margin: 17px 0px 0px 5px;
     background-color: none;
+}
 
+.searchForm{
+    padding-top: 14px;
 }
 
 .submit {
     background-color: white;
     border: none;
     padding-top: 5px;
-
-}
-
-.buttonNav {
-    /* Customize button styles */
-    padding: 10px 15px;
-    /* Adjust padding to set button size */
-    background-color: #e2e4e6;
-    /* Example background color */
-    color: #ffffff;
-    /* Example text color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    min-width: 100px;
-    /* Set a minimum width for each button */
-    text-align: center;
-    /* Center-align the button text */
-    border-radius: 20px;
-    color: black;
-
 }
 
 .buttonsCategoriesName {
-    /* Customize button styles */
     padding: 10px 15px;
-    /* Adjust padding to set button size */
-    /* padding-bottom: 5px; */
     background-color: #e2e4e6;
-    /* Example background color */
     color: #ffffff;
-    /* Example text color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     min-width: 200px;
-    /* Set a minimum width for each button */
     text-align: center;
-    /* Center-align the button text */
     border-radius: 20px;
     color: black;
-
-}
-
-.buttonNav:hover {
-    background-color: #feaf17;
 }
 
 .buttonsCategoriesName:hover {
-    background-color: #feaf17;
-
+    background-color: #e1b52d;
 }
 
-.WalmartLogo {
+.buttonNav:hover {
+    background-color: #e1b52d;
+}
+
+.StoreLogo {
     max-height: 80%;
     max-width: 80%;
 }
 
-.itemBlock {
-
-    border: 1px solid #ffffff;
-    padding: 10px;
-    margin: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    width: 200px;
-    height: 200px;
-    box-sizing: border-box;
-    background-color: white;
-    border-width: 5px;
-    border-radius: 50px;
-}
-
-
-
-
-.itemBlock:hover {
-    border-color: #feaf17;
-    transform: scale(1.2);
-
-}
-
-.priceAndAdd {
+.main {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+}
+  
+.Side {
+    flex-shrink: 0;
+    width: 20%; 
+    padding: 20px; 
+    border-right: 1px solid gray;
+}
+
+.TopSide {
+    flex: 0.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    /* padding-bottom: -20px; */
-    margin-bottom: -15px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 30px;
 }
 
-
-
-
-
-.mainContent {
+.BottomSide {
+    padding-top: 50px;
+    flex: 0.5;
     display: flex;
-    flex-direction: row;
-
-    margin: 50px;
-    background-color: rgb(255, 255, 255);
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
 }
+  
+.buttonsCategoriesName {
+    margin-bottom: 60px; 
+    flex-grow: 1; 
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+  
+.mainContent {
+    flex-grow: 1; 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px; 
+}
+  
+.itemBlock {
+    width: calc(25% - 20px);
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
 
+.itemBlock:hover{
+    border: 2px solid #e1b52d;
+}
+  
 .itemImage {
     max-width: 100%;
-    /* Ensure the image does not exceed the width of the itemBlock */
-    max-height: 50%;
-    /* Ensure the image does not exceed the height of the itemBlock */
-    border-radius: 50px;
-
+    max-height: 80%; 
+    border-radius: 15px;
 }
-
+  
+.priceAndAdd {
+    margin-top: auto; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.price {
+    margin: 0;
+    font-weight: bold; 
+    font-size: 1.5em; 
+}
+  
+.itemBlock > div:nth-child(4) {
+    font-weight: bold; /* Make the "Many in stock" text bold */
+    color: gray;
+}
+  
 .addItemButton {
-    content: "";
-    max-width: 60px;
-    /* Ensure the image does not exceed the width of the itemBlock */
-    max-height: 30px;
-    /* Ensure the image does not exceed the height of the itemBlock */
+    padding: 10px 15px;
+    background-color: #e1b52d;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
     border-radius: 20px;
-    background-color: #abcb42;
-    border-color: none;
-    margin-bottom: 15px;
-
-
-
-
+    color: black;
 }
 
 .addItemButton:hover {
-    /* max-width:  80px; */
-
     transform: scale(1.2);
     font-size: xx-small;
 }
@@ -263,59 +190,87 @@ nav {
 .addItemButton:hover::after {
     font-size: xx-small;
     content: " to Cart";
-    /* Text to be displayed on hover */
-}
-
-.price {
-    flex: 0.5;
-    background-color: rgb(255, 255, 255);
 }
 
 .Cart {
     background-color: white;
-    ;
     border: none;
-
 }
 
 .Cart:hover {
     transform: scale(2);
-    background-color: #feaf17;
+    background-color: #e1b52d;
     border-radius: 20px;
 }
 
-/* .CardExtend {
+.CartPopup {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-evenly; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(255, 255, 255, 0.9); 
+    z-index: 999; 
+    transition: opacity 500ms;
+}
+  
+.SubCartExtend {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around; 
+    background-color: #e1b52d; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
     width: 40%;
-    height: 100vh;
-    background-color: rgb(23, 107, 107);
-    position: absolute;
-    padding-top: 300px;
-    margin-top: 300px;
-    top: 0;
-    right: 0;
-    z-index: -1;
-    backdrop-filter: blur(100px);
-
-} */
-.mainContent.blurred {
-    opacity: 0.5;
-    /* Lower opacity to blur the main content */
+    max-width: 80%; 
+    margin: 20px auto; 
 }
 
-.CardExtend {
-    width: 30%;
-    height: 100vh;
-    background-color: #abcb42;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    /* Higher z-index to be above everything else */
-    opacity: 0.8;
-    /* Full opacity for the CardExtend */
+.profilePopup{
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-evenly; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(255, 255, 255, 0.9); 
+    z-index: 999; 
+    transition: opacity 500ms;
 }
+
+#profilePic{
+    border-radius: 50%;
+    width: 20vw;
+}
+
+.profileInfo{
+    color: gray;
+}
+
+#userName{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#lastName{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#userEmail{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
 
 #hidden {
     display: none;
@@ -328,15 +283,66 @@ nav {
 .Store {
     position: relative;
 }
-.SubCardExtend{
-    flex-direction: column;
+
+.productListCart {
+    list-style-type: none;
+    padding: 0;
 }
-.eachItem{
-    display: flex;
-    flex-direction: row;
-}
-.AddDelete {}
   
-  .AddDelete:hover {
-    background-color: #ff7f50;
-  }
+.eachItem {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+  
+.eachItem li {
+    margin: 0;
+    padding: 0;
+}
+
+.itemName {
+    font-weight: bold;
+}
+  
+.addDelete {
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    padding: 5px 5px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+  
+.addDelete:hover {
+    background-color: #e1b52d; 
+    color: #fff; 
+    border-color: #e1b52d; 
+}
+
+.backCheckout {
+    border-top: 1px solid #ccc; 
+    padding-top: 10px; 
+    margin-top: 20px; 
+}
+  
+.backCheckout button {
+    background-color:#e1b52d;
+    color: white;
+    border: 2px solid #e1b52d;
+    padding: 5px 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.backCheckout button:hover{
+    background-color: black; 
+    color: #fff; 
+    border-color: black; 
+}
