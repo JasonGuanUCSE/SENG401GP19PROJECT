@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
-import logo from "./images/Instacart.png";
+import { useState} from "react";
 import arrowLeft from "./images/arrow-left.png";
 import search from "./images/search.png";
 import WalmartLogo from "./images/Walmart.png";
 import TandTLogo from "./images/TandT.png";
 import CostcoLogo from "./images/Costco.png";
 import SuperStoreLogo from "./images/Canadian.png";
-// import data from "./data/data.json";
+import logo from "../icons/jstacart.png";
+import cart from "../icons/cart.png";
+import orders from "../icons/order.png";
+import profile from "../icons/profile.png";
 
 import "./Store.css";
+import "../App.css";
 
 function Store({
   store,
@@ -23,39 +26,42 @@ function Store({
   data,
   setData,
 }) {
+
   const [items, setItems] = useState([]);
-  // const [order, setOrder] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [hideToggle, setHideTggle] = useState("hidden");
-  const [visible, setVisible] = useState(false);
-  let demoView = "";
-  // let toggle = 0;
+  const [visible, setVisible] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showProfile, setShowProfile] = useState(false);
+  const [profileToggle, setProfileToggle] = useState("hidden");
+
   const storeNames = {
     Walmart: WalmartLogo,
     Costco: CostcoLogo,
     SuperStore: SuperStoreLogo,
     TandT: TandTLogo,
   };
-  const [searchTerm, setSearchTerm] = useState("");
-  const [content, setContent] = useState("");
+
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
+
   const handleSubmit = (event) => {
     setItems([]);
     event.preventDefault();
-    // onSeach(searchTerm);
     setItems(
       data.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   };
+
   const handleGoBack = () => {
     setCurrentStore("HomePage");
     setMetaData(meta_data);
     setOrder([]);
   };
+
   const handleAdd = (id) => {
     let addingItem = data.find((item) => item.id == parseInt(id));
     addingItem = {
@@ -65,6 +71,7 @@ function Store({
       price: addingItem.price,
       image: addingItem.image,
     };
+
     const updateOrder = [...order];
 
     updateOrder.push(addingItem);
@@ -76,50 +83,25 @@ function Store({
     }
     setTotalPrice(totalPrice);
   };
-  // useEffect(() => {
-  //   // This will run every time 'items' state changes
-  //   // Update the main content area based on the new 'items'
-  //   setContent(
-  //     items.map((item) => (
-  //       <div key={item.id} className="itemBlock">
-  //         <img src={item.image} alt="itemImage" className="itemImage" />
-  //         <div className="priceAndAdd">
-  //           <p className="price">{item.price}</p>
-  //           <button
-  //             className="addItemButton"
-  //             id={item.name}
-  //             onClick={() => handleAdd(item.id)}
-  //           >
-  //             + Add
-  //           </button>
-  //         </div>
-  //         <div>{item.name}</div>
-  //         <div>Many in stock</div>
-  //       </div>
-  //     ))
-  //   );
-  // }, [items]);
 
   const handleAddQuantity = (id) => {
-    // Find the index of the item in the order array
     const itemIndex = order.findIndex((item) => item.id === id);
-    // If item is not found, exit the function
+
     if (itemIndex === -1) return;
     order[itemIndex].quantity += 1;
     setOrder([...order]);
     let totalPrice = 0;
+
     for (const i of order) {
       totalPrice = totalPrice + i.price * i.quantity;
     }
     setTotalPrice(totalPrice);
-
-    const price = setTotalPrice(totalPrice);
   };
+
   const handleDeleteQuantity = (id) => {
-    // Find the index of the item in the order array
     const itemIndex = order.findIndex((item) => item.id === parseInt(id));
-    // If item is not found, exit the function
     if (itemIndex === -1) return;
+
     if (order[itemIndex].quantity > 1) {
       order[itemIndex].quantity -= 1;
     } else if (order[itemIndex].quantity == 1) {
@@ -127,13 +109,13 @@ function Store({
     }
     setOrder([...order]);
     let totalPrice = 0;
+
     for (const i of order) {
       totalPrice = totalPrice + i.price * i.quantity;
     }
     setTotalPrice(totalPrice);
-
-    const price = setTotalPrice(totalPrice);
   };
+
   const handleViewOrder = () => {
     if (visible == true) {
       setVisible(false);
@@ -144,16 +126,6 @@ function Store({
     }
   };
 
-  const buttonNames = [
-    "For You",
-    "Produce",
-    "Pharmacy",
-    "Beauty",
-    "Convenience",
-    "Retail",
-    "WholeSale",
-    "More",
-  ];
   const buttonsCategoriesName = [
     "Dairy&Milk",
     "Vegetables",
@@ -165,10 +137,8 @@ function Store({
   const handleMainContent = (content) => {
     setItems();
     if (content == "Dairy&Milk") {
-      // setItems([]);
       setItems(filterItemsByCategory(data, "dairy"));
     } else if (content === "Vegetables") {
-      // setItems([]);
       setItems(filterItemsByCategory(data, "fresh-produce"));
     } else if (content === "Fruits") {
       setItems(filterItemsByCategory(data, "fruits"));
@@ -179,122 +149,149 @@ function Store({
     }
 
     console.log("Items: ", items);
-    // setContent(
-    //   items.map((item) => (
-    //     <div key={item.id} className="itemBlock">
-    //       <img src={item.image} alt="itemImage" className="itemImage" />
-    //       <div className="priceAndAdd">
-    //         <p className="price">{item.price}</p>
-    //         <button
-    //           className="addItemButton"
-    //           id={item.name}
-    //           onClick={() => handleAdd(item.id)}
-    //         >
-    //           + Add
-    //         </button>
-    //       </div>
-    //       <div>{item.name}</div>
-    //       <div>Many in stock</div>
-    //     </div>
-    //   ))
-    // );
   };
 
   function filterItemsByCategory(dat, category) {
     return dat.filter((item) => item.category === category);
   }
+
   const handleCheckout = () => {
     setPreviousStore(store);
     setCurrentStore("CheckoutPage");
     console.log("previousStore: ", store);
   };
 
+  const handleViewProfile = () => {
+    if (showProfile == true) {
+      setShowProfile(false);
+      setProfileToggle("hidden");
+    } else {
+      setShowProfile(true);
+      setProfileToggle("visible");
+    }
+  };
+
   return (
     <>
-      <div>{user.name}</div>
+      <div className="navBar">
+        <img src={logo} alt="Logo" className="logo" />
+
+        <button className="navBarButtons" onClick={handleGoBack}>
+          <img src={arrowLeft} alt="arrow" className="button-logo" />
+          <span className="button-text">Back</span>
+        </button>
+
+        <form onSubmit={handleSubmit} className="searchForm">
+          <input
+            type="text"
+            placeholder="Search for items"
+            value={searchTerm}
+            onChange={handleChange}
+            className="searchInput"
+          />
+
+          <button type="submit" className="searchButton">
+            <img src={search} alt="search" className="search" />
+          </button>
+        </form>
+
+        <button className="navBarButtons">
+          <img src={orders}/>
+          Orders
+        </button>
+
+        <button className="navBarButtons" onClick={handleViewOrder}>
+          <img src={cart}/>
+          Cart
+        </button>
+          
+        <button className="navBarButtons" onClick={handleViewProfile}>
+          <img src={profile}/>
+          Profile
+        </button>
+
+      </div>
+
       <div className="Store">
-        <header className="Header">
-          {/* <div>Logo</div> */}
-          <img src={logo} alt="Logo" className="logo" />
+        <div className="CartPopup" id={hideToggle}>
+          <div className="SubCartExtend">
+            <h2>Personal {store} shopping cart</h2>
+          </div>
 
-          <button className="goBack" onClick={handleGoBack}>
-            <img src={arrowLeft} alt="Logo" className="button-logo" />
-            <span className="button-text">Back</span>
-          </button>
-          <form onSubmit={handleSubmit} className="submitForm">
-            <button type="submit" className="submit">
-              <img src={search} alt="Logo" className="search" />
-            </button>
-            <input
-              type="text"
-              placeholder="Search for items"
-              value={searchTerm}
-              onChange={handleChange}
-            />
-          </form>
-          <div>Order</div>
-          <button className="Cart" onClick={handleViewOrder}>
-            Cart
-          </button>
-          <div>Profile</div>
-        </header>
+          <ul className="productListCart">
+            {order.map((item) => (
+              <div className="eachItem">
 
-        <nav className="Nav">
-          {buttonNames.map((button) => (
-            <button key={button} className="buttonNav">
-              {button}
-            </button>
-          ))}
-        </nav>
-        <div className="CardExtend" id={hideToggle}>
-          <div className="SubCardExtend">
+                <li key={item.id}>
+                  <div className="itemName">{item.name}</div>
+                  <div className="quantityPrice">
+                    <div>quantity: {item.quantity} </div>
+                    <div>individual price: ${item.price}</div>
+                  </div>
+                </li>
+                
+                <div className="buttonsContainer">
+                  <button
+                    className="addDelete"
+                    onClick={() => handleAddQuantity(item.id)}>
+                    Add 1
+                  </button>
+
+                  <button
+                    className="addDelete"
+                    onClick={() => handleDeleteQuantity(item.id)}>
+                    Delete 1
+                  </button>
+                </div>
+              </div>
+            ))}
+          </ul>
+          
+          <div className="backCheckout">
+            The subtotal is ${totalPrice.toFixed(2)}
+
             <div>
               <button className="backToStore" onClick={handleViewOrder}>
                 Back
               </button>
-            </div>
-            <div>
-              <h2>View Order pageOrder</h2>
+
+              <button className="checkOut" onClick={handleCheckout}>
+                Go to checkout
+              </button>
             </div>
           </div>
 
-          <ul>
-            {order.map((item) => (
-              <div className="eachItem">
-                {" "}
-                <li key={item.id}>
-                  {item.name} quantity: {item.quantity} price: {item.price}
-                </li>
-                <button
-                  className="AddDelete"
-                  onClick={() => handleAddQuantity(item.id)}
-                >
-                  Add 1
-                </button>
-                <button
-                  className="AddDelete"
-                  onClick={() => handleDeleteQuantity(item.id)}
-                >
-                  Delete 1
-                </button>
-              </div>
-            ))}
-          </ul>
-          <div>The total price is {totalPrice}</div>
+        </div>
 
-          <div>
-            <button className="checkOut" onClick={handleCheckout}>
-              Go to checkout
+        <div className="profilePopup" id={profileToggle}>
+
+          <img id="profilePic" src={user.picture}/>
+          <div id="userName">
+            {user.given_name}
+          </div>
+
+          <div id="lastName">
+            {user.family_name}
+          </div>
+
+          <div id="userEmail">
+            {user.email}
+          </div>
+          
+          <div className="backCheckout">
+            <button className="backToStore" onClick={handleViewProfile}>
+              Back
             </button>
           </div>
         </div>
+
         <div className="main">
           <div className="Side">
             <div className="TopSide">
-              {/* <img src={WalmartLogo} alt="Logo" className="WalmartLogo" /> */}
-              <img src={storeNames[store]} alt="Logo" className="WalmartLogo" />
+              <img src={storeNames[store]} alt="Logo" className="StoreLogo" />
               <div>Welcome to {store} online grocery</div>
             </div>
+
             <div className="BottomSide">
               {buttonsCategoriesName.map((button) => (
                 <button
@@ -306,26 +303,30 @@ function Store({
                 </button>
               ))}
             </div>
+
           </div>
+
           <div className="mainContent">
             {items.map((item) => (
               <div key={item.id} className="itemBlock">
                 <img src={item.image} alt="itemImage" className="itemImage" />
+
                 <div className="priceAndAdd">
-                  <p className="price">{item.price}</p>
+                  <p className="price">${item.price}</p>
                   <button
                     className="addItemButton"
                     id={item.name}
-                    onClick={() => handleAdd(item.id)}
-                  >
+                    onClick={() => handleAdd(item.id)}>
                     + Add
                   </button>
                 </div>
+
                 <div>{item.name}</div>
                 <div>Many in stock</div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </>
