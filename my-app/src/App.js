@@ -29,7 +29,7 @@ function App() {
   const [profileToggle, setProfileToggle] = useState("hidden");
   const [showOverlay, setShowOverlay] = useState(false);
   const [orderToggle, setOrderToggle] = useState("hidden");
-  const [displayOrderHistory, setDisplayOrderHistory] = useState(false);
+  const [displayOrderHistory, setDisplayOrderHistory] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -208,6 +208,46 @@ function App() {
     }
   }
 
+  // const handleViewOrder = async () => {
+  //   try {
+  //     const orders = await AllOrder();
+  //     if (orders) {
+  //       console.log("user email:", user.email);
+  //       console.log("All orders:", orders);
+  //       const currentUserOrders = orders.filter(
+  //         (order) => order.customerEmail === user.email
+  //       );
+
+  //       console.log("Current user's orders:", currentUserOrders);
+  //       setUserOrder(currentUserOrders);
+
+  //       let display = currentUserOrders
+  //         .map(
+  //           (order) =>
+  //             `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
+  //               order.totalPrice
+  //             }  Purchase at store: ${order.store} Status: ${order.status}`
+  //         )
+  //         .join("\n");
+        
+  //       setDisplayOrderHistory(display);
+        
+  //       if (showOverlay == true) {
+  //       setShowOverlay(false);
+  //       setOrderToggle("hidden");
+  //     } else {
+  //       setShowOverlay(true);
+  //       setOrderToggle("visible");
+  //     }
+
+  //     } else {
+  //       console.log("Failed to fetch orders");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching orders:", error);
+  //   }
+  // };
+
   const handleViewOrder = async () => {
     try {
       const orders = await AllOrder();
@@ -217,29 +257,27 @@ function App() {
         const currentUserOrders = orders.filter(
           (order) => order.customerEmail === user.email
         );
-
         console.log("Current user's orders:", currentUserOrders);
         setUserOrder(currentUserOrders);
 
-        let display = currentUserOrders
-          .map(
-            (order) =>
-              `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
-                order.totalPrice
-              }  Purchase at store: ${order.store} Status: ${order.status}`
-          )
-          .join("\n");
-        
-        setDisplayOrderHistory(display);
-        
-        if (showOverlay == true) {
-        setShowOverlay(false);
-        setOrderToggle("hidden");
-      } else {
-        setShowOverlay(true);
-        setOrderToggle("visible");
-      }
+        let display = currentUserOrders.map((order, index) => (
+          <tr key={index}>
+            <td>{new Date(order.date).toLocaleString()}</td>
+            <td>${order.totalPrice}</td>
+            <td>{order.store}</td>
+            <td>{order.status}</td>
+          </tr>
+        ));
 
+        setDisplayOrderHistory(display);
+
+        if (showOverlay) {
+          setShowOverlay(false);
+          setOrderToggle("hidden");
+        } else {
+          setShowOverlay(true);
+          setOrderToggle("visible");
+        }
       } else {
         console.log("Failed to fetch orders");
       }
@@ -257,6 +295,7 @@ function App() {
               <div className="navBar">
                 <img src={logo} className="logo" />
 
+
                 <button
                   className="navBarButtons"
                   onClick={() => handleViewOrder()}
@@ -264,6 +303,31 @@ function App() {
                   <img src={orders} />
                   Orders
                 </button>
+
+                <div>
+                  <div>
+                    <div className="orderPopup" id={orderToggle}>
+                      <div className="SubCartExtend">Order History</div>
+                      <table className="popupContent">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                            <th>Store</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>{displayOrderHistory}</tbody>
+                      </table>
+
+                      <div className="backCheckout">
+                        <button className="backToStore" onClick={handleViewOrder}>
+                          Back
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 <button className="navBarButtons" onClick={handleViewProfile}>
                   <img src={profile}/>
@@ -279,16 +343,18 @@ function App() {
                   LogOut
                 </button>
 
-                <div>
+                {/* <div>
                   <div className="orderPopup" id={orderToggle}>
-                    {displayOrderHistory}
+
+                    <div>{displayOrderHistory}</div>
                     <div className="backCheckout">
                       <button className="backToStore" onClick={handleViewOrder}>
                         Back
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
+
 
                 <div className="profilePopup" id={profileToggle}>
                   <div>
