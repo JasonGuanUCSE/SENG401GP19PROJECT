@@ -5,10 +5,12 @@ import LoginSignup from "./Components/LoginSignup";
 import { googleLogout } from "@react-oauth/google";
 import data_json from "./stores/data/data.json";
 
+import Background from "./Components/Background";
 import logo from "./icons/jstacart.png";
 import orders from "./icons/order.png";
 import profile from "./icons/profile.png";
 import logout from "./icons/logout.png";
+
 
 import "./App.css";
 
@@ -332,7 +334,10 @@ function App() {
             )}
         </>
       ) : (
-        <LoginSignup setUser={setUser} />
+        <>
+          <Background />
+          <LoginSignup setUser={setUser} />
+        </>
       )}
     </>
   );

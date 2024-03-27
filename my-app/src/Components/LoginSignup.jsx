@@ -54,14 +54,16 @@ const LoginSignup = ({ setUser }) => {
           <img src={logo} alt="logo" />
         </a>
       </div>
-      <div className="signup-container">
-        <div className="header">
-          <div className="text">
-            <h1>Welcome to Jstacart</h1>
+      <div className="row">
+        <div className="signup-container">
+          <div className="header">
+            <div className="text">
+              <h1>Welcome to Jstacart</h1>
+            </div>
           </div>
-        </div>
-        <div className="google-button">
-          <button onClick={login}>Sign in with Google</button>
+          <div className="google-button">
+            <button onClick={login}>Sign in with Google</button>
+          </div>
         </div>
       </div>
     </div>
