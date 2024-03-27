@@ -99,8 +99,11 @@ const deleteUser = async (req, res) => {
             const user = await Users.deleteOne({ email: req.params.email })
             res.status(200).json(result);
         }
+        let body = {
+            email: req.params.email
+        }
         //update the Read database
-        await updateReadDB(req.body, 'users',  'DELETE');
+        await updateReadDB(body, 'users',  'DELETE');
     }
     catch (err) {
         res.status(500).json({ message: err.message })
