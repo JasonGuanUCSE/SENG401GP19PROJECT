@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import arrowLeft from "./images/arrow-left.png";
 import search from "./images/search.png";
 import WalmartLogo from "./images/Walmart.png";
@@ -26,11 +26,10 @@ function Store({
   data,
   setData,
 }) {
-
   const [items, setItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [hideToggle, setHideTggle] = useState("hidden");
-  const [visible, setVisible] = useState(false); 
+  const [visible, setVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [profileToggle, setProfileToggle] = useState("hidden");
@@ -68,7 +67,7 @@ function Store({
       name: addingItem.name,
       id: addingItem.id,
       quantity: 1,
-      price: addingItem.price,
+      price: addingItem.price.$numberDecimal,
       image: addingItem.image,
     };
 
@@ -136,41 +135,31 @@ function Store({
   ];
 
   const handleMainContent = (content) => {
-    setItems();
-    if (content == "Dairy&Milk") {
-      // setItems([]);
-      // setItems(filterItemsByCategory(data, "dairy"));
-      // console.log("Meta: ", data);
-      // console.log("Items: ", items);
-      filterItemsByCategory(data, "dairy");
+    setItems([]);
+    let filteredItems = [];
+    if (content === "Dairy&Milk") {
+      filteredItems = filterItemsByCategory(data, "dairy");
     } else if (content === "Vegetables") {
-      // setItems([]);
-      // setItems(filterItemsByCategory(data, "fresh-produce"));
-      filterItemsByCategory(data, "fresh-produce");
-
+      filteredItems = filterItemsByCategory(data, "fresh-produce");
     } else if (content === "Fruits") {
-      // setItems(filterItemsByCategory(data, "fruits"));
-      filterItemsByCategory(data, "fruits");
+      filteredItems = filterItemsByCategory(data, "fruits");
     } else if (content === "Meat") {
-      // setItems(filterItemsByCategory(data, "meat-seafood"));
-      filterItemsByCategory(data, "meat-seafood");
+      filteredItems = filterItemsByCategory(data, "meat-seafood");
     } else if (content === "Beverages") {
-      // setItems(filterItemsByCategory(data, "beverages"));
-      filterItemsByCategory(data, "beverages");
+      filteredItems = filterItemsByCategory(data, "beverages");
     }
-
-    console.log("Items: ", items);
+    setItems(filteredItems);
+    console.log("Items Items: ", items);
   };
 
   function filterItemsByCategory(dat, cat) {
-    const i = dat.filter((item) => item.category.includes(cat));
-    //each item in i change i.price to a number
-    for (const item of i) {
+    const filteredItems = dat.filter((item) => item.category.includes(cat));
+    // Create a new array with modified prices
+    const modifiedItems = filteredItems.map((item) => {
       const itemPrice = parseFloat(item.price.$numberDecimal);
-      item.price = itemPrice;
-    }
-    console.log("Filtered: ", i);
-    setItems(dat.filter((item) => item.category.includes(cat)));
+      return { ...item, price: itemPrice };
+    });
+    return modifiedItems;
   }
 
   const handleCheckout = () => {
@@ -214,20 +203,19 @@ function Store({
         </form>
 
         <button className="navBarButtons">
-          <img src={orders}/>
+          <img src={orders} />
           Orders
         </button>
 
         <button className="navBarButtons" onClick={handleViewOrder}>
-          <img src={cart}/>
+          <img src={cart} />
           Cart
         </button>
-          
+
         <button className="navBarButtons" onClick={handleViewProfile}>
-          <img src={profile}/>
+          <img src={profile} />
           Profile
         </button>
-
       </div>
 
       <div className="Store">
@@ -239,7 +227,6 @@ function Store({
           <ul className="productListCart">
             {order.map((item) => (
               <div className="eachItem">
-
                 <li key={item.id}>
                   <div className="itemName">{item.name}</div>
                   <div className="quantityPrice">
@@ -247,17 +234,19 @@ function Store({
                     <div>individual price: ${item.price}</div>
                   </div>
                 </li>
-                
+
                 <div className="buttonsContainer">
                   <button
                     className="addDelete"
-                    onClick={() => handleAddQuantity(item.id)}>
+                    onClick={() => handleAddQuantity(item.id)}
+                  >
                     Add 1
                   </button>
 
                   <button
                     className="addDelete"
-                    onClick={() => handleDeleteQuantity(item.id)}>
+                    onClick={() => handleDeleteQuantity(item.id)}
+                  >
                     Delete 1
                   </button>
                 </div>
@@ -265,10 +254,8 @@ function Store({
             ))}
           </ul>
 
-          
           <div className="backCheckout">
             The subtotal is ${totalPrice.toFixed(2)}
-
             <div>
               <button className="backToStore" onClick={handleViewOrder}>
                 Back
@@ -279,24 +266,16 @@ function Store({
               </button>
             </div>
           </div>
-
         </div>
 
         <div className="profilePopup" id={profileToggle}>
+          <img id="profilePic" src={user.picture} />
+          <div id="userName">{user.given_name}</div>
 
-          <img id="profilePic" src={user.picture}/>
-          <div id="userName">
-            {user.given_name}
-          </div>
+          <div id="lastName">{user.family_name}</div>
 
-          <div id="lastName">
-            {user.family_name}
-          </div>
+          <div id="userEmail">{user.email}</div>
 
-          <div id="userEmail">
-            {user.email}
-          </div>
-          
           <div className="backCheckout">
             <button className="backToStore" onClick={handleViewProfile}>
               Back
@@ -322,7 +301,6 @@ function Store({
                 </button>
               ))}
             </div>
-
           </div>
 
           <div className="mainContent">
@@ -335,7 +313,8 @@ function Store({
                   <button
                     className="addItemButton"
                     id={item.name}
-                    onClick={() => handleAdd(item.id)}>
+                    onClick={() => handleAdd(item.id)}
+                  >
                     + Add
                   </button>
                 </div>
@@ -345,7 +324,6 @@ function Store({
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </>
