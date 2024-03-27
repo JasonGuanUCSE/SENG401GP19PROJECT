@@ -90,7 +90,7 @@ const LoginSignup = ({ setUser }) => {
                   </g>
                 </svg>
               </div>
-              <p class="google-button-text">Hello JSTACART</p>
+              <p class="google-button-text">Sign in with Google</p>
             </button>
           </div>
         </div>
