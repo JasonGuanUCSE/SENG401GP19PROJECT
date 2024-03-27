@@ -264,12 +264,25 @@ function Store({
         </div>
 
         <div className="profilePopup" id={profileToggle}>
-          <div>{user.name}</div>
-          <div>{user.email}</div>
 
-          <button className="backToStore" onClick={handleViewProfile}>
-            Back
-          </button>
+          <img id="profilePic" src={user.picture}/>
+          <div id="userName">
+            {user.given_name}
+          </div>
+
+          <div id="lastName">
+            {user.family_name}
+          </div>
+
+          <div id="userEmail">
+            {user.email}
+          </div>
+          
+          <div className="backCheckout">
+            <button className="backToStore" onClick={handleViewProfile}>
+              Back
+            </button>
+          </div>
         </div>
 
         <div className="main">
