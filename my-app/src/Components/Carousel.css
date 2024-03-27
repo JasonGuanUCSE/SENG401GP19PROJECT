@@ -1,0 +1,15 @@
+.awssld__wrapper{
+    max-height: 40vh;
+  }
+  
+   .awssld__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .awssld__content img {
+    width: 100%; /* Make the image occupy the full width of its container */
+    height: auto; /* Maintain the aspect ratio */
+  }
+  

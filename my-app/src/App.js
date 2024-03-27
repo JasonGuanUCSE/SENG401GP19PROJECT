@@ -12,11 +12,11 @@ import profile from "./icons/profile.png";
 import logout from "./icons/logout.png";
 
 import "./App.css";
-import "./stores/Store.css"
+import "./stores/Store.css";
+import Carousel from "./Components/Carousel";
 
 function App() {
   const [user, setUser] = useState(null);
-  // const [data, setData] = useState(data_json);
   const [data, setData] = useState([]);
 
   const [eachStoreData, setEachStoreData] = useState([]);
@@ -29,14 +29,13 @@ function App() {
   const [profileToggle, setProfileToggle] = useState("hidden");
   const [showOverlay, setShowOverlay] = useState(false);
   const [orderToggle, setOrderToggle] = useState("hidden");
-  const [displayOrderHistory, setDisplayOrderHistory] = useState(false);
+  const [displayOrderHistory, setDisplayOrderHistory] = useState("");
 
   useEffect(() => {
     if (user) {
       fetchProductsData()
         .then((products) => {
           console.log("All products:");
-          // console.log(products);
           setData(products);
           console.log("Data:", data);
           console.log("Data1:", data_json);
@@ -62,11 +61,11 @@ function App() {
       });
     }
   }, [user]);
-  //when product data is updated, setData will be called
+
   useEffect(() => {
     console.log("Data Updated:", data);
-    // Perform any additional actions you want with data here
   }, [data]);
+
   useEffect(() => {
     console.log("User Orders Updated:", userOrder);
   }, [userOrder]);
@@ -206,7 +205,7 @@ function App() {
       setShowProfile(true);
       setProfileToggle("visible");
     }
-  }
+  };
 
   const handleViewOrder = async () => {
     try {
@@ -217,29 +216,28 @@ function App() {
         const currentUserOrders = orders.filter(
           (order) => order.customerEmail === user.email
         );
-
         console.log("Current user's orders:", currentUserOrders);
         setUserOrder(currentUserOrders);
 
-        let display = currentUserOrders
-          .map(
-            (order) =>
-              `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
-                order.totalPrice
-              }  Purchase at store: ${order.store} Status: ${order.status}`
-          )
-          .join("\n");
-        
-        setDisplayOrderHistory(display);
-        
-        if (showOverlay == true) {
-        setShowOverlay(false);
-        setOrderToggle("hidden");
-      } else {
-        setShowOverlay(true);
-        setOrderToggle("visible");
-      }
+        let display = currentUserOrders.map((order, index) => (
+          <tr key={index}>
+            <td>{new Date(order.date).toLocaleString()}</td>
+            <td>${order.totalPrice}</td>
+            <td>{order.store}</td>
+            <td>{order.status}</td>
+          </tr>
+        ));
 
+        setDisplayOrderHistory(display);
+
+        if (showOverlay) {
+
+          setShowOverlay(false);
+          setOrderToggle("hidden");
+        } else {
+          setShowOverlay(true);
+          setOrderToggle("visible");
+        }
       } else {
         console.log("Failed to fetch orders");
       }
@@ -257,6 +255,7 @@ function App() {
               <div className="navBar">
                 <img src={logo} className="logo" />
 
+
                 <button
                   className="navBarButtons"
                   onClick={() => handleViewOrder()}
@@ -265,9 +264,33 @@ function App() {
                   Orders
                 </button>
 
-                <button className="navBarButtons" onClick={handleViewProfile}>
-                  <img src={profile}/>
+                <div>
+                  <div>
+                    <div className="orderPopup" id={orderToggle}>
+                      <div className="SubCartExtend">Order History</div>
+                      <table className="popupContent">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Total Price</th>
+                            <th>Store</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>{displayOrderHistory}</tbody>
+                      </table>
 
+                      <div className="backCheckout">
+                        <button className="backToStore" onClick={handleViewOrder}>
+                          Back
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button className="navBarButtons" onClick={handleViewProfile}>
+                  <img src={profile} />
                   Profile
                 </button>
 
@@ -279,57 +302,45 @@ function App() {
                   LogOut
                 </button>
 
-                <div>
-                  <div className="orderPopup" id={orderToggle}>
-                    {displayOrderHistory}
-                    <div className="backCheckout">
-                      <button className="backToStore" onClick={handleViewOrder}>
-                        Back
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
                 <div className="profilePopup" id={profileToggle}>
                   <div>
-                    <img id="profilePic" src={user.picture}/>
+                    <img id="profilePic" src={user.picture} />
                   </div>
-                  
+
                   <div>
                     <div className="profileInfo">Name</div>
-                    <div id="userName">
-                      {user.given_name}
-                    </div>
+                    <div id="userName">{user.given_name}</div>
 
                     <div className="profileInfo">Surname</div>
-                    <div id="lastName">
-                      {user.family_name}
-                    </div>
+                    <div id="lastName">{user.family_name}</div>
 
                     <div className="profileInfo">Email</div>
-                    <div id="userEmail">
-                      {user.email}
-                    </div>
-                    
+                    <div id="userEmail">{user.email}</div>
+
                     <div className="backCheckout">
-                      <button className="backToStore" onClick={handleViewProfile}>
+                      <button
+                        className="backToStore"
+                        onClick={handleViewProfile}
+                      >
                         Back
                       </button>
                     </div>
-
                   </div>
                 </div>
               </div>
 
               <div className="mainPage">
-                <div className="banner">
+                {/* <div className="banner">
                   <div className="bannerContent">
                     <h3>$5 Delivery Fee</h3>
                     <h1>Become a member</h1>
                     <p>Get your groceries delivered to your doorstep</p>
                     <button className="shopNowButton">Shop Now!</button>
+                    <Carousel />
                   </div>
-                </div>
+                  <Carousel />
+                </div> */}
+                <Carousel />
 
                 <div className="stores">
                   <div className="storeSectionHome">

@@ -148,7 +148,6 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
 
   return (
     <>
-    <div>{user.name}</div>
     <div className="checkout-page">
       <div className="section-title">
         <h1>Cart</h1>
