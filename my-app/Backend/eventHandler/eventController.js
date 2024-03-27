@@ -151,6 +151,9 @@ Returns: Get result of the search
 const handlePost = async (req, res) => {
     let collection = req.headers.collection
     let source = req.headers.sender
+    if (source == "dev") {
+        return res.status(200)
+    }
     let dest = source == "database"? "read":"write"
     //prepare request object and call the addEvent function
     let request = {
