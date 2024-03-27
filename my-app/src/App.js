@@ -251,7 +251,6 @@ function App() {
                   <img src={logout}/>
                   LogOut
                 </button>
-
               </div>
 
               <div className="mainPage">
