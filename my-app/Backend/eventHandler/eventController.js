@@ -14,11 +14,13 @@ const addEvent = async (requests) => {
     //get the method from the request - GET, POST, PUT, DELETE
     let method = requests.method
     let body = requests.body
+    let collection = requests.collection
 
     console.log("Adding event")
     const event = new Event({
         from: source,
         to: dest,
+        collection: collection,
         method: method,
         body: body
     })
@@ -73,8 +75,9 @@ const handleGet = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "GET",
-        body: req.body
+        body: req.headers
     }
     let id = await addEvent(request)
     let URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
@@ -85,7 +88,7 @@ const handleGet = async (req, res) => {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "name") {
-            URL = URL + "/" + req.body.name
+            URL = URL + "/" + req.headers.name
         }
     } else if (collection === "products"){
         URL = URL + "products"
@@ -93,14 +96,14 @@ const handleGet = async (req, res) => {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "id") {
-            URL = URL + "/" + req.body.id
+            URL = URL + "/" + req.headers.id
         } else if (search === "category") {
-            URL = URL + "/category/" + req.body.category
+            URL = URL + "/category/" + req.headers.category
         } else if (search === "store") {
-            URL = URL + "/store/" + req.body.store
+            URL = URL + "/store/" + req.headers.store
         } else if (search === "both") {
             //WILL ADD THIS FUNCTIONALITY LATER
-            URL = URL + "/category/" + req.body.category + "/store/" + req.body.store
+            URL = URL + "/category/" + req.headers.category + "/store/" + req.headers.store
         }
     } else if (collection === "orders"){
         URL = URL + "orders"
@@ -108,9 +111,9 @@ const handleGet = async (req, res) => {
             res.status(400).json({ message: "Invalid search method" })
             respond = { message: "Invalid search method" }
         } else if (search === "_id") {  
-            URL = URL + "/id/" + req.body._id
+            URL = URL + "/id/" + req.headers._id
         } else if (search === "email") {
-            URL = URL + "/email/" + req.body.email
+            URL = URL + "/email/" + req.headers.email
         }
     } else {
         res.status(400).json({ message: "Invalid collection" })
@@ -148,11 +151,15 @@ Returns: Get result of the search
 const handlePost = async (req, res) => {
     let collection = req.headers.collection
     let source = req.headers.sender
+    if (source == "dev") {
+        return res.status(200)
+    }
     let dest = source == "database"? "read":"write"
     //prepare request object and call the addEvent function
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "POST",
         body: req.body
     }
@@ -161,7 +168,7 @@ const handlePost = async (req, res) => {
     if (source == "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+        URL = "https://seng401gp19project.onrender.com/api/JstacartW/";
     }
     let respond = null
     console.log("collection: "+collection)
@@ -206,6 +213,10 @@ const handlePost = async (req, res) => {
         if (!req.body.status) {
             return res.status(400).json({ error: 'Please enter a status' })
         }
+        if (!req.body.orderID){
+            // set id to be first 5 characters of customer email + current time in milliseconds
+            req.body.orderID = req.body.customerEmail.substring(0, 5) + Date.now()
+        }
         URL = URL + "orders"
     } else {
         res.status(400).json({ message: "Invalid collection" })
@@ -213,6 +224,7 @@ const handlePost = async (req, res) => {
     }
     //send the request to the write server and save the response to respond object and send back to frontend via res
     console.log("URL: "+URL)
+    console.log("body: "+JSON.stringify(req.body))
     if (respond == null) {
         fetch(URL, {
             method: 'POST',
@@ -262,6 +274,7 @@ const handleDelete = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "DELETE",
         body: req.body
     }
@@ -270,7 +283,7 @@ const handleDelete = async (req, res) => {
     if (source === "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+        URL = "https://seng401gp19project.onrender.com/api/JstacartW/";
     }
     let respond = null
     if (collection === "users") {
@@ -287,13 +300,13 @@ const handleDelete = async (req, res) => {
         URL = URL + "products/" + req.body.id
     } else if (collection === "orders"){
         //health check of the body object
-        if (!req.body.objectID) {
-            return res.status(400).json({ error: 'Please enter an objectID' })
+        if (!req.body.orderID) {
+            return res.status(400).json({ error: 'Please enter an orderID' })
         }
         if (!req.body.email || !req.body.email.includes('@')){
             return res.status(400).json({ error: 'Please enter an valid email' })
         }
-        URL = URL + "orders/" + req.body.objectID + "/" + req.body.email
+        URL = URL + "orders/" + req.body.orderID + "/" + req.body.email
     } else {
         res.status(400).json({ message: "Invalid collection" })
         respond = { message: "Invalid collection" }
@@ -306,7 +319,6 @@ const handleDelete = async (req, res) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(req.body)
         })
             .then(response => response.json())
             .then(data => {
@@ -350,6 +362,7 @@ const handlePatch = async (req, res) => {
     let request = {
         source: source,
         dest: dest,
+        collection: collection,
         method: "PATCH",
         body: req.body
     }
@@ -358,7 +371,7 @@ const handlePatch = async (req, res) => {
     if (source === "database") {
         URL = "https://seng401jstacartread.onrender.com/api/Jstacart/";
     } else {
-        URL = "https://seng401gp19project.onrender.com/api/Jstacart/";
+        URL = "https://seng401gp19project.onrender.com/api/JstacartW/";
     }
     let respond = null
     if (collection === "users") {
@@ -375,13 +388,13 @@ const handlePatch = async (req, res) => {
         URL = URL + "products/" + req.body.id
     } else if (collection === "orders"){
         //health check of the body object
-        if (!req.body.objectID) {
-            return res.status(400).json({ error: 'Please enter an objectID' })
+        if (!req.body.orderID) {
+            return res.status(400).json({ error: 'Please enter an orderID' })
         }
         if (!req.body.email || !req.body.email.includes('@')){
             return res.status(400).json({ error: 'Please enter an valid email' })
         }
-        URL = URL + "orders/" + req.body.objectID + "/" + req.body.email
+        URL = URL + "orders/" + req.body.orderID + "/" + req.body.email
     } else {
         res.status(400).json({ message: "Invalid collection" })
         respond = { message: "Invalid collection" }
