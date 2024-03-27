@@ -28,6 +28,8 @@ function App() {
   const [viewOrder, setViewOrder] = useState([]);
   const [showProfile, setShowProfile] = useState(false);
   const [profileToggle, setProfileToggle] = useState("hidden");
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [orderToggle, setOrderToggle] = useState("hidden");
 
   useEffect(() => {
     if (user) {
@@ -202,7 +204,7 @@ function App() {
       console.log("user email:", user.email);
       console.log("All orders:");
       console.log(orders);
-      // setData(orders);
+
       const currentUserOrders = orders.filter(
         (order) => order.customerEmail === user.email
       );
@@ -224,8 +226,15 @@ function App() {
         userOrder[i].status +
         "\n";
     }
-    window.alert(display);
+    if (showOverlay == true) {
+      setShowOverlay(false);
+      setOrderToggle("hidden");
+    } else {
+      setShowOverlay(true);
+      setOrderToggle("visible");
+    }
   };
+
 
   const handleViewProfile = () => {
     if (showProfile == true) {
@@ -243,8 +252,6 @@ function App() {
         <>
           {currentStore === "HomePage" && currentStore !== "CheckoutPage" && (
             <>
-              <div>{user.name}</div>
-              <div>{user.email}</div>
               <div className="navBar">
                 <img src={logo} className="logo"/>
 
@@ -264,6 +271,15 @@ function App() {
                   <img src={logout}/>
                   LogOut
                 </button>
+
+                <div className="orderPopup" id={orderToggle}>
+                  HELLO
+                  <div className="backCheckout">
+                    <button className="backToStore" onClick={handleViewOrder}>
+                      Back
+                    </button>
+                  </div>
+                </div>
 
                 <div className="profilePopup" id={profileToggle}>
                   <div>
