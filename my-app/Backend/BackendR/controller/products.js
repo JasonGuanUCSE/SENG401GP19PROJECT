@@ -108,6 +108,9 @@ const addProduct = async (req, res) => {
         let newID = await Products.find().sort({id: -1}).limit(1)
         req.body.id = newID[0].id + 1
     }
+    if (!Number.isInteger(req.body.id)){
+        return res.status(400).json({ message: "Invalid id. Id need to be integer"})
+    }
     if (!req.body.name) {
         emptyFields.push('name')
     }
@@ -154,6 +157,9 @@ Returns: result of updating product
 URL: /api/Jstacart/Products/:ID
 */
 const updateProduct = async (req, res) => {
+    if (req.body.id){
+        return res.status(400).json({ message: 'Product id cannot be changed' })
+    }
     try {
         const product = await Products.findOne({ id: req.params.id })
         if (product == null) {
