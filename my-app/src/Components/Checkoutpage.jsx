@@ -110,8 +110,13 @@ function CheckoutPage({ setCurrentStore, previousStore, order, setOrder,user,vie
         quantity: order.map((item) => item.quantity),
         price: order.map((item) => item.price),
         paymentMethod: "Credit Card",
-        status: "Paid",
+        status: "paid",
         store: previousStore,
+        totalPrice:((
+          subtotal.taxes +
+          subtotal.estimate +
+          subtotal.fees
+        ).toFixed(1) + 0),
       };
 
       const url = "https://seng401gp19project-gbhb.onrender.com/api/Jstacart/";
