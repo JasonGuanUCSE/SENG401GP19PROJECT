@@ -137,9 +137,9 @@ URL: /api/Jstacart/Orders/:ID/:email
 */
 const deleteOrder = async (req, res) => {
     //verify if the id valid, 5 letters and a result from date.now(), use regular expression
-    if (!/^[a-zA-Z0-9.@]{5}\d+$/.test(req.params.ID)) {
-        return res.status(400).json({ error: 'Invalid ID' })
-    }
+    // if (!/^[a-zA-Z0-9.@]{5}\d+$/.test(req.params.ID)) {
+    //     return res.status(400).json({ error: 'Invalid ID' })
+    // }
 
     console.log("email: "+ req.param.email)
     console.log("ID: "+ req.params.ID)
