@@ -29,6 +29,7 @@ function App() {
   const [profileToggle, setProfileToggle] = useState("hidden");
   const [showOverlay, setShowOverlay] = useState(false);
   const [orderToggle, setOrderToggle] = useState("hidden");
+  const [displayOrderHistory, setDisplayOrderHistory] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -197,8 +198,6 @@ function App() {
     setUser(null);
   };
 
-
-
   const handleViewProfile = () => {
     if (showProfile == true) {
       setShowProfile(false);
@@ -207,6 +206,7 @@ function App() {
       setShowProfile(true);
       setProfileToggle("visible");
     }
+  }
 
   const handleViewOrder = async () => {
     try {
@@ -217,34 +217,35 @@ function App() {
         const currentUserOrders = orders.filter(
           (order) => order.customerEmail === user.email
         );
+
         console.log("Current user's orders:", currentUserOrders);
         setUserOrder(currentUserOrders);
-        //format order.date
 
-        // Display user orders
         let display = currentUserOrders
           .map(
             (order) =>
-              //format order.date
               `Date: ${new Date(order.date).toLocaleString()}  Total Price: ${
                 order.totalPrice
               }  Purchase at store: ${order.store} Status: ${order.status}`
           )
           .join("\n");
-      if (showOverlay == true) {
-      setShowOverlay(false);
-      setOrderToggle("hidden");
-    } else {
-      setShowOverlay(true);
-      setOrderToggle("visible");
-    }
+        
+        setDisplayOrderHistory(display);
+        
+        if (showOverlay == true) {
+        setShowOverlay(false);
+        setOrderToggle("hidden");
+      } else {
+        setShowOverlay(true);
+        setOrderToggle("visible");
+      }
+
       } else {
         console.log("Failed to fetch orders");
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
-
   };
 
   return (
@@ -264,7 +265,6 @@ function App() {
                   Orders
                 </button>
 
-
                 <button className="navBarButtons" onClick={handleViewProfile}>
                   <img src={profile}/>
 
@@ -279,12 +279,14 @@ function App() {
                   LogOut
                 </button>
 
-                <div className="orderPopup" id={orderToggle}>
-                  HELLO
-                  <div className="backCheckout">
-                    <button className="backToStore" onClick={handleViewOrder}>
-                      Back
-                    </button>
+                <div>
+                  <div className="orderPopup" id={orderToggle}>
+                    {displayOrderHistory}
+                    <div className="backCheckout">
+                      <button className="backToStore" onClick={handleViewOrder}>
+                        Back
+                      </button>
+                    </div>
                   </div>
                 </div>
 
