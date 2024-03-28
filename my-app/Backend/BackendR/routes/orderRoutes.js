@@ -2,6 +2,7 @@ const express = require('express')
 const {
     getAllOrders,
     getOrderByEmail,
+    getOrderByID,
     addOrder,
     deleteOrder,
     updateOrder
@@ -10,7 +11,8 @@ const {
 const router = express.Router()
 
 router.get('/', getAllOrders)
-router.get('/:email', getOrderByEmail)
+router.get('/id/:_id', getOrderByID)
+router.get('/email/:email', getOrderByEmail)
 router.post('/', addOrder)
 router.delete('/:ID/:email', deleteOrder)
 router.patch('/:ID/:email', updateOrder)

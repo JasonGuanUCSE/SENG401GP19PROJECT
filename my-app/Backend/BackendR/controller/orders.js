@@ -17,15 +17,33 @@ const getAllOrders = async (req, res) => {
 }
 
 /*
+Get all orders by _id
+Params: _id
+Returns: order with that ID
+URL: /api/Jstacart/Orders/id/:_id
+*/
+const getOrderByID = async (req, res) => {
+    try {
+        const order = await Order.findOne({ orderID: req.params._id })
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found' })
+        }
+        res.status(200).json(order)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}
+
+/*
 Get all order by customer email
 Params: email
 Returns: order with that email
-URL: /api/Jstacart/Orders/:email
+URL: /api/Jstacart/Orders/email/:email
 */
 const getOrderByEmail = async (req, res) => {
     try {
         const order = await Order.find({ customerEmail: req.params.email })
-        .sort({ date: -1 }).toArray()
+        .sort({ date: -1 })
         res.status(200).json(order)
     }
     catch (err) {
@@ -42,11 +60,14 @@ URL: /api/Jstacart/Orders
 const addOrder = async (req, res) => {
     let emptyFields = []
     //check if the email is valid
+    if (!req.body.customerEmail.includes('@')) {
+        return res.status(400).json({ error: 'Please enter a valid email' })
+    }
+    if (!req.body.orderID){
+        emptyFields.push('orderID')
+    }
     if (!req.body.customerEmail) {
         emptyFields.push('customerEmail')
-    }
-    else if (!req.body.customerEmail.includes('@')) {
-        return res.status(400).json({ error: 'Please enter a valid email' })
     }
     if (!req.body.customerName) {
         emptyFields.push('customerName')
@@ -74,7 +95,7 @@ const addOrder = async (req, res) => {
     let totalPrice = 0
     try{
         if (req.body.productID && req.body.quantity && req.body.productID.length === req.body.quantity.length 
-            && req.body.status === 'paid'){
+            && req.body.status === 'paid' && !req.body.totalPrice){
             const promises = req.body.productID.map(async (productId, index) => {
                 const product = await Product.findOne({ id: productId });
                 const newQuantity = product.quantity - req.body.quantity[index];
@@ -88,9 +109,11 @@ const addOrder = async (req, res) => {
                 }
                 totalPrice += product.price * req.body.quantity[index];
             });
-            await Promise.all(promises);}
+            await Promise.all(promises);
+            req.body.totalPrice = totalPrice
+        }
         
-        req.body.totalPrice = totalPrice
+        
         const newOrder = await Order.create(req.body)
         res.status(201).json(newOrder)
     } catch (err) {
@@ -105,16 +128,13 @@ Returns: result of deleting order
 URL: /api/Jstacart/Orders/:ID/:email
 */
 const deleteOrder = async (req, res) => {
-    //verify if the id valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
-        return res.status(400).json({ error: 'Invalid ID' })
-    }
+
     try {
-        const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
+        const order = await Order.findOne({ orderID: req.params.ID, customerEmail: req.params.email })
         if (!order) {
             return res.status(404).json({ error: 'Order not found' })
         }
-        const deletedOrder = await order.deleteOne({ _id: req.params.ID });
+        const deletedOrder = await order.deleteOne({ orderID: req.params.ID });
         res.status(200).json(deletedOrder)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -128,12 +148,8 @@ Returns: result of updating order
 URL: /api/Jstacart/Orders/:ID/:email
 */
 const updateOrder = async (req, res) => {
-    //verify if the id valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.ID)) {
-        return res.status(400).json({ error: 'Invalid ID' })
-    }
     try {
-        const order = await Order.findOne({ _id: req.params.ID, customerEmail: req.params.email })
+        const order = await Order.findOne({ orderID: req.params.ID, customerEmail: req.params.email })
         if (!order) {
             return res.status(404).json({ error: 'Order not found' })
         }
@@ -163,7 +179,7 @@ const updateOrder = async (req, res) => {
                     })
             }
         }
-        const updatedOrder = await Order.updateOne({ _id: req.params.ID }, req.body)
+        const updatedOrder = await Order.updateOne({ orderID: req.params.ID }, req.body)
         res.status(200).json(updatedOrder)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -172,6 +188,7 @@ const updateOrder = async (req, res) => {
 
 module.exports = {
     getAllOrders,
+    getOrderByID,
     getOrderByEmail,
     addOrder,
     deleteOrder,

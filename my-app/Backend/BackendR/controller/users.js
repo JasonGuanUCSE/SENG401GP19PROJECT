@@ -49,16 +49,17 @@ Returns: result of adding user
 URL: /api/Jstacart/Users
 */
 const addUser = async (req, res) => {
-    let emptyFields = []
-    if (!req.body.email) {
-        emptyFields.push('email')
-    }
-    else if (await emailExists(req.body.email)) {
+    if (await emailExists(req.body.email)) {
         res.status(400).json({ message: 'Email already exists' })
         return
     }
+    let emptyFields = []
+    
+    if (!req.body.email) {
+        emptyFields.push('email')
+    }
     //check if the email is valid
-    else if (!req.body.email.includes('@')) {
+    if (!req.body.email.includes('@')) {
         return res.status(400).json({ error: 'Please enter a valid email' })
     }
     if (!req.body.name) {
