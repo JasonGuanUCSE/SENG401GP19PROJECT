@@ -37,6 +37,22 @@ describe("Product controller tests", () => {
         expect(res.status).toHaveBeenCalledWith(200);
     }, timeout);
 
+    // test getOneProduct with invalid id
+    it("should return 500 status code", async () => {
+        // Mock getOneProduct function
+        const req = {
+            params: {
+                id: 2
+            }
+        };
+        const res = {
+            status: jest.fn(() => ({ status: 500, json: jest.fn() })),
+            json: jest.fn()
+        };
+        await products.getOneProduct(req, res);
+        // Expects 500 status code
+        expect(res.status).toHaveBeenCalledWith(500);
+    }, timeout);
     it("should return products by category", async () => {
         // Mock getProductsByCategory function
         const req = {
