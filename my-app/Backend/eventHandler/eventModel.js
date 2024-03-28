@@ -11,6 +11,10 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
+    collection: {
+      type: String,
+      required: true
+    },
     method: {
       type: String,
       required: true
